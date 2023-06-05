@@ -4,6 +4,9 @@
 // Include header file
 #include "CoverVidMaker.h"
 
+// Include needed header files
+#include "CommandExecutor.h"
+
 // ### Libraries
 // Filesystem access
 #include <filesystem>
@@ -67,5 +70,13 @@ CoverVidMaker::CoverVidMaker()
 	//2) generate covers, check amount / total
 	//3) generate videos, check amount / total
 	//4) check video lengths ? ?
+
+
+	// PROOF OF CONCEPT
+	print("\n\n");
+	CommandExecutor executor;
+	wstring command = L"ping";
+	vector<wstring> arguments = { L"www.example.com" };
+	executor.Execute(command, arguments);
 }
 
