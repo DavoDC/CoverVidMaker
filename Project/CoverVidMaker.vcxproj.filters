@@ -30,12 +30,18 @@
     <ClCompile Include="..\Code\Common.cpp">
       <Filter>Source Files\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\CommandExecutor.cpp">
+      <Filter>Source Files\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Code\CoverVidMaker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Code\Common.h">
+      <Filter>Header Files\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\CommandExecutor.h">
       <Filter>Header Files\Modules</Filter>
     </ClInclude>
   </ItemGroup>
