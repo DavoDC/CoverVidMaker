@@ -1,6 +1,25 @@
 
-############# TTD #############
+############# TTD NEW #############
 
+TURN INTO C++ PROJECT, for practice and modularity .. easier etc. 
+
+Automate readme and remove , Download executables
+
+MAIN DRIVER:
+1) do checks and gtt executables
+2) generate covers 
+3) generate videos  
+4) check video lengths 
+
+AFTER EVERYTHING WORKING:
+For the few vids that were uploaded , except for hackRoots coz thats fine 
+Save descriptions
+Remove 
+
+Upload proper videos from fixed project 
+
+
+############# TTD OLD #############
 0_CHECK
 - DO CHECK FOR THIS: Remove EXCLAMATION MARKS from file names. AND REMOVE FROM README
 
