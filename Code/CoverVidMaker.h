@@ -7,21 +7,6 @@
 // Include common
 #include "Common.h"
 
-// Include needed headers
-//#include "MatchList.h"
-
-
-// ### Libraries
-// For set
-//#include <set>
-
-
-// ### Macros
-// String set type
-//#define StringSet std::set<std::string>
-
-
-
 // Declare CoverVidMaker class
 class CoverVidMaker {
 
@@ -36,8 +21,14 @@ private:
 	// Audio file paths list
 	StringV audioFilePaths;
 	
-
 	// ### Private methods
-	//std::string getReplayPath();
+	// Main Steps
+	void scanAudioFiles();
+	void getFFMPEG();
+	void extractCovers();
+	void makeVideos();
+
+	// Other
+	bool isPathValid(const std::string&);
 };
 

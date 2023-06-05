@@ -11,13 +11,13 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Code\CommandExecutor.cpp" />
+    <ClCompile Include="..\Code\Command.cpp" />
     <ClCompile Include="..\Code\Common.cpp" />
     <ClCompile Include="..\Code\Main.cpp" />
     <ClCompile Include="..\Code\CoverVidMaker.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Code\CommandExecutor.h" />
+    <ClInclude Include="..\Code\Command.h" />
     <ClInclude Include="..\Code\Common.h" />
     <ClInclude Include="..\Code\CoverVidMaker.h" />
   </ItemGroup>

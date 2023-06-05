@@ -3,15 +3,6 @@
 
 See notes in code.
 
-### GETTING ffmpeg STEP
-Get from [Releases page](https://www.gyan.dev/ffmpeg/builds/ffmpeg-release-github).
-Extract ZIP
-Put 'ffmpeg.exe' and 'ffprobe.exe' in the FFMPEG folder
-
-
-### VIDEO STEP
-Use ffmpeg command from 3_Video_Track_Videos.bat for Video generation
-Add comment about YouTube requiring a video track for uploads
 
 
 
