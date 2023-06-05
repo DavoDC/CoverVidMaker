@@ -17,14 +17,12 @@ using namespace std;
 // Main function
 int main()
 {
-	// TEST
-	print("###### Welcome to CoverVidMaker! ######");
-
 	// Create CVM
-	CoverVidMaker ra;
+	CoverVidMaker cvm;
 
+	// Any settings
+	
 	// Run it
-	/*ra.analyse();*/
 
 	// END
 	print("\n");
