@@ -17,12 +17,8 @@ using namespace std;
 // Main function
 int main()
 {
-	// Create CVM
+	// Create and run CVM
 	CoverVidMaker cvm;
-
-	// Any settings
-	
-	// Run it
 
 	// END
 	print("\n");
