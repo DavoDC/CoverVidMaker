@@ -396,3 +396,14 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+########### PERSONAL ADDITIONS
+# Executables
+*.exe
+
+# Media
+*.png
+*.mp3
+
+# Other
+*.ini
