@@ -8,16 +8,26 @@ using namespace std;
 
 // Simple Command Constructor
 // progName = Program/Executable name
-Command::Command(const string& progName): Command(progName, {}) 
+Command::Command(const string& progName) : 
+    Command(progName, string()) 
 {
-    // If we only program name provided,
-    // call other constructor with no arguments
+    // If only program name provided,
+    // call constructor below with empty string.
+}
+
+// Simple Command Constructor
+// progName = Program/Executable name
+// argument = Single argument
+Command::Command(const string& progName, const string& argument) : 
+    Command(progName, StringV{argument})
+{
+    // Call constructor below with one argument
 }
 
 // Command Constructor
 // progName = Program/Executable name
 // argList = Argument list
-Command::Command(const string& progName, const vector<string>& argList) {
+Command::Command(const string& progName, const StringV& argList) {
 
     // Concatenate parameters
     string commS = progName + " ";
