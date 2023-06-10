@@ -15,7 +15,8 @@ class Command {
 public:
     // Constructors
     Command(const std::string& progName);
-    Command(const std::string& progName, const std::vector<std::string>& argList);
+    Command(const std::string& progName, const std::string& argument);
+    Command(const std::string& progName, const StringV& argList);
 
     // ### Public methods
     std::string toString() const;
@@ -28,7 +29,7 @@ private:
 
     // ### Private fields
     // Command line argument list
-    std::vector<std::string> cmdList;
+    StringV cmdList;
 
     // Console output
     std::string output;

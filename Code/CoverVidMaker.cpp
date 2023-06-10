@@ -18,38 +18,73 @@ namespace fs = filesystem;
 // Macro for long iterator type
 #define FSIterator fs::recursive_directory_iterator
 
-// Static Paths
-string execsPath = "FFMPEG";
-string ffmpegPath = execsPath + "\\ffmpeg.exe";
-string ffprobePath = execsPath + "\\ffprobe.exe";
-string mediaPath = "Media";
-string audioPath = mediaPath + "\\1_Audio";
-string coverPath = mediaPath + "\\2_Covers";
-string videoPath = mediaPath + "\\3_Videos";
-
-
 // Constructor
-CoverVidMaker::CoverVidMaker()
+CoverVidMaker::CoverVidMaker(string audioPath,
+	string coverPath,
+	string videoPath,
+	string ffmpegPath,
+	string ffprobePath)
 {
 	// Welcome message
 	print("###### Welcome to CoverVidMaker! ######");
 
-	// Step 1 - Scan audio files
-	scanAudioFiles();
+	// Check media paths
+	checkMediaPath(audioPath);
+	checkMediaPath(coverPath);
+	checkMediaPath(videoPath);
 
-	// Step 2 - Get FFMPEG executables
-	getFFMPEG();
+	// Notify
+	printSuccess("Media Folders Found");
 
-	// Step 3 - Extract covers
-	extractCovers();
+	// Check FFMPEG executables
+	checkFFMPEG(ffmpegPath);
+	checkFFMPEG(ffprobePath);
 
-	// Step 4 - Make videos
-	makeVideos();
+	// Notify
+	printSuccess("FFMPEG Executables Found");
+
+	// Scan audio files
+	scanAudioFiles(audioPath);
+}
+
+void CoverVidMaker::checkMediaPath(string folderPath)
+{
+	// If media folder path is invalid
+	if (!isPathValid(folderPath))
+	{
+		// Notify and exit
+		printErr("Media folder missing: " + quote(folderPath), true);
+	}
 }
 
 
-// Step 1
-void CoverVidMaker::scanAudioFiles()
+void CoverVidMaker::checkFFMPEG(string exePath) {
+
+	// If executable does not exist
+	if(!isPathValid(exePath))
+	{ 
+		// Notify
+		printErr("FFMPEG executable missing: " + quote(exePath));
+		
+		// Open download page
+		string dwlURL = "https://github.com/GyanD/codexffmpeg/releases";
+		print("1) Go to this page that will open: " + dwlURL + ".");
+		Command command("start", dwlURL);
+		command.run();
+
+		// Give instructions
+		print("2) Download the newest, smallest archive, often the 'essentials_build.7z' one.");
+		print("3) Extract the archive.");
+		print("4) Ensure the executables are placed in the folder specified.");
+		print("");
+
+		// Exit
+		exit(EXIT_FAILURE);
+	}
+}
+
+
+void CoverVidMaker::scanAudioFiles(string audioPath)
 {
 	// ### Get Audio file paths
 	// For every path in the Audio folder
@@ -61,7 +96,7 @@ void CoverVidMaker::scanAudioFiles()
 		// If it is a MP3 file
 		if (contains(curPathS, ".mp3")) {
 
-			// Add to path list
+			// Add to file path list
 			audioFilePaths.push_back(curPathS);
 		}
 	}
@@ -70,45 +105,35 @@ void CoverVidMaker::scanAudioFiles()
 	// If no paths found
 	if (audioFilePaths.empty())
 	{
-		print("\nERROR: No MP3 files present in: " + audioPath);
-		print("\n");
-		exit(EXIT_FAILURE);
+		// Notify and exit
+		printErr("No MP3 files found in " + quote(audioPath), true);
 	}
 	else
 	{
 		// # Else if contains at least one path
-		// Get path count as string
-		string pathCountS = to_string(audioFilePaths.size());
+		// Save file count
+		fileCount = int(audioFilePaths.size());
 
 		// Notify
-		print("\nMP3 Files Found: " + pathCountS);
+		printSuccess(to_string(fileCount) + " MP3 Files Found");
 	}
 }
 
 
-// Step 2
-void CoverVidMaker::getFFMPEG() {
 
-	// DO SIMPLE VERSION
-	// if doestn exist
-	// open URl and instruct user
-	// get smallest, e.g. ffmpeg-6.0-essentials_build.7z
-	// 	//	Put 'ffmpeg.exe' and 'ffprobe.exe' in the FFMPEG folder
-	// 	// extract zip
-	// put executables in right place
-	// start https://github.com/GyanD/codexffmpeg/releases
-	// if exists,  continue
+void CoverVidMaker::generateVideos()
+{
+	// Extract covers
+	extractCovers();
 
-
-	// EXAMPLE USAGE OF COMMAND CLASS
-	StringV args = { "-l", "-S" };
-	Command command("ls", args);
-	command.runWithOutput();
+	// Make videos
+	makeVideos();
 }
 
 
-// Step 3
 void CoverVidMaker::extractCovers() {
+	// TEMP
+	print("\n### TODO: Extract Covers");
 	// TODO
 	// for each audio file path (already stored)
 	// -check if cover exists already, skip if so
@@ -154,8 +179,12 @@ void CoverVidMaker::extractCovers() {
 }
 
 
-// Step 4
+
 void CoverVidMaker::makeVideos() {
+
+	// TEMP
+	print("\n### TODO: Make Videos");
+
 	// TODO
 	// generate videos, check amount / total, check video lengths
 
@@ -181,7 +210,30 @@ void CoverVidMaker::makeVideos() {
 }
 
 
+// Print wrappers
+void CoverVidMaker::printSuccess(string msg)
+{
+	print("\n### SUCCESS: " + quote(msg) + "!");
+}
+
+void CoverVidMaker::printErr(string msg, bool exitAfter)
+{
+	print("\n!!! ERROR: " + quote(msg) + "!");
+
+	if (exitAfter)
+	{
+		print("\n");
+		exit(EXIT_FAILURE);
+	}
+}
+
 // Helper wrapper for checking path validity
-bool CoverVidMaker::isPathValid(const string& path) {
+bool CoverVidMaker::isPathValid(string path) {
 	return fs::exists(path);
+}
+
+// Add quotes
+string CoverVidMaker::quote(string s)
+{
+	return "'" + s + "'";
 }

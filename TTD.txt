@@ -4,16 +4,7 @@
 See notes in code.
 
 
-Put each of the three stages in separate classes
 
-AudioFileProcessor
-    Holds count
-    Holds paths
-    Get paths without extension
-
-Generator - Use parent generator with commonalities like exec paths
-    Cover Gen
-    VideoGen
 
 
 

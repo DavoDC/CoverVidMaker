@@ -13,22 +13,37 @@ class CoverVidMaker {
 public:
 
 	// Constructor
-	CoverVidMaker();
+	CoverVidMaker(std::string audioPath, 
+		std::string coverPath,
+		std::string videoPath,
+		std::string ffmpegPath, 
+		std::string ffprobePath);
 
+	// ### Public methods
+	void generateVideos();
 	
 private:
 	// ### Private fields
 	// Audio file paths list
 	StringV audioFilePaths;
+
+	// File count
+	int fileCount;
 	
 	// ### Private methods
-	// Main Steps
-	void scanAudioFiles();
-	void getFFMPEG();
+	// ## Main Steps
+	// # Initialization
+	void checkMediaPath(std::string folderPath);
+	void checkFFMPEG(std::string exePath);
+	void scanAudioFiles(std::string audioPath);
+	// # Generation
 	void extractCovers();
 	void makeVideos();
 
-	// Other
-	bool isPathValid(const std::string&);
+	// Helpers
+	void printSuccess(std::string msg);
+	void printErr(std::string msg, bool exitAfter=false);
+	bool isPathValid(std::string);
+	std::string quote(std::string s);
 };
 
