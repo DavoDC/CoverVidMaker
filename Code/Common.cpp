@@ -27,12 +27,12 @@ void print(string s, bool useEndl)
 
 void printSuccess(string msg)
 {
-	print("\n### SUCCESS: " + quote(msg) + "!");
+	print("\n### SUCCESS: " + quoteS(msg) + "!");
 }
 
 void printErr(string msg, bool exitAfter)
 {
-	print("\n!!! ERROR: " + quote(msg) + "!");
+	print("\n!!! ERROR: " + quoteS(msg) + "!");
 
 	if (exitAfter) {
 		print("\n");
@@ -106,7 +106,12 @@ bool contains(string s1, string s2)
 	return strstr(s1.c_str(), s2.c_str());
 }
 
-string quote(string s)
+string quoteS(string s)
 {
 	return "'" + s + "'";
+}
+
+string quoteD(string s)
+{
+	return "\"" + s + "\"";
 }

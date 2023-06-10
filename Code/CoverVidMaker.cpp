@@ -17,6 +17,7 @@ namespace fs = filesystem;
 // Macro for long iterator type
 #define FSIterator fs::recursive_directory_iterator
 
+
 // Constructor
 CoverVidMaker::CoverVidMaker(string audioPath,
 	string coverPath,
@@ -42,9 +43,17 @@ CoverVidMaker::CoverVidMaker(string audioPath,
 	// Notify
 	printSuccess("FFMPEG Executables Found");
 
+	// Save paths
+	this->audioPath = audioPath;
+	this->coverPath = coverPath;
+	this->videoPath = videoPath;
+	this->ffmpegPath = ffmpegPath;
+	this->ffprobePath = ffprobePath;
+
 	// Scan audio files
-	scanAudioFiles(audioPath);
+	scanAudioFiles();
 }
+
 
 void CoverVidMaker::checkMediaPath(string folderPath)
 {
@@ -52,7 +61,7 @@ void CoverVidMaker::checkMediaPath(string folderPath)
 	if (!isPathValid(folderPath))
 	{
 		// Notify and exit
-		printErr("Media folder missing: " + quote(folderPath), true);
+		printErr("Media folder missing: " + quoteS(folderPath), true);
 	}
 }
 
@@ -63,12 +72,12 @@ void CoverVidMaker::checkFFMPEG(string exePath) {
 	if(!isPathValid(exePath))
 	{ 
 		// Notify
-		printErr("FFMPEG executable missing: " + quote(exePath));
+		printErr("FFMPEG executable missing: " + quoteS(exePath));
 		
 		// Open download page
 		string dwlURL = "https://github.com/GyanD/codexffmpeg/releases";
 		print("1) Go to this page that will open: " + dwlURL + ".");
-		Command command("start", dwlURL);
+		Command command("cmd.exe /c start", dwlURL);
 		command.run();
 
 		// Give instructions
@@ -83,7 +92,7 @@ void CoverVidMaker::checkFFMPEG(string exePath) {
 }
 
 
-void CoverVidMaker::scanAudioFiles(string audioPath)
+void CoverVidMaker::scanAudioFiles()
 {
 	// ### Get Audio file paths
 	// For every path in the Audio folder
@@ -105,7 +114,7 @@ void CoverVidMaker::scanAudioFiles(string audioPath)
 	if (audioFilePaths.empty())
 	{
 		// Notify and exit
-		printErr("No MP3 files found in " + quote(audioPath), true);
+		printErr("No MP3 files found in " + quoteS(audioPath), true);
 	}
 	else
 	{
@@ -119,20 +128,63 @@ void CoverVidMaker::scanAudioFiles(string audioPath)
 }
 
 
-
 void CoverVidMaker::generateVideos()
 {
 	// Extract covers
 	extractCovers();
 
 	// Make videos
-	makeVideos();
+	//makeVideos();
 }
 
 
 void CoverVidMaker::extractCovers() {
 	// TEMP
 	print("\n### TODO: Extract Covers");
+
+
+	// PROOF OF CONCEPT
+	
+	// Get an audio path
+	string audioFP = audioFilePaths[0];
+
+	// ### Create cover file path
+	// use audio as base
+	string coverFP = audioFilePaths[0];
+	// change to cover folder
+	replaceAll(coverFP, audioPath, coverPath);
+	// change extension
+	replaceAll(coverFP, ".mp3", ".png");
+
+	// TEST
+	//print("AP: " + audioPath);
+	//print("AFP: " + audioFP);
+	//print("CFP: " + coverFP);
+
+	// Put together arguments
+	StringV argList = {
+		"-hide_banner",
+		"-loglevel error",
+		"-i",
+		quoteD(audioFP),
+		"-an",
+		"-vcodec",
+		"copy",
+		"-y",
+		quoteD(coverFP)
+	};
+
+	// Create command and run
+	Command myCommand(quoteD(ffmpegPath), argList);
+	myCommand.printCommand();
+	myCommand.run();
+
+
+	// WORKING, NEEED DOUBLE QUOTES , AND DONT USE CMD /C
+	// "FFMPEG/ffmpeg.exe" -hide_banner -loglevel error -i "Media/1_Audio/Hanae - God of Gods.mp3" -an -vcodec copy -y "Media/2_Covers/Hanae - God of Gods.png"
+
+
+
 	// TODO
 	// for each audio file path (already stored)
 	// -check if cover exists already, skip if so
