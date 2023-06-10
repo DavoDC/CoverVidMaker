@@ -1,11 +1,12 @@
 # Cover Video Maker (CVM)
 A C++ console program to convert MP3 audio files to MP4 videos using album covers.
 
-Currently exclusive to developers (runs through Visual Studio).
 
-This project was originally a series of Batch scripts created on June 4th, 2023.
-
-This project utilizes **FFMPEG** ([Official Site](https://www.ffmpeg.org/about.html), [GitHub Releases](https://github.com/GyanD/codexffmpeg/releases)), so I'm grateful for the FFMPEG team's work.
+## Info
+- Utilizes **FFMPEG** ([Official Site](https://www.ffmpeg.org/about.html), [GitHub Releases](https://github.com/GyanD/codexffmpeg/releases)), so I'm grateful for the FFMPEG team's work.
+- Was originally a series of Batch scripts created on June 4th, 2023.
+- Currently exclusive to developers (runs through Visual Studio).
+- For Windows OS only (Command class is designed for Windows)
 
 
 ## Features

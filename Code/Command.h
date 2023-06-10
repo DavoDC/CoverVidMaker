@@ -1,7 +1,6 @@
 #pragma once
 
 // Command.h
-// Represents a terminal command
 
 // ### Headers
 // Include common
@@ -10,31 +9,79 @@
 // Include needed headers
 #include <windows.h>
 
-
+/**
+ * @brief Represents a terminal command
+*/
 class Command {
 public:
-    // Constructors
+    // ### Constructors
+    
+    /**
+     * @brief A command with no arguments.
+     * @param progName The program name.
+    */
     Command(const std::string& progName);
+
+    /**
+     * @brief A command with one argument.
+     * @param progName The program name.
+     * @param argument The argument.
+    */
     Command(const std::string& progName, const std::string& argument);
+
+    /**
+     * @brief A command with multiple arguments.
+     * @param progName The program name.
+     * @param argList The argument list.
+    */
     Command(const std::string& progName, const StringV& argList);
 
     // ### Public methods
+
+    /**
+     * @return String representation of command.
+    */
     std::string toString() const;
+
+    /**
+     * @brief Run command.
+    */
     void run();
-    void printOutput() const;
+    
+    /**
+     * @brief Run command and print output.
+    */
     void runWithOutput();
+
+    /**
+     * @brief Print output of last run.
+    */
+    void printOutput() const;
+
+    /**
+     * @return Output of last run.
+    */
     std::string getOutput() const;
 
 private:
 
     // ### Private fields
-    // Command line argument list
+    
+    /**
+     * @brief Command line argument list
+    */
     StringV cmdList;
 
-    // Console output
+    /**
+     * @brief Console output of last run.
+    */
     std::string output;
 
+
     // ## Private methods
-    // Helper to convert output streams to strings
+    
+    /**
+     * @return A string representation of a given stream.
+    */
     std::string getStringFromStream(HANDLE streamHandle);
 };

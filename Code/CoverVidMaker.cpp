@@ -1,10 +1,9 @@
-// CoverVidMaker.cpp : 
-// Defines CoverVidMaker class
+// CoverVidMaker.cpp
 
-// Include header file
+// Header
 #include "CoverVidMaker.h"
 
-// Include needed header files
+// Needed Headers
 #include "Command.h"
 
 // ### Libraries
@@ -210,30 +209,8 @@ void CoverVidMaker::makeVideos() {
 }
 
 
-// Print wrappers
-void CoverVidMaker::printSuccess(string msg)
-{
-	print("\n### SUCCESS: " + quote(msg) + "!");
-}
 
-void CoverVidMaker::printErr(string msg, bool exitAfter)
-{
-	print("\n!!! ERROR: " + quote(msg) + "!");
 
-	if (exitAfter)
-	{
-		print("\n");
-		exit(EXIT_FAILURE);
-	}
-}
-
-// Helper wrapper for checking path validity
 bool CoverVidMaker::isPathValid(string path) {
 	return fs::exists(path);
-}
-
-// Add quotes
-string CoverVidMaker::quote(string s)
-{
-	return "'" + s + "'";
 }

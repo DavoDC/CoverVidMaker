@@ -1,12 +1,9 @@
-// Main.cpp : 
-// This file contains the 'main' function. 
-// Program execution begins and ends there.
+// Main.cpp
 
-// ### Libraries
+// Header
+// NONE
 
-// No header file for self
-
-// Include needed headers
+// Needed Headers
 #include "Common.h"
 #include "CoverVidMaker.h"
 
@@ -18,7 +15,6 @@ string mediaPath = "Media\\";
 string execsPath = "FFMPEG\\";
 
 
-// Main function
 int main()
 {
 	// Get derived folder paths

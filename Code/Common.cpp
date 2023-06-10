@@ -1,12 +1,10 @@
-// Common.cpp : 
-// Helper functions commonly used
+// Common.cpp
 
 // Header file
 #include "Common.h"
 
 // ### Libraries
-
-// For string splitting
+#include <iostream>
 #include <iomanip>
 #include <ranges>
 #include <string_view>
@@ -15,9 +13,10 @@
 using namespace std;
 
 
-// print(): Helper function for printing
-// - s = String to print
-// - useEndl = Give True if you want endl (False by default)
+// ### Function Definitions
+
+// # Printing Functions
+
 void print(string s, bool useEndl)
 {
 	cout << "\n" << s;
@@ -26,18 +25,31 @@ void print(string s, bool useEndl)
 	}
 }
 
+void printSuccess(string msg)
+{
+	print("\n### SUCCESS: " + quote(msg) + "!");
+}
 
-// split(): Helper function for splitting strings
-// fullS = The full string
-// sep = The string that separates the parts
-// Returns the parts as a vector
-StringV split(string fullS, string sep)
+void printErr(string msg, bool exitAfter)
+{
+	print("\n!!! ERROR: " + quote(msg) + "!");
+
+	if (exitAfter) {
+		print("\n");
+		exit(EXIT_FAILURE);
+	}
+}
+
+
+// # String Functions
+
+StringV split(string full, string sep)
 {
 	// Holder vector
 	StringV parts;
 
 	// For every part
-	for (const auto curPart : views::split(fullS, sep)) {
+	for (const auto curPart : ranges::views::split(full, sep)) {
 
 		// Convert to string
 		string curPartS = string(curPart.begin(), curPart.end());
@@ -50,9 +62,6 @@ StringV split(string fullS, string sep)
 	return parts;
 }
 
-
-// split(): Helper function for splitting strings, with check!
-// exp = The expected number of parts
 StringV split(string fullS, string sep, int exp)
 {
 	// Holder vector
@@ -76,14 +85,10 @@ StringV split(string fullS, string sep, int exp)
 	return parts;
 }
 
-// replaceAll(): Helper function for removing substrings
-// source = The original string, will be modified
-// from = The substring to replace
-// to = The string to be substituted in
 void replaceAll(string& source, const string& from, const string& to)
 {
 	string newString;
-	newString.reserve(source.length());  // Avoids a few memory allocations
+	newString.reserve(source.length()); // Avoids a few memory allocations
 	string::size_type lastPos = 0;
 	string::size_type findPos;
 	while (string::npos != (findPos = source.find(from, lastPos)))
@@ -96,11 +101,12 @@ void replaceAll(string& source, const string& from, const string& to)
 	source.swap(newString);
 }
 
-
-// contains(): Helper function (wrapper)
-// Returns true if the 1st string contains the 2nd
 bool contains(string s1, string s2)
 {
-	// Return true if s1 contains s2
 	return strstr(s1.c_str(), s2.c_str());
+}
+
+string quote(string s)
+{
+	return "'" + s + "'";
 }
