@@ -44,6 +44,11 @@ public:
     std::string toString() const;
 
     /**
+     * @brief Print string representation of command.
+    */
+    void printCommand();
+
+    /**
      * @brief Run command.
     */
     void run();
@@ -68,9 +73,9 @@ private:
     // ### Private fields
     
     /**
-     * @brief Command line argument list
+     * @brief Command string
     */
-    StringV cmdList;
+    std::string command;
 
     /**
      * @brief Console output of last run.

@@ -73,4 +73,9 @@ bool contains(std::string s1, std::string s2);
 /**
  * @return The given string surrounded by a pair of single quotes.
 */
-std::string quote(std::string s);
+std::string quoteS(std::string s);
+
+/**
+ * @return The given string surrounded by a pair of double quotes.
+*/
+std::string quoteD(std::string s);

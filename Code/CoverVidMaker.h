@@ -38,6 +38,13 @@ public:
 	
 private:
 	// ### Private fields
+
+	// Paths
+	std::string audioPath;
+	std::string coverPath;
+	std::string videoPath;
+	std::string ffmpegPath;
+	std::string ffprobePath;
 	
 	/**
 	 * @brief Audio file paths list
@@ -67,9 +74,8 @@ private:
 
 	/**
 	 * @brief Scan audio files
-	 * @param audioPath Path to audio files (MP3s)
 	*/
-	void scanAudioFiles(std::string audioPath);
+	void scanAudioFiles();
 
 	// # Generation
 

@@ -22,22 +22,23 @@ Command::Command(const string& progName, const string& argument) :
 
 Command::Command(const string& progName, const StringV& argList) {
 
-    // Concatenate parameters
-    string commS = progName + " ";
+    // Concatenate into one string with spaces
+    this->command = progName;
     for (const string& curArg : argList) {
-        commS += curArg + " ";
+        this->command += ' ' + curArg;
     }
-
-    // Add to list
-    cmdList.push_back("cmd.exe");
-    cmdList.push_back("/c");
-    cmdList.push_back(commS);
 }
+
 
 // ### Public methods
 
 string Command::toString() const {
-    return "\nCommand: \n" + cmdList[2];
+    return this->command;
+}
+
+void Command::printCommand()
+{
+    print(quoteS(this->command));
 }
 
 void Command::run() {
@@ -63,13 +64,10 @@ void Command::run() {
     // Process information reference
     PROCESS_INFORMATION pi{};
 
-    // Convert command argument list to string
-    string cmd = cmdList[0] + " " + cmdList[1] + " " + cmdList[2];
-
     // If process creation and execution successful
     if (CreateProcessA(
         nullptr, // nullptr to use the command string directly
-        const_cast<char*>(cmd.c_str()), // Command to be executed
+        const_cast<char*>(this->command.c_str()), // Command to be executed
         nullptr,  // Default process security attributes
         nullptr,  // Default process security attributes
         TRUE,     // Child process inherits handles
@@ -88,7 +86,7 @@ void Command::run() {
     }
     else {
         // Else if execution fails, notify
-        print("Command execution failed");
+        printErr("Command execution failed");
     }
 }
 
