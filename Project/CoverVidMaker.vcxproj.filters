@@ -33,6 +33,9 @@
     <ClCompile Include="..\Code\Command.cpp">
       <Filter>Source Files\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\FileProcessor.cpp">
+      <Filter>Source Files\Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Code\CoverVidMaker.h">
@@ -44,5 +47,18 @@
     <ClInclude Include="..\Code\Command.h">
       <Filter>Header Files\Modules</Filter>
     </ClInclude>
+    <ClInclude Include="..\Code\FileProcessor.h">
+      <Filter>Header Files\Modules</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\TTD.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

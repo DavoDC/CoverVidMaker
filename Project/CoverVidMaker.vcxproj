@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="..\Code\Command.cpp" />
     <ClCompile Include="..\Code\Common.cpp" />
+    <ClCompile Include="..\Code\FileProcessor.cpp" />
     <ClCompile Include="..\Code\Main.cpp" />
     <ClCompile Include="..\Code\CoverVidMaker.cpp" />
   </ItemGroup>
@@ -20,6 +21,13 @@
     <ClInclude Include="..\Code\Command.h" />
     <ClInclude Include="..\Code\Common.h" />
     <ClInclude Include="..\Code\CoverVidMaker.h" />
+    <ClInclude Include="..\Code\FileProcessor.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\TTD.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

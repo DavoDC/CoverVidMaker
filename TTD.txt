@@ -5,6 +5,17 @@ See notes in code.
 
 
 
+Move all initialization code to FileProcessor
+
+
+
+Continue CVM
+Do one file at ?rst
+File checker
+File processor
+For every media ?le , media
+file.getAudio , getCover   
+
 
 
 

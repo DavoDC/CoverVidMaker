@@ -1,13 +1,12 @@
 // Command.cpp
 
-// Header file
+// Header
 #include "Command.h"
 
 // Namespace mods
 using namespace std;
 
-// Simple Command Constructor
-// progName = Program/Executable name
+// ### Constructors
 Command::Command(const string& progName) : 
     Command(progName, string()) 
 {
@@ -15,18 +14,12 @@ Command::Command(const string& progName) :
     // call constructor below with empty string.
 }
 
-// Simple Command Constructor
-// progName = Program/Executable name
-// argument = Single argument
 Command::Command(const string& progName, const string& argument) : 
     Command(progName, StringV{argument})
 {
     // Call constructor below with one argument
 }
 
-// Command Constructor
-// progName = Program/Executable name
-// argList = Argument list
 Command::Command(const string& progName, const StringV& argList) {
 
     // Concatenate parameters
@@ -41,12 +34,12 @@ Command::Command(const string& progName, const StringV& argList) {
     cmdList.push_back(commS);
 }
 
-// Get string representation of command
+// ### Public methods
+
 string Command::toString() const {
     return "\nCommand: \n" + cmdList[2];
 }
 
-// Run commmand
 void Command::run() {
 
     // Set security attributes
@@ -80,7 +73,7 @@ void Command::run() {
         nullptr,  // Default process security attributes
         nullptr,  // Default process security attributes
         TRUE,     // Child process inherits handles
-        0,        // Ddefault creation flags
+        0,        // Default creation flags
         nullptr,  // Use parent's environment block
         nullptr,  // Use parent's current directory
         &si,      // Startup information
@@ -99,23 +92,23 @@ void Command::run() {
     }
 }
 
-// Print output
 void Command::printOutput() const {
     print("\n" + getOutput() + "\n");
 }
 
-// Run and print output
 void Command::runWithOutput() {
     run();
     printOutput();
 }
 
-// Get output as a string
 string Command::getOutput() const {
     return output;
 }
 
-// Helper to convert streams to strings
+
+
+// ## Private methods
+
 string Command::getStringFromStream(HANDLE streamHandle) {
     DWORD bytesRead;
     const int bufferSize = 4096;
