@@ -7,8 +7,8 @@
 #include "Command.h"
 
 // ### Libraries
-// Filesystem access
 #include <filesystem>
+#include <functional>
 
 // Namespace mods
 using namespace std;
@@ -20,25 +20,22 @@ namespace fs = filesystem;
 
 // ### Constructor
 
-Processor::Processor(const std::string& mediaPath, const std::string& execsPath)
+Processor::Processor(const string& mediaPath, const string& exePath)
 	: 
 	mediaPath(mediaPath),
 	audioPath(mediaPath + "1_Audio"),
 	coverPath(mediaPath + "2_Covers"),
 	videoPath(mediaPath + "3_Videos"),
-	execsPath(execsPath),
-	ffmpegPath(execsPath + "ffmpeg.exe"),
-	ffprobePath(execsPath + "ffprobe.exe")
+	exePath(exePath),
+	ffmpegPath(exePath + "ffmpeg.exe"),
+	ffprobePath(exePath + "ffprobe.exe")
 {
 
 	// Check folder paths and notify
-	checkFolderPaths({mediaPath, audioPath, coverPath, videoPath, execsPath});
-	printSuccess("All Folders Found");
+	checkFolderPaths({mediaPath, audioPath, coverPath, videoPath, exePath});
 
-	//// Check FFMPEG executables and notify
-	//checkFFMPEG(ffmpegPath);
-	//checkFFMPEG(ffprobePath);
-	//printSuccess("FFMPEG Executables Found");
+	// Check executables and notify
+	checkExecPaths({ffmpegPath, ffprobePath});
 
 	//// Scan audio files
 	//scanAudioFiles();
@@ -47,43 +44,63 @@ Processor::Processor(const std::string& mediaPath, const std::string& execsPath)
 
 void Processor::checkFolderPaths(StringV folderPaths)
 {
-	// For all folder paths
-	for (const std::string& curFP : folderPaths) {
+	// Define handling of missing folders
+	auto folderErrorFunc = [](const string& folderPath) {
+		printErr("Folder missing: " + quoteS(folderPath));
+	};
 
-		// If path invalid
-		if (!isPathValid(curFP))
-		{
-			// Notify and exit
-			printErr("Folder missing: " + quoteS(curFP), true);
-		}
-	} 
+	// Check folder paths
+	checkPaths(folderPaths, "All Folders Found", folderErrorFunc);
 }
 
 
-void Processor::checkFFMPEG(string exePath) {
+void Processor::checkExecPaths(StringV exePaths)
+{
+	// Define handling of missing executables
+	auto execErrorFunc = [](const string& exePath) {
 
-	// If executable does not exist
-	if (!isPathValid(exePath))
-	{
 		// Notify
 		printErr("FFMPEG executable missing: " + quoteS(exePath));
 
 		// Open download page
-		string dwlURL = "https://github.com/GyanD/codexffmpeg/releases";
-		print("1) Go to this page that will open: " + dwlURL + ".");
+		const string dwlURL = "https://github.com/GyanD/codexffmpeg/releases";
 		Command command("cmd.exe /c start", dwlURL);
 		command.run();
 
 		// Give instructions
-		print("2) Download the newest, smallest archive, often the 'essentials_build.7z' one.");
-		print("3) Extract the archive.");
-		print("4) Ensure the executables are placed in the folder specified.");
+		print("1) Go to this page that will open: " + dwlURL + ".");
+		print("2) Download the newest, smallest archive (often *essentials_build.7z).");
+		print("3) Extract the archive and find the 'bin' folder.");
+		print("4) Copy the executables to: " + quoteS(exePath));
 		print("");
+	};
 
-		// Exit
-		exit(EXIT_FAILURE);
-	}
+	// Check executable paths
+	checkPaths(exePaths, "FFMPEG Executables Found", execErrorFunc);
 }
+
+
+void Processor::checkPaths(StringV paths, const string& successMsg, 
+	function<void(const string&)> errHandler)
+{
+	// For all paths
+	for (const string& curPath : paths) {
+
+		// If path is not valid
+		if (!isPathValid(curPath)) {
+
+			// Call error handler
+			errHandler(curPath);
+
+			// Exit 
+			exit(EXIT_FAILURE);
+		}
+	}
+
+	// If didn't exit, was successful:
+	printSuccess(successMsg);
+}
+
 
 
 void Processor::scanAudioFiles()
@@ -120,6 +137,8 @@ void Processor::scanAudioFiles()
 		printSuccess(to_string(fileNum) + " MP3 Files Found");
 	}
 }
+
+
 
 bool Processor::isPathValid(string path) {
 	return fs::exists(path);

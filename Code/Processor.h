@@ -6,6 +6,9 @@
 // Include common
 #include "Common.h"
 
+// Include needed headers
+#include <functional>
+
 /**
  * @brief Check, processes and handles files
 */
@@ -45,7 +48,7 @@ private:
 	/**
 	 * @brief Executable folder path
 	*/
-	const std::string execsPath;
+	const std::string exePath;
 
 	/**
 	 * @brief ffmpeg.exe file path
@@ -79,10 +82,18 @@ private:
 	void checkFolderPaths(StringV folderPaths);
 
 	/**
-	 * @brief Check a given FFMPEG executable
-	 * @param exePath Path to the .exe
+	 * @brief Check executable paths
 	*/
-	void checkFFMPEG(std::string exePath);
+	void checkExecPaths(StringV execPaths);
+
+	/**
+	 * @brief Check a given list of paths, handling success and errors in a given way.
+	 * @param paths The list of paths.
+	 * @param successMsg Message printed upon success.
+	 * @param errHandler Error handler function
+	*/
+	void checkPaths(StringV paths, const std::string& successMsg,
+		std::function<void(const std::string&)> errHandler);
 
 	/**
 	 * @brief Scan audio files

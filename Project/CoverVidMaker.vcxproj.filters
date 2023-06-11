@@ -19,6 +19,12 @@
     <Filter Include="Header Files\Modules">
       <UniqueIdentifier>{049bdefe-460e-4358-85af-271b5222aa13}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Modules\SubModules">
+      <UniqueIdentifier>{9f015337-cdc6-4080-aac0-4c3494fb48b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Modules\SubModules">
+      <UniqueIdentifier>{77a926ca-cd16-44cf-aba4-4d03e50241b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Code\Main.cpp">
@@ -27,21 +33,18 @@
     <ClCompile Include="..\Code\Common.cpp">
       <Filter>Source Files\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Command.cpp">
-      <Filter>Source Files\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\Processor.cpp">
       <Filter>Source Files\Modules</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Generator.cpp">
       <Filter>Source Files\Modules</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\Command.cpp">
+      <Filter>Source Files\Modules\SubModules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Code\Common.h">
-      <Filter>Header Files\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Code\Command.h">
       <Filter>Header Files\Modules</Filter>
     </ClInclude>
     <ClInclude Include="..\Code\Processor.h">
@@ -49,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="..\Code\Generator.h">
       <Filter>Header Files\Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\Command.h">
+      <Filter>Header Files\Modules\SubModules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
