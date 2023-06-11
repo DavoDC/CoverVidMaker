@@ -79,3 +79,11 @@ std::string quoteS(std::string s);
  * @return The given string surrounded by a pair of double quotes.
 */
 std::string quoteD(std::string s);
+
+
+// # Other Functions
+
+/**
+ * @return True if the given path is valid.
+*/
+bool isPathValid(const std::string path);

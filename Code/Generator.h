@@ -25,9 +25,26 @@ private:
     // ### Private fields
 
     /**
-     * @brief File processor reference
+     * @brief ffmpeg.exe file path
     */
-    Processor& proc;
+    const std::string ffmpegPath;
+
+    /**
+     * @brief ffprobe.exe file path
+    */
+    const std::string ffprobePath;
+
+
+    /**
+     * @brief Media file list
+    */
+    MediaFileList mediaFiles;
+
+
+    /**
+     * @brief Number of media files
+    */
+    int fileNum;
 
 
     // ### Private methods

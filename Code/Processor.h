@@ -7,12 +7,12 @@
 #include "Common.h"
 
 // Include needed headers
-#include "MediaFile.h"
+#include "MediaFileList.h"
 #include <functional>
 
 
 /**
- * @brief Check, processes and handles files
+ * @brief Processes files
 */
 class Processor {
 public:
@@ -28,16 +28,6 @@ public:
 	// ### Public methods
 
 	/**
-	 * @return Number of media files
-	*/
-	int getFileNum() const;
-
-	/**
-	 * @return Get the media file at a given index
-	*/
-	MediaFile getMediaFile(int index);
-
-	/**
 	 * @return ffmpeg.exe file path
 	*/
 	std::string getFFMPEG() const;
@@ -47,9 +37,18 @@ public:
 	*/
 	std::string getFFPROBE() const;
 
+	/**
+	 * @return Media file list
+	*/
+	MediaFileList& getMediaFiles();
+
 
 private:
 	// ### Private fields
+
+
+
+	// # Media Paths
 
 	/**
 	 * @brief Media folder path
@@ -71,6 +70,11 @@ private:
 	*/
 	const std::string videoPath;
 
+
+
+
+	// # Executable Paths
+
 	/**
 	 * @brief Executable folder path
 	*/
@@ -87,15 +91,14 @@ private:
 	const std::string ffprobePath;
 
 
+
+
 	/**
 	 * @brief Media file list
 	*/
-	std::vector<MediaFile> mediaFiles;
+	MediaFileList mediaFileList;
 
-	/**
-	 * @brief Number of media files
-	*/
-	int fileNum;
+
 
 
 	// ### Private methods
@@ -118,14 +121,4 @@ private:
 	*/
 	void checkPaths(StringV paths, const std::string& successMsg,
 		std::function<void(const std::string&)> errHandler);
-
-	/**
-	 * @brief Scan audio files
-	*/
-	void scanAudioFiles(StringV mediaFilePaths);
-
-	/**
-	 * @return True if the given path is valid.
-	*/
-	bool isPathValid(std::string);
 };
