@@ -7,15 +7,10 @@
 #include "Command.h"
 
 // ### Libraries
-#include <filesystem>
 #include <functional>
 
 // Namespace mods
 using namespace std;
-namespace fs = filesystem;
-
-// Macro for long iterator type
-#define FSIterator fs::recursive_directory_iterator
 
 
 // ### Constructor
@@ -41,19 +36,7 @@ Processor::Processor(const string& mediaPath, const string& exePath) :
 	checkExecPaths({ ffmpegPath, ffprobePath });
 
 	// Scan audio files
-	scanAudioFiles(mediaFilePaths);
-}
-
-
-int Processor::getFileNum() const
-{
-	return fileNum;
-}
-
-
-MediaFile Processor::getMediaFile(int index)
-{
-	return mediaFiles[index];
+	mediaFileList = MediaFileList(mediaFilePaths);
 }
 
 
@@ -66,6 +49,12 @@ std::string Processor::getFFMPEG() const
 std::string Processor::getFFPROBE() const
 {
 	return quoteD(ffprobePath);
+}
+
+
+MediaFileList& Processor::getMediaFiles()
+{
+	return mediaFileList;
 }
 
 
@@ -127,45 +116,4 @@ void Processor::checkPaths(StringV paths, const string& successMsg,
 
 	// If didn't exit, was successful:
 	printSuccess(successMsg);
-}
-
-
-
-void Processor::scanAudioFiles(StringV mediaFilePaths)
-{
-	// For every path in the Audio folder
-	for (const auto& curPath : FSIterator(audioPath)) {
-
-		// Convert current path to string
-		string curPathS = curPath.path().generic_string();
-
-		// If it is a MP3 file
-		if (contains(curPathS, ".mp3")) {
-
-			// Create MediaFile and add
-			mediaFiles.push_back(MediaFile(curPathS, mediaFilePaths));
-		}
-	}
-
-	// If no MediaFiles added
-	if (mediaFiles.empty())
-	{
-		// Notify and exit
-		printErr("No MP3 files found in " + quoteS(audioPath), true);
-	}
-	else
-	{
-		// # Else if contains at least one path
-		// Save file count
-		fileNum = int(mediaFiles.size());
-
-		// Notify
-		printSuccess(to_string(fileNum) + " MP3 Files Found");
-	}
-}
-
-
-
-bool Processor::isPathValid(string path) {
-	return fs::exists(path);
 }

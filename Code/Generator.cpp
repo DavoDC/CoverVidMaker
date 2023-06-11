@@ -11,9 +11,15 @@ using namespace std;
 
 
 // ### Constructor
-Generator::Generator(Processor& proc) : proc(proc)
+Generator::Generator(Processor& proc) : 
+	ffmpegPath(proc.getFFMPEG()),
+	ffprobePath(proc.getFFMPEG()),
+	mediaFiles(proc.getMediaFiles())
 {
-	//Extract covers
+	// Save file number
+	fileNum = mediaFiles.getFileNum();
+
+	// Extract covers
 	extractCovers();
 
 	// Make videos
@@ -26,12 +32,6 @@ void Generator::extractCovers() {
 
 	// Start message
 	print("\nExtracting Covers...");
-
-	// Get file num
-	int fileNum = proc.getFileNum();
-
-	// Get FFMPEG path
-	std::string ffmpeg = proc.getFFMPEG();
 
 	// Put together common arguments
 	StringV commonArgs = {
@@ -51,14 +51,14 @@ void Generator::extractCovers() {
 		// Create argument list using a copy of the common arguments
 		StringV argList = commonArgs;
 
-		// Insert the input file path
-		argList.insert(argList.begin() + 4, proc.getMediaFile(i).getAFP());
+		// Insert audio input
+		argList.insert(argList.begin() + 4, mediaFiles.getAudio(i));
 
-		// Add the output file path
-		argList.push_back(proc.getMediaFile(i).getCFP());
+		// Add cover output
+		argList.push_back(mediaFiles.getCover(i));
 
 		// Create command and run
-		Command myCommand(ffmpeg, argList);
+		Command myCommand(ffmpegPath, argList);
 		myCommand.run();
 	}
 

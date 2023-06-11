@@ -8,6 +8,7 @@
 #include <iomanip>
 #include <ranges>
 #include <string_view>
+#include <filesystem>
 
 // Namespace mods
 using namespace std;
@@ -120,4 +121,11 @@ string quoteS(string s)
 string quoteD(string s)
 {
 	return "\"" + s + "\"";
+}
+
+
+// # Other Functions
+
+bool isPathValid(const string path) {
+	return filesystem::exists(path);
 }
