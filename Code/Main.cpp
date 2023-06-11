@@ -26,7 +26,7 @@ int main()
 	Processor proc(mediaPath, exePath);
 	
 	// Generate files
-	//Generator gen(proc);
+	Generator gen(proc);
 
 	// END
 	print("\n");

@@ -42,6 +42,9 @@
     <ClCompile Include="..\Code\Command.cpp">
       <Filter>Source Files\Modules\SubModules</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\MediaFile.cpp">
+      <Filter>Source Files\Modules\SubModules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Code\Common.h">
@@ -54,6 +57,9 @@
       <Filter>Header Files\Modules</Filter>
     </ClInclude>
     <ClInclude Include="..\Code\Command.h">
+      <Filter>Header Files\Modules\SubModules</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\MediaFile.h">
       <Filter>Header Files\Modules\SubModules</Filter>
     </ClInclude>
   </ItemGroup>
