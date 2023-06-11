@@ -7,6 +7,7 @@
 using namespace std;
 
 // ### Constructors
+
 Command::Command(const string& progName) : 
     Command(progName, string()) 
 {

@@ -13,15 +13,15 @@
   <ItemGroup>
     <ClCompile Include="..\Code\Command.cpp" />
     <ClCompile Include="..\Code\Common.cpp" />
-    <ClCompile Include="..\Code\FileProcessor.cpp" />
+    <ClCompile Include="..\Code\Processor.cpp" />
     <ClCompile Include="..\Code\Main.cpp" />
-    <ClCompile Include="..\Code\CoverVidMaker.cpp" />
+    <ClCompile Include="..\Code\Generator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Code\Command.h" />
     <ClInclude Include="..\Code\Common.h" />
-    <ClInclude Include="..\Code\CoverVidMaker.h" />
-    <ClInclude Include="..\Code\FileProcessor.h" />
+    <ClInclude Include="..\Code\Generator.h" />
+    <ClInclude Include="..\Code\Processor.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

@@ -24,16 +24,16 @@
     <ClCompile Include="..\Code\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\CoverVidMaker.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Code\Common.cpp">
       <Filter>Source Files\Modules</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Command.cpp">
       <Filter>Source Files\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\FileProcessor.cpp">
+    <ClCompile Include="..\Code\Processor.cpp">
+      <Filter>Source Files\Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Code\Generator.cpp">
       <Filter>Source Files\Modules</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,10 +44,10 @@
     <ClInclude Include="..\Code\Command.h">
       <Filter>Header Files\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="..\Code\FileProcessor.h">
+    <ClInclude Include="..\Code\Processor.h">
       <Filter>Header Files\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="..\Code\CoverVidMaker.h">
+    <ClInclude Include="..\Code\Generator.h">
       <Filter>Header Files\Modules</Filter>
     </ClInclude>
   </ItemGroup>
