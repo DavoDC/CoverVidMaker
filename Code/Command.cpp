@@ -37,12 +37,11 @@ string Command::toString() const {
     return this->command;
 }
 
-void Command::printCommand()
-{
+void Command::printCommand() const {
     print(quoteS(this->command));
 }
 
-void Command::run() {
+void Command::run(bool showOutput) {
 
     // Set security attributes
     SECURITY_ATTRIBUTES saAttr{};
@@ -89,26 +88,27 @@ void Command::run() {
         // Else if execution fails, notify
         printErr("Command execution failed");
     }
-}
 
-void Command::printOutput() const {
-    print("\n" + getOutput() + "\n");
-}
-
-void Command::runWithOutput() {
-    run();
-    printOutput();
+    // Print output if wanted
+    if (showOutput) {
+        printOutput();
+    }
 }
 
 string Command::getOutput() const {
     return output;
 }
 
+void Command::printOutput() const {
+    print("\n" + getOutput() + "\n");
+}
+
+
 
 
 // ## Private methods
 
-string Command::getStringFromStream(HANDLE streamHandle) {
+string Command::getStringFromStream(HANDLE streamHandle) const {
     DWORD bytesRead;
     const int bufferSize = 4096;
     char buffer[bufferSize];

@@ -13,7 +13,7 @@ using namespace std;
 
 // Main Folder Paths
 string mediaPath = "Media/";
-string execsPath = "FFMPEG/";
+string exePath = "FFMPEG/";
 
 
 int main()
@@ -23,7 +23,7 @@ int main()
 	print("###### Welcome to CoverVidMaker! ######");
 
 	// Process files
-	Processor proc(mediaPath, execsPath);
+	Processor proc(mediaPath, exePath);
 	
 	// Generate files
 	//Generator gen(proc);

@@ -46,27 +46,23 @@ public:
     /**
      * @brief Print string representation of command.
     */
-    void printCommand();
+    void printCommand() const;
 
     /**
-     * @brief Run command.
+     * @brief Run the command
+     * @param showOutput Toggles output (Default: false)
     */
-    void run();
-    
-    /**
-     * @brief Run command and print output.
-    */
-    void runWithOutput();
-
-    /**
-     * @brief Print output of last run.
-    */
-    void printOutput() const;
+    void run(bool showOutput = false);
 
     /**
      * @return Output of last run.
     */
     std::string getOutput() const;
+
+    /**
+     * @brief Print output of last run.
+    */
+    void printOutput() const;
 
 private:
 
@@ -88,5 +84,5 @@ private:
     /**
      * @return A string representation of a given stream.
     */
-    std::string getStringFromStream(HANDLE streamHandle);
+    std::string getStringFromStream(HANDLE streamHandle) const;
 };
