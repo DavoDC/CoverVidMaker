@@ -25,14 +25,20 @@ void print(string s, bool useEndl)
 	}
 }
 
+// Private helper
+void printMessage(char startSymbol, string type, string msg)
+{
+	print("\n" + string(3, startSymbol) + " " + type + " " + quoteD(msg) + " !");
+}
+
 void printSuccess(string msg)
 {
-	print("\n### SUCCESS: " + quoteS(msg) + "!");
+	printMessage('#', "SUCCESS", msg);
 }
 
 void printErr(string msg, bool exitAfter)
 {
-	print("\n!!! ERROR: " + quoteS(msg) + "!");
+	printMessage('!', "ERROR", msg);
 
 	if (exitAfter) {
 		print("\n");
