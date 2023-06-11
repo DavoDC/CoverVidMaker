@@ -1,21 +1,33 @@
 
 ############# TTD NEW #############
 
-See notes in code.
+## FINISH GENERATOR
+
+    EXTRACT what is needed from proc in constructor at start
+        e.g. ffmpeg paths,  mediafiles etc.,  dont have proc as field
+
+    Add checks to extract cover = If already generated, if not ,  gen/total files
+
+    Write make videos
+
+    Generalise make videos and extract covers
 
 
 
-
-
-
-
-
-
-### AFTER EVERYTHING WORKING:
+### AFTER minimally!! WORKING,  generate vids and upload in meantime!
 For the few vids that were uploaded , except for hackRoots coz thats fine:
 - Save descriptions (e.g. OPM_DESC.txt)
 - Remove 
 Upload proper videos from fixed project 
+
+
+
+### REFINE CODE, PROCESSOR
+    Make processor have less code
+    Separate media and exec, file and folder?
+
+    Make Media File List , vector wrapper
+
 
 
 
