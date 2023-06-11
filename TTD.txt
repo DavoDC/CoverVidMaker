@@ -5,26 +5,8 @@ See notes in code.
 
 
 
-Move all initialization code to FileProcessor
 
 
-
-Continue CVM
-Do one file at ?rst
-File checker
-File processor
-For every media ?le , media
-file.getAudio , getCover   
-
-
-
-
-ask gpt to run long ffmpeg command via command class
-
-when doing ffmpeg commands in a loop , you dont want to regen entire array every time
-so add a function to command like  
-replaceArg(“old arg”, “new arg”)  , finds old arg in the array and updates it.
-you will have to save previous value or  use i switch etc
 
 
 

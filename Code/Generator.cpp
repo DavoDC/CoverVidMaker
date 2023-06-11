@@ -1,133 +1,104 @@
-// CoverVidMaker.cpp
+// Generator.cpp
 
 // Header
-//#include "CoverVidMaker.h"
+#include "Generator.h"
 
 // Needed Headers
 #include "Command.h"
 
+// Namespace mods
+using namespace std;
+
+
+// ### Constructor
+Generator::Generator(Processor& proc) : proc(proc)
+{
+	//Extract covers
+	extractCovers();
+
+	// Make videos
+	//makeVideos();
+}
 
 
 
-//// Constructor
-//CoverVidMaker::CoverVidMaker(string audioPath,
-//	string coverPath,
-//	string videoPath,
-//	string ffmpegPath,
-//	string ffprobePath)
-//{
-//	
-//
-//
-//}
-//
-//
-//
-//
-//void CoverVidMaker::generateVideos()
-//{
-//	// Extract covers
-//	extractCovers();
-//
-//	// Make videos
-//	//makeVideos();
-//}
-//
-//
-//void CoverVidMaker::extractCovers() {
-//	// TEMP
-//	print("\n### TODO: Extract Covers");
-//
-//
-//	// PROOF OF CONCEPT
-//	
-//	// Get an audio path
-//	string audioFP = audioFilePaths[0];
-//
-//	// ### Create cover file path
-//	// use audio as base
-//	string coverFP = audioFilePaths[0];
-//	// change to cover folder
-//	replaceAll(coverFP, audioPath, coverPath);
-//	// change extension
-//	replaceAll(coverFP, ".mp3", ".png");
-//
-//	// TEST
-//	//print("AP: " + audioPath);
-//	//print("AFP: " + audioFP);
-//	//print("CFP: " + coverFP);
-//
-//	// Put together arguments
-//	StringV argList = {
-//		"-hide_banner",
-//		"-loglevel error",
-//		"-i",
-//		quoteD(audioFP),
-//		"-an",
-//		"-vcodec",
-//		"copy",
-//		"-y",
-//		quoteD(coverFP)
-//	};
-//
-//	// Create command and run
-//	Command myCommand(quoteD(ffmpegPath), argList);
-//	myCommand.printCommand();
-//	myCommand.run();
-//
-//
-//	// WORKING, NEEED DOUBLE QUOTES , AND DONT USE CMD /C
-//	// "FFMPEG/ffmpeg.exe" -hide_banner -loglevel error -i "Media/1_Audio/Hanae - God of Gods.mp3" -an -vcodec copy -y "Media/2_Covers/Hanae - God of Gods.png"
-//
-//
-//
-//	// TODO
-//	// for each audio file path (already stored)
-//	// -check if cover exists already, skip if so
-//	// -generate cover file using ffmpeg command
-//	// 
-//	// -check if created, if not, stop.
-//	// 
-//	// compare coverCount to audioFileCount?
-//
-//	// 1_Covers.bat = use as model
-//	//REM Loop through all the MP3 files in the "Audio" folder
-//	//	for%% F in("%audioFolder%\*.mp3") do (
-//	//		REM Increment the audio file counter
-//	//		set / a "audioCount+=1"
-//
-//	//		REM Extract the filename(without extension) of the MP3 file
-//	//		set "filename=%%~nF"
-//
-//	//		REM Generate the output cover filename
-//	//		set "coverFile=%parentDir%%outputFolder%\!filename!_cover.png"
-//
-//	//		REM Check if the album cover already exists
-//	//		if not exist "!coverFile!" (
-//	//			REM Use FFmpeg to extract the album cover image from the MP3 file
-//	//			"%scriptDir%ffmpeg.exe" -hide_banner -loglevel error -i "%%F" -an -vcodec copy -y "!coverFile!"
-//
-//	//			REM Check if the cover image was generated
-//	//			if not exist "!coverFile!" (
-//	//				echo Album cover was not generated for file:%% F
-//	//				pause
-//	//				exit / b
-//	//				) else (
-//	//					set / a "coverCount+=1"
-//	//					)
-//	//				) else (
-//	//					echo Album cover already exists for file: !filename!.Skipping generation.
-//	//					set / a "coverCount+=1"
-//	//					)
-//	//				)
-//
-//	//		REM Print the ending message with the count of album covers generated and the count of audio files
-//	//				echo Album covers generated : % coverCount% / % audioCount%
-//}
-//
-//
-//
-//void CoverVidMaker::makeVideos() {
+void Generator::extractCovers() {
+
+	// Start message
+	print("\nExtracting Covers...");
+
+	// Get file num
+	int fileNum = proc.getFileNum();
+
+	// Get FFMPEG path
+	std::string ffmpeg = proc.getFFMPEG();
+
+	// Put together common arguments
+	StringV commonArgs = {
+		"-hide_banner",
+		"-loglevel",
+		"error",
+		"-i",
+		"-an",
+		"-vcodec",
+		"copy",
+		"-y"
+	};
+
+	// Iterate over all MediaFiles
+	for (int i = 0; i < fileNum; i++) {
+
+		// Create argument list using a copy of the common arguments
+		StringV argList = commonArgs;
+
+		// Insert the input file path
+		argList.insert(argList.begin() + 4, proc.getMediaFile(i).getAFP());
+
+		// Add the output file path
+		argList.push_back(proc.getMediaFile(i).getCFP());
+
+		// Create command and run
+		Command myCommand(ffmpeg, argList);
+		myCommand.run();
+	}
+
+
+
+	// TODO
+	// for each audio file path (already stored)
+	// -check if cover exists already, skip if so
+	// -generate cover file using ffmpeg command
+	// 
+	// -check if created, if not, stop.
+	// 
+	// compare coverCount to audioFileCount?
+
+	//		REM Check if the album cover already exists
+	//		if not exist "!coverFile!" (
+	//			REM Use FFmpeg to extract the album cover image from the MP3 file
+	//			"%scriptDir%ffmpeg.exe" -hide_banner -loglevel error -i "%%F" -an -vcodec copy -y "!coverFile!"
+
+	//			REM Check if the cover image was generated
+	//			if not exist "!coverFile!" (
+	//				echo Album cover was not generated for file:%% F
+	//				pause
+	//				exit / b
+	//				) else (
+	//					set / a "coverCount+=1"
+	//					)
+	//				) else (
+	//					echo Album cover already exists for file: !filename!.Skipping generation.
+	//					set / a "coverCount+=1"
+	//					)
+	//				)
+
+	//		REM Print the ending message with the count of album covers generated and the count of audio files
+	//				echo Album covers generated : % coverCount% / % audioCount%
+}
+
+
+
+//void Generator::makeVideos() {
 //
 //	// TEMP
 //	print("\n### TODO: Make Videos");
@@ -155,3 +126,5 @@
 //	// -c:a copy -pix_fmt yuv420p -b:v 1M -t 300 "FIXED_VIDS\!filename!.mp4"
 //	//  -hide_banner -loglevel error
 //}
+
+

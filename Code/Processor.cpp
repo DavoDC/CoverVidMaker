@@ -20,8 +20,7 @@ namespace fs = filesystem;
 
 // ### Constructor
 
-Processor::Processor(const string& mediaPath, const string& exePath)
-	: 
+Processor::Processor(const string& mediaPath, const string& exePath) : 
 	mediaPath(mediaPath),
 	audioPath(mediaPath + "1_Audio"),
 	coverPath(mediaPath + "2_Covers"),
@@ -30,16 +29,45 @@ Processor::Processor(const string& mediaPath, const string& exePath)
 	ffmpegPath(exePath + "ffmpeg.exe"),
 	ffprobePath(exePath + "ffprobe.exe")
 {
+	// Media file paths
+	StringV mediaFilePaths = { audioPath, coverPath, videoPath };
 
 	// Check folder paths and notify
-	checkFolderPaths({mediaPath, audioPath, coverPath, videoPath, exePath});
+	StringV folderPaths(mediaFilePaths.begin(), mediaFilePaths.end());
+	folderPaths.insert(folderPaths.begin(), { mediaPath, exePath });
+	checkFolderPaths(folderPaths);
 
 	// Check executables and notify
-	checkExecPaths({ffmpegPath, ffprobePath});
+	checkExecPaths({ ffmpegPath, ffprobePath });
 
-	//// Scan audio files
-	//scanAudioFiles();
+	// Scan audio files
+	scanAudioFiles(mediaFilePaths);
 }
+
+
+int Processor::getFileNum() const
+{
+	return fileNum;
+}
+
+
+MediaFile Processor::getMediaFile(int index)
+{
+	return mediaFiles[index];
+}
+
+
+std::string Processor::getFFMPEG() const
+{
+	return quoteD(ffmpegPath);
+}
+
+
+std::string Processor::getFFPROBE() const
+{
+	return quoteD(ffprobePath);
+}
+
 
 
 void Processor::checkFolderPaths(StringV folderPaths)
@@ -103,9 +131,8 @@ void Processor::checkPaths(StringV paths, const string& successMsg,
 
 
 
-void Processor::scanAudioFiles()
+void Processor::scanAudioFiles(StringV mediaFilePaths)
 {
-	// ### Get Audio file paths
 	// For every path in the Audio folder
 	for (const auto& curPath : FSIterator(audioPath)) {
 
@@ -115,14 +142,13 @@ void Processor::scanAudioFiles()
 		// If it is a MP3 file
 		if (contains(curPathS, ".mp3")) {
 
-			// Add to file path list
-			audioFilePaths.push_back(curPathS);
+			// Create MediaFile and add
+			mediaFiles.push_back(MediaFile(curPathS, mediaFilePaths));
 		}
 	}
 
-	// ### Check Audio file paths
-	// If no paths found
-	if (audioFilePaths.empty())
+	// If no MediaFiles added
+	if (mediaFiles.empty())
 	{
 		// Notify and exit
 		printErr("No MP3 files found in " + quoteS(audioPath), true);
@@ -131,7 +157,7 @@ void Processor::scanAudioFiles()
 	{
 		// # Else if contains at least one path
 		// Save file count
-		fileNum = int(audioFilePaths.size());
+		fileNum = int(mediaFiles.size());
 
 		// Notify
 		printSuccess(to_string(fileNum) + " MP3 Files Found");

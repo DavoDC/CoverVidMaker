@@ -7,7 +7,9 @@
 #include "Common.h"
 
 // Include needed headers
+#include "MediaFile.h"
 #include <functional>
+
 
 /**
  * @brief Check, processes and handles files
@@ -21,6 +23,30 @@ public:
      * @param execsPath Executable folder path
     */
     Processor(const std::string& mediaPath, const std::string& execsPath);
+
+
+	// ### Public methods
+
+	/**
+	 * @return Number of media files
+	*/
+	int getFileNum() const;
+
+	/**
+	 * @return Get the media file at a given index
+	*/
+	MediaFile getMediaFile(int index);
+
+	/**
+	 * @return ffmpeg.exe file path
+	*/
+	std::string getFFMPEG() const;
+
+	/**
+	 * @return ffprobe.exe file path
+	*/
+	std::string getFFPROBE() const;
+
 
 private:
 	// ### Private fields
@@ -62,9 +88,9 @@ private:
 
 
 	/**
-	 * @brief Audio file paths list
+	 * @brief Media file list
 	*/
-	StringV audioFilePaths;
+	std::vector<MediaFile> mediaFiles;
 
 	/**
 	 * @brief Number of media files
@@ -73,8 +99,6 @@ private:
 
 
 	// ### Private methods
-
-	// # Initialization
 
 	/**
 	 * @brief Check folder paths
@@ -98,7 +122,7 @@ private:
 	/**
 	 * @brief Scan audio files
 	*/
-	void scanAudioFiles();
+	void scanAudioFiles(StringV mediaFilePaths);
 
 	/**
 	 * @return True if the given path is valid.

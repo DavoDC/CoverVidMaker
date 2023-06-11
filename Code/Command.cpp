@@ -38,7 +38,7 @@ string Command::toString() const {
 }
 
 void Command::printCommand() const {
-    print(quoteS(this->command));
+    print(quoteS(" " + this->command + " "));
 }
 
 void Command::run(bool showOutput) {
