@@ -20,7 +20,7 @@ public:
      * @brief A command with no arguments.
      * @param progName The program name.
     */
-    Command(const std::string& progName);
+    explicit Command(const std::string& progName);
 
     /**
      * @brief A command with one argument.

@@ -109,15 +109,12 @@ void Command::printOutput() const {
 // ## Private methods
 
 string Command::getStringFromStream(HANDLE streamHandle) const {
-    DWORD bytesRead;
-    const int bufferSize = 4096;
+    constexpr DWORD bufferSize = 4096;
+    string tempOutput;
+    DWORD bytesRead = 0;
     char buffer[bufferSize];
-    string output = "";
     while (ReadFile(streamHandle, buffer, bufferSize, &bytesRead, nullptr) && bytesRead > 0) {
-        output += string(buffer, bytesRead);
+        tempOutput.append(buffer, bytesRead);
     }
-    if (output.length() < 3) {
-        output = "Empty!";
-    }
-    return output;
+    return (tempOutput.length() < 3) ? "Empty!" : tempOutput;
 }

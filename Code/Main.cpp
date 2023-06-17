@@ -18,13 +18,13 @@ string exePath = "FFMPEG/";
 
 int main()
 {
-	
+
 	// Welcome message
 	print("###### Welcome to CoverVidMaker! ######");
 
 	// Process files
 	Processor proc(mediaPath, exePath);
-	
+
 	// Generate files
 	Generator gen(proc);
 

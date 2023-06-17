@@ -58,7 +58,7 @@ MediaFileList::MediaFileList(StringV mediaFolderPaths)
 
 // ### Public methods
 
-const int MediaFileList::getFileNum() const
+int MediaFileList::getFileNum() const
 {
 	return fileNum;
 }

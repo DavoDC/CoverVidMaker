@@ -12,7 +12,7 @@
 
 
 /**
- * @brief Processes files
+ * @brief Processes input files and folders
 */
 class Processor {
 public:
@@ -105,13 +105,15 @@ private:
 
 	/**
 	 * @brief Check folder paths
+	 * @param folderPaths The list of folder paths to check
 	*/
-	void checkFolderPaths(StringV folderPaths);
+	void checkFolderPaths(const StringV& folderPaths);
 
 	/**
 	 * @brief Check executable paths
+	 * @param execPaths The list of executable paths to check
 	*/
-	void checkExecPaths(StringV execPaths);
+	void checkExecPaths(const StringV& execPaths);
 
 	/**
 	 * @brief Check a given list of paths, handling success and errors in a given way.
@@ -119,6 +121,7 @@ private:
 	 * @param successMsg Message printed upon success.
 	 * @param errHandler Error handler function
 	*/
-	void checkPaths(StringV paths, const std::string& successMsg,
-		std::function<void(const std::string&)> errHandler);
+	void checkPaths(const StringV& paths, const std::string& successMsg,
+		const std::function<void(const std::string&)>& errHandler);
+
 };

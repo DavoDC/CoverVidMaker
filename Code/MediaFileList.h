@@ -22,7 +22,7 @@ public:
 	/**
 	 * @param mediaFilePaths Media folder paths
 	*/
-	MediaFileList(StringV mediaFolderPaths);
+	explicit MediaFileList(StringV mediaFolderPaths);
 
 
 	// ### Public methods
@@ -30,7 +30,7 @@ public:
 	/**
 	 * @return Number of media files
 	*/
-	const int getFileNum() const;
+	int getFileNum() const;
 
 	/**
 	 * @return Audio file path at a given index
