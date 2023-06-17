@@ -53,6 +53,10 @@ private:
     */
     Command coverComm;
 
+    /**
+     * @brief Video maker command
+    */
+    Command vidComm;
 
 
     // ### Private methods
@@ -61,5 +65,15 @@ private:
      * @brief Extract album covers
     */
     void extractCovers();
+
+    /**
+     * @brief Make videos from audio and covers
+    */
+    void makeVideos();
+
+    /**
+     * @brief Print an update based on files generated
+    */
+    void printUpdate(int filesGenerated);
 
 };

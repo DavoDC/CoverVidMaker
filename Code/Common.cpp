@@ -30,7 +30,7 @@ void print(const string& s, bool useEndl)
 // Private helper
 void printMessage(char startSymbol, const string& type, const string& msg)
 {
-    print("\n" + string(3, startSymbol) + " " + type + " " + quoteD(msg) + " !");
+    print(string(3, startSymbol) + " " + type + " " + quoteD(msg) + " !");
 }
 
 void printSuccess(const string& msg)

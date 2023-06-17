@@ -2,19 +2,10 @@
 ############# TTD NEW #############
 
 
+Generalise make videos and extract covers
 
 
-
-## FINISH GENERATOR
-
-    EXTRACT what is needed from proc in constructor at start
-        e.g. ffmpeg paths,  mediafiles etc.,  dont have proc as field
-
-    Add checks to extract cover = If already generated, if not ,  gen/total files
-
-    Write make videos
-
-    Generalise make videos and extract covers
+Add duration calculation in Media files
 
 
 

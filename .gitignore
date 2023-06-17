@@ -404,6 +404,7 @@ FodyWeavers.xsd
 # Media
 *.png
 *.mp3
+*.mp4
 
 # Other
 *.ini
