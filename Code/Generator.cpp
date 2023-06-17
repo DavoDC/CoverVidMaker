@@ -11,7 +11,7 @@ using namespace std;
 
 
 // ### Constructor
-Generator::Generator(Processor& proc) : 
+Generator::Generator(Processor& proc) :
 	ffmpegPath(proc.getFFMPEG()),
 	ffprobePath(proc.getFFMPEG()),
 	mediaFiles(proc.getMediaFiles()),
@@ -43,54 +43,48 @@ Generator::Generator(Processor& proc) :
 
 void Generator::extractCovers() {
 
-	//// Start message
+	// Start message
 	print("\nExtracting Covers...");
 
-	// Iterate over all MediaFiles
+	// Cover count
+	int coverCount = 0;
+
+	// For all audio files
 	for (int i = 0; i < fileNum; i++) {
 
-		// Update input/audio path
-		coverComm.updateArg("INPUT_AUDIO", mediaFiles.getAudio(i));
+		// Extract cover path
+		string coverPath = mediaFiles.getCover(i);
 
-		// Update output/cover path
-		coverComm.updateArg("OUTPUT_COVER", mediaFiles.getCover(i));
+		// If cover already made
+		if (isPathValid(coverPath)) {
 
-		// Run command
-		coverComm.run();
+			// Add to count and skip
+			coverCount++;
+			continue;
+		}
+		else {
+			// Else, if cover doesn't exist, generate it
+			coverComm.updateArg("INPUT_AUDIO", mediaFiles.getAudio(i));
+			coverComm.updateArg("OUTPUT_COVER", coverPath);
+			coverComm.run();
+
+			// If cover was successfully generated
+			if (isPathValid(coverPath)) {
+
+				// Add to count
+				coverCount++;
+			}
+			else {
+				// Else if didn't generate, notify
+				printErr("Failed to generate cover: " + coverPath + " ");
+			}
+		}
 	}
 
-
-
-	// TODO
-	// for each audio file path (already stored)
-	// -check if cover exists already, skip if so
-	// -generate cover file using ffmpeg command
-	// 
-	// -check if created, if not, stop.
-	// 
-	// compare coverCount to audioFileCount?
-
-	//		REM Check if the album cover already exists
-	//		if not exist "!coverFile!" (
-	//			REM Use FFmpeg to extract the album cover image from the MP3 file
-	//			"%scriptDir%ffmpeg.exe" -hide_banner -loglevel error -i "%%F" -an -vcodec copy -y "!coverFile!"
-
-	//			REM Check if the cover image was generated
-	//			if not exist "!coverFile!" (
-	//				echo Album cover was not generated for file:%% F
-	//				pause
-	//				exit / b
-	//				) else (
-	//					set / a "coverCount+=1"
-	//					)
-	//				) else (
-	//					echo Album cover already exists for file: !filename!.Skipping generation.
-	//					set / a "coverCount+=1"
-	//					)
-	//				)
-
-	//		REM Print the ending message with the count of album covers generated and the count of audio files
-	//				echo Album covers generated : % coverCount% / % audioCount%
+	// Print summary message
+	string coverNumS = to_string(coverCount);
+	string fileNumS = to_string(fileNum);
+	print(format("Finished. Covers generated: {}/{} !", coverNumS, fileNumS));
 }
 
 
@@ -108,11 +102,6 @@ void Generator::extractCovers() {
 //	//	Add comment about YouTube requiring a video track for uploads
 //	// Get duration from ffprobe, feed to -t argument
 //
-//	// Model off 3_Video_Track_Videos.bat mainly
-//	///*REM Loop through each video file in the OLD_VIDS folder
-//	//	for%% F in("OLD_VIDS\*.mp4") do (
-//	//		REM Get the filename without extension
-//	//		set "filename=%%~nF"
 //
 //	//		REM Set the corresponding audio and image paths
 //	//		set "audio=AUDIO\!filename!.mp3"

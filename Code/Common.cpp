@@ -12,6 +12,7 @@
 
 // Namespace mods
 using namespace std;
+namespace fs = filesystem;
 
 
 // ### Function Definitions
@@ -84,6 +85,16 @@ string quoteD(const string& s)
 
 // # Other Functions
 
-bool isPathValid(const string& path) {
-    return filesystem::exists(path);
+bool isPathValid(const std::string& path) {
+    std::string cleanedPath = path;
+
+    // Remove surrounding quotes if they exist
+    if (!cleanedPath.empty() 
+        && cleanedPath.front() == '"' 
+        && cleanedPath.back() == '"') {
+        cleanedPath = cleanedPath.substr(1, cleanedPath.size() - 2);
+    }
+
+    fs::path filePath(cleanedPath);
+    return fs::exists(filePath);
 }
