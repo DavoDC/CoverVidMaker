@@ -8,16 +8,13 @@
 
 // Namespace mods
 using namespace std;
-
-// Macro for long iterator type
-#define FSIterator filesystem::recursive_directory_iterator
+using FSIterator = filesystem::recursive_directory_iterator;
 
 
 // ### Constructors
 
-MediaFileList::MediaFileList()
+MediaFileList::MediaFileList() : fileNum(0)
 {
-	this->fileNum = 0;
 }
 
 MediaFileList::MediaFileList(StringV mediaFolderPaths)
@@ -29,13 +26,13 @@ MediaFileList::MediaFileList(StringV mediaFolderPaths)
 	for (const auto& curPath : FSIterator(audioPath)) {
 
 		// Convert current path to string
-		string curPathS = curPath.path().generic_string();
+		const string curPathS = curPath.path().generic_string();
 
 		// If it is a MP3 file
-		if (contains(curPathS, ".mp3")) {
+		if (curPath.path().extension() == ".mp3") {
 
 			// Create MediaFile and add
-			mediaFiles.push_back(MediaFile(curPathS, mediaFolderPaths));
+			mediaFiles.emplace_back(curPathS, mediaFolderPaths);
 		}
 	}
 
@@ -48,7 +45,7 @@ MediaFileList::MediaFileList(StringV mediaFolderPaths)
 
 	// # Else if at least one file was added:
 	// Save file count
-	this->fileNum = int(mediaFiles.size());
+	this->fileNum = static_cast<int>(mediaFiles.size());
 
 	// Notify
 	printSuccess(to_string(fileNum) + " MP3 Files Found");
