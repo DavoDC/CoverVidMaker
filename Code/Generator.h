@@ -10,7 +10,7 @@
 #include "Processor.h"
 
 /**
- * @brief Generates media files
+ * @brief Generates output files
 */
 class Generator {
 public:
@@ -19,7 +19,7 @@ public:
     /**
      * @param proc File processor
     */
-    Generator(Processor& proc);
+    explicit Generator(Processor& proc);
 
 private:
     // ### Private fields

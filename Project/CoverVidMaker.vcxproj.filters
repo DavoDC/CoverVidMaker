@@ -19,11 +19,17 @@
     <Filter Include="Header Files\Modules">
       <UniqueIdentifier>{049bdefe-460e-4358-85af-271b5222aa13}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Modules\SubModules">
+    <Filter Include="Header Files\Modules\SubMods">
       <UniqueIdentifier>{9f015337-cdc6-4080-aac0-4c3494fb48b4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Modules\SubModules">
+    <Filter Include="Source Files\Modules\SubMods">
       <UniqueIdentifier>{77a926ca-cd16-44cf-aba4-4d03e50241b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Modules\SubMods\Media">
+      <UniqueIdentifier>{adc0e4fb-fa0a-4fe1-95fe-e6ad586f4e31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Modules\SubMods\Media">
+      <UniqueIdentifier>{e80344e6-cd8f-4141-bb9a-9de5a4030479}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -40,13 +46,13 @@
       <Filter>Source Files\Modules</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\Command.cpp">
-      <Filter>Source Files\Modules\SubModules</Filter>
+      <Filter>Source Files\Modules\SubMods</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\MediaFile.cpp">
-      <Filter>Source Files\Modules\SubModules</Filter>
+      <Filter>Source Files\Modules\SubMods\Media</Filter>
     </ClCompile>
     <ClCompile Include="..\Code\MediaFileList.cpp">
-      <Filter>Source Files\Modules\SubModules</Filter>
+      <Filter>Source Files\Modules\SubMods\Media</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -60,13 +66,13 @@
       <Filter>Header Files\Modules</Filter>
     </ClInclude>
     <ClInclude Include="..\Code\Command.h">
-      <Filter>Header Files\Modules\SubModules</Filter>
+      <Filter>Header Files\Modules\SubMods</Filter>
     </ClInclude>
     <ClInclude Include="..\Code\MediaFile.h">
-      <Filter>Header Files\Modules\SubModules</Filter>
+      <Filter>Header Files\Modules\SubMods\Media</Filter>
     </ClInclude>
     <ClInclude Include="..\Code\MediaFileList.h">
-      <Filter>Header Files\Modules\SubModules</Filter>
+      <Filter>Header Files\Modules\SubMods\Media</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

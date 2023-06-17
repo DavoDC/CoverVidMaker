@@ -15,7 +15,7 @@ using namespace std;
 
 // ### Constructor
 
-Processor::Processor(const string& mediaPath, const string& exePath) : 
+Processor::Processor(const string& mediaPath, const string& exePath) :
 	mediaPath(mediaPath),
 	audioPath(mediaPath + "1_Audio"),
 	coverPath(mediaPath + "2_Covers"),
@@ -59,7 +59,7 @@ MediaFileList& Processor::getMediaFiles()
 
 
 
-void Processor::checkFolderPaths(StringV folderPaths)
+void Processor::checkFolderPaths(const StringV& folderPaths)
 {
 	// Define handling of missing folders
 	auto folderErrorFunc = [](const string& folderPath) {
@@ -71,7 +71,7 @@ void Processor::checkFolderPaths(StringV folderPaths)
 }
 
 
-void Processor::checkExecPaths(StringV exePaths)
+void Processor::checkExecPaths(const StringV& exePaths)
 {
 	// Define handling of missing executables
 	auto execErrorFunc = [](const string& exePath) {
@@ -97,8 +97,8 @@ void Processor::checkExecPaths(StringV exePaths)
 }
 
 
-void Processor::checkPaths(StringV paths, const string& successMsg, 
-	function<void(const string&)> errHandler)
+void Processor::checkPaths(const StringV& paths, const string& successMsg,
+	const function<void(const string&)>& errHandler)
 {
 	// For all paths
 	for (const string& curPath : paths) {

@@ -1,6 +1,18 @@
 
 ############# TTD NEW #############
 
+
+
+Initialise command in gen constructor!
+
+Make arg list updateablr !
+
+Add  arg , maybe make it so it comes before other arg
+= arg before it , new arg!!!
+
+Regen command string after updates
+
+
 ## FINISH GENERATOR
 
     EXTRACT what is needed from proc in constructor at start
@@ -20,6 +32,7 @@ For the few vids that were uploaded , except for hackRoots coz thats fine:
 - Remove 
 Upload proper videos from fixed project 
 
+do other ones like DHMIS
 
 
 ### REFINE CODE, PROCESSOR
