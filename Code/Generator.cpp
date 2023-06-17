@@ -60,113 +60,75 @@ Generator::Generator(Processor& proc) :
 }
 
 
-
 void Generator::extractCovers() {
-
-	// Start message
-	print("\n### Extracting Covers...");
-
-	// Cover count
-	int coverCount = 0;
-
-	// For all audio files
-	for (int i = 0; i < fileNum; i++) {
-
-		// Extract cover path
-		string coverPath = mediaFiles.getCover(i);
-
-		// If cover already made
-		if (isPathValid(coverPath)) {
-
-			// Add to count
-			coverCount++;
-
-			// Notify
-			printUpdate(coverCount);
-
-			// Skip
-			continue;
-		}
-		else {
-			// Else, if cover doesn't exist, generate it
+	generateMedia("Extracting Covers",
+		[this](int i) { return mediaFiles.getCover(i); },
+		[this](int i) {
 			coverComm.updateArg("INPUT_AUDIO", mediaFiles.getAudio(i));
-			coverComm.updateArg("OUTPUT_COVER", coverPath);
+			coverComm.updateArg("OUTPUT_COVER", mediaFiles.getCover(i));
 			coverComm.run();
-
-			// If cover was successfully generated
-			if (isPathValid(coverPath)) {
-
-				// Add to count
-				coverCount++;
-			}
-			else {
-				// Else if didn't generate, notify
-				printErr("Failed to generate cover: " + coverPath + " ");
-			}
-		}
-	}
-
-	// Print finish message
-	print("\nFinished!");
-	printUpdate(coverCount);
+		});
 }
-
 
 
 void Generator::makeVideos() {
+	generateMedia("Making Videos",
+		[this](int i) { return mediaFiles.getVideo(i); },
+		[this](int i) {
+			vidComm.updateArg("INPUT_COVER", mediaFiles.getCover(i));
+			vidComm.updateArg("INPUT_AUDIO", mediaFiles.getAudio(i));
+			vidComm.updateArg("INPUT_DURATION", "5");
+			vidComm.updateArg("OUTPUT_VIDEO", mediaFiles.getVideo(i));
+			vidComm.run();
+		});
+}
+
+
+void Generator::generateMedia(const string& actionDesc,
+	function<string(int)> getMediaFilePath, function<void(int)> generateCommand) {
 
 	// Start message
-	print("\n### Making Videos...");
+	print("\n### " + actionDesc + "...");
 
-	// Video count
-	int vidCount = 0;
+	// Count
+	int count = 0;
 
-	// For all audio files
+	// For all media files
 	for (int i = 0; i < fileNum; i++) {
 
-		// Extract video path
-		string videoPath = mediaFiles.getVideo(i);
+		// Get media file path
+		string mediaFilePath = getMediaFilePath(i);
 
-		// If video already made
-		if (isPathValid(videoPath)) {
+		// If file already exists
+		if (isPathValid(mediaFilePath)) {
 
-			// Add to count
-			vidCount++;
-
-			// Notify
-			printUpdate(vidCount);
+			// Increment count and notify
+			printUpdate(++count);
 
 			// Skip
 			continue;
 		}
+
+		// Generate the file
+		generateCommand(i);
+
+		// If the file was successfully generated
+		if (isPathValid(mediaFilePath)) {
+
+			// Increment count and notify
+			printUpdate(++count);
+		}
 		else {
-			// Else, if video doesn't exist, generate it
-			vidComm.updateArg("INPUT_COVER", mediaFiles.getCover(i));
-			vidComm.updateArg("INPUT_AUDIO", mediaFiles.getAudio(i));
-			vidComm.updateArg("INPUT_DURATION", "5");
-			vidComm.updateArg("OUTPUT_VIDEO", videoPath);
-			vidComm.run();
-
-			// If video was successfully generated
-			if (isPathValid(videoPath)) {
-
-				// Add to count
-				vidCount++;
-
-				// Notify
-				printUpdate(vidCount);
-			}
-			else {
-				// Else if didn't generate, notify
-				printErr("Failed to generate video: " + videoPath + " ");
-			}
+			// Notify if generation failed
+			printErr("Failed to generate: " + mediaFilePath);
 		}
 	}
 
 	// Print finish message
 	print("\nFinished!");
-	printUpdate(vidCount);
+	printUpdate(count);
 }
+
 
 void Generator::printUpdate(int filesGenerated)
 {
@@ -174,5 +136,3 @@ void Generator::printUpdate(int filesGenerated)
 	string fileNumS = to_string(fileNum);
 	print(format("Generated: {}/{} !", fileGenS, fileNumS));
 }
-
-

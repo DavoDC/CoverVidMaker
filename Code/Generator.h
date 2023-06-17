@@ -9,6 +9,7 @@
 // Needed Headers
 #include "Processor.h"
 #include "Command.h"
+#include <functional>
 
 /**
  * @brief Generates output files
@@ -62,7 +63,7 @@ private:
     // ### Private methods
 
     /**
-     * @brief Extract album covers
+     * @brief Extract album covers from audio
     */
     void extractCovers();
 
@@ -70,6 +71,13 @@ private:
      * @brief Make videos from audio and covers
     */
     void makeVideos();
+
+    /**
+     * @brief Generate media files
+    */
+    void generateMedia(const std::string& actionDesc, 
+        std::function<std::string(int)> getMediaFilePath, 
+        std::function<void(int)> generateCommand);
 
     /**
      * @brief Print an update based on files generated
