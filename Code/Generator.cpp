@@ -20,13 +20,11 @@ Generator::Generator(Processor& proc) :
 	// Initialize cover command
 	StringV coverCommArgs = {
 		"-hide_banner",
-		"-loglevel",
-		"error",
+		"-loglevel error",
 		"-i",
 		Command::getMutArg("INPUT_AUDIO"),
 		"-an",
-		"-vcodec",
-		"copy",
+		"-vcodec copy",
 		"-y",
 		Command::getMutArg("OUTPUT_COVER")
 	};
@@ -35,8 +33,30 @@ Generator::Generator(Processor& proc) :
 	// Extract covers
 	extractCovers();
 
+	// Initialize video command
+	StringV vidCommArgs = {
+		"-hide_banner",
+		"-loglevel error",
+		"-loop 1",
+		"-i",
+		Command::getMutArg("INPUT_COVER"),
+		"-i",
+		Command::getMutArg("INPUT_AUDIO"),
+		"-c:v libx264",
+		"-preset slower",
+		"-tune stillimage",
+		"-c:a copy",
+		"-pix_fmt yuv420p",
+		"-b:v 1M",
+		"-t",
+		Command::getMutArg("INPUT_DURATION"),
+		"-y",
+		Command::getMutArg("OUTPUT_VIDEO")
+	};
+	vidComm = Command(ffmpegPath, vidCommArgs);
+
 	// Make videos
-	//makeVideos();
+	makeVideos();
 }
 
 
@@ -44,7 +64,7 @@ Generator::Generator(Processor& proc) :
 void Generator::extractCovers() {
 
 	// Start message
-	print("\nExtracting Covers...");
+	print("\n### Extracting Covers...");
 
 	// Cover count
 	int coverCount = 0;
@@ -58,8 +78,13 @@ void Generator::extractCovers() {
 		// If cover already made
 		if (isPathValid(coverPath)) {
 
-			// Add to count and skip
+			// Add to count
 			coverCount++;
+
+			// Notify
+			printUpdate(coverCount);
+
+			// Skip
 			continue;
 		}
 		else {
@@ -81,36 +106,73 @@ void Generator::extractCovers() {
 		}
 	}
 
-	// Print summary message
-	string coverNumS = to_string(coverCount);
-	string fileNumS = to_string(fileNum);
-	print(format("Finished. Covers generated: {}/{} !", coverNumS, fileNumS));
+	// Print finish message
+	print("\nFinished!");
+	printUpdate(coverCount);
 }
 
 
 
-//void Generator::makeVideos() {
-//
-//	// TEMP
-//	print("\n### TODO: Make Videos");
-//
-//	// TODO
-//	// generate videos, check amount / total, check video lengths
-//
-//	//### VIDEO STEP
-//	//	Use ffmpeg command from 3_Video_Track_Videos.bat for Video generation
-//	//	Add comment about YouTube requiring a video track for uploads
-//	// Get duration from ffprobe, feed to -t argument
-//
-//
-//	//		REM Set the corresponding audio and image paths
-//	//		set "audio=AUDIO\!filename!.mp3"
-//	//		set "image=COVERS\!filename!_image.png"
-//
-//	//		REM Run ffmpeg to fix the video with lower preset and adjusted bitrate
-//	//		ffmpeg -y -loop 1 -i "!image!" -i "!audio!" -c:v libx264 -preset slower -tune stillimage 
-//	// -c:a copy -pix_fmt yuv420p -b:v 1M -t 300 "FIXED_VIDS\!filename!.mp4"
-//	//  -hide_banner -loglevel error
-//}
+void Generator::makeVideos() {
+
+	// Start message
+	print("\n### Making Videos...");
+
+	// Video count
+	int vidCount = 0;
+
+	// For all audio files
+	for (int i = 0; i < fileNum; i++) {
+
+		// Extract video path
+		string videoPath = mediaFiles.getVideo(i);
+
+		// If video already made
+		if (isPathValid(videoPath)) {
+
+			// Add to count
+			vidCount++;
+
+			// Notify
+			printUpdate(vidCount);
+
+			// Skip
+			continue;
+		}
+		else {
+			// Else, if video doesn't exist, generate it
+			vidComm.updateArg("INPUT_COVER", mediaFiles.getCover(i));
+			vidComm.updateArg("INPUT_AUDIO", mediaFiles.getAudio(i));
+			vidComm.updateArg("INPUT_DURATION", "5");
+			vidComm.updateArg("OUTPUT_VIDEO", videoPath);
+			vidComm.run();
+
+			// If video was successfully generated
+			if (isPathValid(videoPath)) {
+
+				// Add to count
+				vidCount++;
+
+				// Notify
+				printUpdate(vidCount);
+			}
+			else {
+				// Else if didn't generate, notify
+				printErr("Failed to generate video: " + videoPath + " ");
+			}
+		}
+	}
+
+	// Print finish message
+	print("\nFinished!");
+	printUpdate(vidCount);
+}
+
+void Generator::printUpdate(int filesGenerated)
+{
+	string fileGenS = to_string(filesGenerated);
+	string fileNumS = to_string(fileNum);
+	print(format("Generated: {}/{} !", fileGenS, fileNumS));
+}
 
 
