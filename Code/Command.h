@@ -8,81 +8,126 @@
 
 // Include needed headers
 #include <windows.h>
+#include <map>
+
+// Map Type
+using StringIntMap = std::map<std::string, int>;
 
 /**
  * @brief Represents a terminal command
 */
 class Command {
 public:
-    // ### Constructors
-    
-    /**
-     * @brief A command with no arguments.
-     * @param progName The program name.
-    */
-    explicit Command(const std::string& progName);
+	// ### Constructors
 
-    /**
-     * @brief A command with one argument.
-     * @param progName The program name.
-     * @param argument The argument.
-    */
-    Command(const std::string& progName, const std::string& argument);
+	/**
+	 * @brief Default constructor
+	*/
+	Command();
 
-    /**
-     * @brief A command with multiple arguments.
-     * @param progName The program name.
-     * @param argList The argument list.
-    */
-    Command(const std::string& progName, const StringV& argList);
+	/**
+	 * @brief A command with no arguments.
+	 * @param progName The program name.
+	*/
+	explicit Command(const std::string& progName);
 
-    // ### Public methods
+	/**
+	 * @brief A command with one argument.
+	 * @param progName The program name.
+	 * @param argument The argument.
+	*/
+	Command(const std::string& progName, const std::string& argument);
 
-    /**
-     * @return String representation of command.
-    */
-    std::string toString() const;
+	/**
+	 * @brief A command with multiple arguments.
+	 * @param progName The program name.
+	 * @param argList The argument list.
+	*/
+	Command(const std::string& progName, const StringV& argList);
 
-    /**
-     * @brief Print string representation of command.
-    */
-    void printCommand() const;
 
-    /**
-     * @brief Run the command
-     * @param showOutput Toggles output (Default: false)
-    */
-    void run(bool showOutput = false);
+	// ### Public methods
 
-    /**
-     * @return Output of last run.
-    */
-    std::string getOutput() const;
+	/**
+	 * @brief Run the command
+	 * @param showOutput Toggles output (Default: false)
+	*/
+	void run(bool showOutput = false);
 
-    /**
-     * @brief Print output of last run.
-    */
-    void printOutput() const;
+	/**
+	 * @return String representation of command.
+	*/
+	std::string toString() const;
+
+	/**
+	 * @brief Print string representation of command.
+	*/
+	void printCommand() const;
+
+	/**
+	 * @return Console output of last run.
+	*/
+	std::string getOutput() const;
+
+	/**
+	 * @brief Print console output of last run.
+	*/
+	void printOutput() const;
+
+	/**
+	 * @return The argument with the mutable arg delimiters added
+	*/
+	static std::string getMutArg(const std::string& rawArg);
+
+	/**
+	 * @brief Updates a given mutable arg to a given value.
+	 * @param mutArgName The name of the mutable argument.
+	 * @param newArgVal The new value for the argument.
+	*/
+	void updateArg(const std::string& mutArgName, const std::string& newArgVal);
 
 private:
 
-    // ### Private fields
-    
-    /**
-     * @brief Command string
-    */
-    std::string command;
+	// ### Constants
 
-    /**
-     * @brief Console output of last run.
-    */
-    std::string output;
+	/**
+	 * @brief Mutable argument delimiter
+	*/
+	static const std::string maDelim;
+
+	/**
+	 * @brief Length of mutable argument delimiter
+	*/
+	static const size_t madLen;
 
 
-    // ## Private methods
-    
-    /**
-     * @return A string representation of a given stream.
-    */
-    std::string getStringFromStream(HANDLE streamHandle) const;
+	// ### Private fields
+
+	/**
+	 * @brief Program/command/executable name
+	*/
+	std::string progName;
+
+	/**
+	 * @brief Argument list
+	*/
+	StringV argList;
+
+	/**
+	 * @brief For looking up mutable argument positions
+	*/
+	StringIntMap mutableArgMap;
+
+	/**
+	 * @brief Console output of last run.
+	*/
+	std::string consoleOutput;
+
+
+	// ## Private methods
+
+	/**
+	 * @return A string representation of a given stream.
+	*/
+	std::string getStringFromStream(HANDLE streamHandle) const;
 };

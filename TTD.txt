@@ -3,14 +3,6 @@
 
 
 
-Initialise command in gen constructor!
-
-Make arg list updateablr !
-
-Add  arg , maybe make it so it comes before other arg
-= arg before it , new arg!!!
-
-Regen command string after updates
 
 
 ## FINISH GENERATOR

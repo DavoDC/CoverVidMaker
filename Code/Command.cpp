@@ -6,13 +6,23 @@
 // Namespace mods
 using namespace std;
 
+// Constants
+const string Command::maDelim = "$$";
+const size_t Command::madLen = maDelim.size();
+
+
 // ### Constructors
+
+Command::Command() :
+    Command("ls")
+{
+    // Call constructor below with 'ls'
+}
 
 Command::Command(const string& progName) : 
     Command(progName, string()) 
 {
-    // If only program name provided,
-    // call constructor below with empty string.
+    // Call constructor below with empty string.
 }
 
 Command::Command(const string& progName, const string& argument) : 
@@ -21,25 +31,41 @@ Command::Command(const string& progName, const string& argument) :
     // Call constructor below with one argument
 }
 
-Command::Command(const string& progName, const StringV& argList) {
+Command::Command(const string& progName, const StringV& argList) :
+    progName(progName), argList(argList)
+{
+    // Save arguments
 
-    // Concatenate into one string with spaces
-    this->command = progName;
-    for (const string& curArg : argList) {
-        this->command += ' ' + curArg;
+    // ### Build mutable argument map
+
+    // For each argument
+    for (int i = 0; i < argList.size(); ++i) {
+
+        // Extract argument
+        const string& curArg = argList[i];
+
+        // If argument is mutable (i.e has delimiters)
+        if (curArg.size() > madLen * madLen &&
+            curArg.substr(0, madLen) == maDelim &&
+            curArg.substr(curArg.size() - madLen, madLen) == maDelim) {
+
+            // Extract mutable argument name
+            string mutArgName = curArg.substr(madLen, curArg.size() - madLen * madLen);
+
+            // Save to map (key is name, position is value)
+            mutableArgMap[mutArgName] = i;
+        }
     }
+
+    // TEST
+    //print("Map:");
+    //for (const auto& entry : mutableArgMap) {
+    //    print("Key: " + entry.first + ", Value: " + to_string(entry.second));
+    //}
 }
 
 
 // ### Public methods
-
-string Command::toString() const {
-    return this->command;
-}
-
-void Command::printCommand() const {
-    print(quoteS(" " + this->command + " "));
-}
 
 void Command::run(bool showOutput) {
 
@@ -67,7 +93,7 @@ void Command::run(bool showOutput) {
     // If process creation and execution successful
     if (CreateProcessA(
         nullptr, // nullptr to use the command string directly
-        const_cast<char*>(this->command.c_str()), // Command to be executed
+        const_cast<char*>(toString().c_str()), // Command to be executed
         nullptr,  // Default process security attributes
         nullptr,  // Default process security attributes
         TRUE,     // Child process inherits handles
@@ -78,7 +104,7 @@ void Command::run(bool showOutput) {
         &pi       // Process information
     )) {
         CloseHandle(stdOutWrite); // Close the std output write handle
-        output = getStringFromStream(stdOutRead); // Extract std output
+        consoleOutput = getStringFromStream(stdOutRead); // Extract std output
         CloseHandle(stdOutRead); // Close the std output read handle
         WaitForSingleObject(pi.hProcess, INFINITE); // Wait for the child process to exit
         CloseHandle(pi.hProcess); // Close the process handle
@@ -95,14 +121,57 @@ void Command::run(bool showOutput) {
     }
 }
 
+string Command::toString() const {
+    
+    // Initialize to program name
+    string tempOutput = progName;
+
+    // Append arguments
+    for (const string& curArg : argList) {
+        tempOutput.append(' ' + curArg);
+    }
+
+    // Return result
+    return tempOutput;
+}
+
+void Command::printCommand() const {
+    print(quoteS(" " + toString() + " "));
+}
+
 string Command::getOutput() const {
-    return output;
+    return consoleOutput;
 }
 
 void Command::printOutput() const {
     print("\n" + getOutput() + "\n");
 }
 
+std::string Command::getMutArg(const std::string& rawArg) {
+    return maDelim + rawArg + maDelim;
+}
+
+void Command::updateArg(const std::string& mutArgName, const std::string& newArgVal) {
+
+    // Look for mutable arg in map
+    auto iter = mutableArgMap.find(mutArgName);
+
+    // If found
+    if (iter != mutableArgMap.end()) {
+
+        // Retrieve the position of the argument in the argList
+        int argPosition = iter->second;
+
+        // Update the argument value at the specified position
+        if (argPosition >= 0 && argPosition < argList.size()) {
+            argList[argPosition] = newArgVal;
+        }
+    }
+    else {
+        // Else if not found, notify
+        printErr("Mutable argument not found");
+    }
+}
 
 
 

@@ -4,7 +4,7 @@
 #include "Generator.h"
 
 // Needed Headers
-#include "Command.h"
+// None
 
 // Namespace mods
 using namespace std;
@@ -14,10 +14,23 @@ using namespace std;
 Generator::Generator(Processor& proc) : 
 	ffmpegPath(proc.getFFMPEG()),
 	ffprobePath(proc.getFFMPEG()),
-	mediaFiles(proc.getMediaFiles())
+	mediaFiles(proc.getMediaFiles()),
+	fileNum(mediaFiles.getFileNum())
 {
-	// Save file number
-	fileNum = mediaFiles.getFileNum();
+	// Initialize cover command
+	StringV coverCommArgs = {
+		"-hide_banner",
+		"-loglevel",
+		"error",
+		"-i",
+		Command::getMutArg("INPUT_AUDIO"),
+		"-an",
+		"-vcodec",
+		"copy",
+		"-y",
+		Command::getMutArg("OUTPUT_COVER")
+	};
+	coverComm = Command(ffmpegPath, coverCommArgs);
 
 	// Extract covers
 	extractCovers();
@@ -30,36 +43,20 @@ Generator::Generator(Processor& proc) :
 
 void Generator::extractCovers() {
 
-	// Start message
+	//// Start message
 	print("\nExtracting Covers...");
-
-	// Put together common arguments
-	StringV commonArgs = {
-		"-hide_banner",
-		"-loglevel",
-		"error",
-		"-i",
-		"-an",
-		"-vcodec",
-		"copy",
-		"-y"
-	};
 
 	// Iterate over all MediaFiles
 	for (int i = 0; i < fileNum; i++) {
 
-		// Create argument list using a copy of the common arguments
-		StringV argList = commonArgs;
+		// Update input/audio path
+		coverComm.updateArg("INPUT_AUDIO", mediaFiles.getAudio(i));
 
-		// Insert audio input
-		argList.insert(argList.begin() + 4, mediaFiles.getAudio(i));
+		// Update output/cover path
+		coverComm.updateArg("OUTPUT_COVER", mediaFiles.getCover(i));
 
-		// Add cover output
-		argList.push_back(mediaFiles.getCover(i));
-
-		// Create command and run
-		Command myCommand(ffmpegPath, argList);
-		myCommand.run();
+		// Run command
+		coverComm.run();
 	}
 
 

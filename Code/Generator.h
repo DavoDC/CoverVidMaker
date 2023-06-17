@@ -8,6 +8,7 @@
 
 // Needed Headers
 #include "Processor.h"
+#include "Command.h"
 
 /**
  * @brief Generates output files
@@ -44,7 +45,14 @@ private:
     /**
      * @brief Number of media files
     */
-    int fileNum;
+    const int fileNum;
+
+
+    /**
+     * @brief Cover extraction command
+    */
+    Command coverComm;
+
 
 
     // ### Private methods
