@@ -71,7 +71,7 @@
     <RunCodeAnalysis>false</RunCodeAnalysis>
     <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <EnableClangTidyCodeAnalysis>false</EnableClangTidyCodeAnalysis>
-    <EnableMicrosoftCodeAnalysis>false</EnableMicrosoftCodeAnalysis>
+    <EnableMicrosoftCodeAnalysis>true</EnableMicrosoftCodeAnalysis>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

@@ -8,8 +8,8 @@
 #include <vector>
 #include <format>
 
-// String Vector Macro
-#define StringV std::vector<std::string>
+// String Vector Type
+using StringV = std::vector<std::string>;
 
 
 // ### Function Declarations
