@@ -3,6 +3,25 @@
 
 
 
+Use static constants for mutable args , like "INPUT_AUDIO"
+
+
+batch script for deleting covers and videos
+
+
+Add timing like RA - time taken  , and then later time estimate
+	- try to integrate into print upadte
+	- may hav to disable for covers
+
+
+May be able to remove from generator:
+    /**
+     * @brief ffprobe.exe file path
+    */
+    const std::string ffprobePath;
+
+
+
 Add duration calculation in Media files
 
 

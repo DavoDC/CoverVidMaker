@@ -11,6 +11,11 @@
 #include "Command.h"
 #include <functional>
 
+// Function Types
+using IntToStrFunc = std::function<std::string(int)>;
+using IntFunc = std::function<void(int)>;
+
+
 /**
  * @brief Generates output files
 */
@@ -38,24 +43,24 @@ private:
 
 
     /**
-     * @brief Media file list
+     * @brief Media file list.
     */
     MediaFileList mediaFiles;
 
 
     /**
-     * @brief Number of media files
+     * @brief Number of media files.
     */
     const int fileNum;
 
 
     /**
-     * @brief Cover extraction command
+     * @brief Cover extraction command.
     */
     Command coverComm;
 
     /**
-     * @brief Video maker command
+     * @brief Video maker command.
     */
     Command vidComm;
 
@@ -63,24 +68,26 @@ private:
     // ### Private methods
 
     /**
-     * @brief Extract album covers from audio
+     * @brief Extract album covers from audio.
     */
     void extractCovers();
 
     /**
-     * @brief Make videos from audio and covers
+     * @brief Make videos from audio and covers.
     */
     void makeVideos();
 
     /**
-     * @brief Generate media files
+     * @brief Generates media files.
+     * @param actionDesc Describes the generation action.
+     * @param getOutputPath Returns the path of the file to be generated.
+     * @param runGenComm Updates the generation command and runs it.
     */
     void generateMedia(const std::string& actionDesc, 
-        std::function<std::string(int)> getMediaFilePath, 
-        std::function<void(int)> generateCommand);
+        IntToStrFunc getOutputPath, IntFunc runGenComm);
 
     /**
-     * @brief Print an update based on files generated
+     * @brief For printing periodic updates on generation progress.
     */
     void printUpdate(int filesGenerated);
 

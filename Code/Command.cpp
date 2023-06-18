@@ -56,12 +56,6 @@ Command::Command(const string& progName, const StringV& argList) :
             mutableArgMap[mutArgName] = i;
         }
     }
-
-    // TEST
-    //print("Map:");
-    //for (const auto& entry : mutableArgMap) {
-    //    print("Key: " + entry.first + ", Value: " + to_string(entry.second));
-    //}
 }
 
 
