@@ -85,7 +85,7 @@ void Generator::makeVideos() {
 
 
 void Generator::generateMedia(const string& actionDesc,
-	function<string(int)> getMediaFilePath, function<void(int)> generateCommand) {
+	IntToStrFunc getOutputPath, IntFunc runGenComm) {
 
 	// Start message
 	print("\n### " + actionDesc + "...");
@@ -97,10 +97,10 @@ void Generator::generateMedia(const string& actionDesc,
 	for (int i = 0; i < fileNum; i++) {
 
 		// Get media file path
-		string mediaFilePath = getMediaFilePath(i);
+		string outputFilePath = getOutputPath(i);
 
 		// If file already exists
-		if (isPathValid(mediaFilePath)) {
+		if (isPathValid(outputFilePath)) {
 
 			// Increment count and notify
 			printUpdate(++count);
@@ -110,23 +110,19 @@ void Generator::generateMedia(const string& actionDesc,
 		}
 
 		// Generate the file
-		generateCommand(i);
+		runGenComm(i);
 
 		// If the file was successfully generated
-		if (isPathValid(mediaFilePath)) {
+		if (isPathValid(outputFilePath)) {
 
 			// Increment count and notify
 			printUpdate(++count);
 		}
 		else {
 			// Notify if generation failed
-			printErr("Failed to generate: " + mediaFilePath);
+			printErr("Failed to generate: " + outputFilePath);
 		}
 	}
-
-	// Print finish message
-	print("\nFinished!");
-	printUpdate(count);
 }
 
 
