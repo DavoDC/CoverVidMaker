@@ -6,14 +6,13 @@
 Use static constants for mutable args , like "INPUT_AUDIO"
 
 
-batch script for deleting covers and videos
+make Run command returns time taken!!! 
+Pass up time taken thru function obj 
 
 
-Add timing like RA - time taken  , and then later time estimate
-	- try to integrate into print upadte
-	- may hav to disable for covers
 
-
+Add duration calculation in Media files
+Check how long duration command takes first
 May be able to remove from generator:
     /**
      * @brief ffprobe.exe file path
@@ -22,13 +21,41 @@ May be able to remove from generator:
 
 
 
-Add duration calculation in Media files
+Add timing like RA - time taken  , and then later time estimate
+	- try to integrate into print upadte
+	- may hav to disable for covers
+
+
+
+Create estimator in gen constructor
+- Give media files temporarily
+- Give file num and save it 
+- Create list of index+duration+time_taken
+
+
+print update takes with index and time taken 
+printUpdate(  1/3 message + estimator.getEstimate(i, timeTaken));
+
+
+Calculate estimates
+- Duration / genFavtor = time it will take
+- If gen factor is very high like with covers , don’t print estimates
+- using time taken scaling with duration, Linearly
+- Also use to calculate how long it will take for ALL files to be generated
+
+
+
+Verbose output for videos only , add finish message 
+No / messages for covers , except at end
+
 
 
 Run cppcheck and code analysis
 
 
-### AFTER minimally!! WORKING,  generate vids and upload in meantime!
+
+
+### WHEN FINISHED 
 For the few vids that were uploaded , except for hackRoots coz thats fine:
 - Save descriptions (e.g. OPM_DESC.txt)
 - Remove 
