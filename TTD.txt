@@ -1,7 +1,8 @@
 
 ############# TTD NEW #############
 
-
+use c++20 starts with ends with
+https://en.cppreference.com/w/cpp/string/basic_string/starts_withhttps://en.cppreference.com/w/cpp/string/basic_string/starts_with
 
 Use static constants for mutable args , like "INPUT_AUDIO"
 
