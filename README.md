@@ -1,5 +1,5 @@
 # Cover Video Maker (CVM)
-A C++ console program to convert MP3 audio files to MP4 videos using album covers.
+This C++ console program converts MP3 audio files to MP4 videos by using the album cover images as frames for the video.
 
 
 ## Info
