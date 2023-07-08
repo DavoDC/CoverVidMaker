@@ -33,6 +33,15 @@ Generator::Generator(Processor& proc) :
 	// Extract covers
 	extractCovers();
 
+	// Initialize duration command
+	StringV durCommArgs = {
+		"-v quiet -print_format",
+		"compact=print_section=0:nokey=1:escape=csv -show_entries",
+		"format=duration",
+		Command::getMutArg(INPUT_AUDIO)
+	};
+	durComm = Command(ffprobePath, durCommArgs);
+
 	// Initialize video command
 	StringV vidCommArgs = {
 		"-hide_banner",
@@ -76,15 +85,20 @@ void Generator::makeVideos() {
 	generateMedia("Making Videos",
 		[this](int i) { return mediaFiles.getVideo(i); },
 		[this](int i) {
+			string audioFP = mediaFiles.getAudio(i);
 			vidComm.updateArg(INPUT_COVER, mediaFiles.getCover(i));
-			vidComm.updateArg(INPUT_AUDIO, mediaFiles.getAudio(i));
-			vidComm.updateArg(INPUT_DURATION, "5");
+			vidComm.updateArg(INPUT_AUDIO, audioFP);
+			vidComm.updateArg(INPUT_DURATION, getDuration(audioFP));
 			vidComm.updateArg(OUTPUT_VIDEO, mediaFiles.getVideo(i));
 			vidComm.run();
 			return vidComm.getTimeTaken();
 		});
 }
 
+string Generator::getDuration(const string audioFilePath)
+{
+	return "4";
+}
 
 void Generator::generateMedia(const string& actionDesc,
 	PathGetter getOutputPath, GenComm runGenComm) {

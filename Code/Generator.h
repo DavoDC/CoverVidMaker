@@ -67,6 +67,11 @@ private:
     Command coverComm;
 
     /**
+     * @brief Duration command.
+    */
+    Command durComm;
+
+    /**
      * @brief Video maker command.
     */
     Command vidComm;
@@ -83,6 +88,11 @@ private:
      * @brief Make videos from audio and covers.
     */
     void makeVideos();
+
+    /**
+     * @return The duration of a given audio file.
+    */
+    std::string getDuration(const std::string audioFilePath);
 
     /**
      * @brief Generates media files.
