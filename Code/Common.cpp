@@ -89,8 +89,8 @@ bool isPathValid(const std::string& path) {
     std::string cleanedPath = path;
 
     // Remove surrounding quotes if they exist
-    if (!cleanedPath.empty() 
-        && cleanedPath.front() == '"' 
+    if (!cleanedPath.empty()
+        && cleanedPath.front() == '"'
         && cleanedPath.back() == '"') {
         cleanedPath = cleanedPath.substr(1, cleanedPath.size() - 2);
     }

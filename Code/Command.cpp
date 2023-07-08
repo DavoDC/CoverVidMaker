@@ -2,11 +2,13 @@
 
 // Header
 #include "Command.h"
+#include <chrono>
 
 // Namespace mods
 using namespace std;
 
 // Constants
+// Mutable argument delimiter and length
 const string Command::maDelim = "$$";
 const size_t Command::madLen = maDelim.size();
 
@@ -32,7 +34,7 @@ Command::Command(const string& progName, const string& argument) :
 }
 
 Command::Command(const string& progName, const StringV& argList) :
-    progName(progName), argList(argList)
+    progName(progName), argList(argList), duration(0)
 {
     // Save arguments
 
@@ -62,6 +64,9 @@ Command::Command(const string& progName, const StringV& argList) :
 // ### Public methods
 
 void Command::run(bool showOutput) {
+
+    // Get starting time
+    auto startTime = chrono::high_resolution_clock::now();
 
     // Set security attributes
     SECURITY_ATTRIBUTES saAttr{};
@@ -113,6 +118,13 @@ void Command::run(bool showOutput) {
     if (showOutput) {
         printOutput();
     }
+
+    // Get stop time
+    auto stopTime = chrono::high_resolution_clock::now();
+
+    // Calculate duration and save
+    auto rawDur = duration_cast<chrono::milliseconds>(stopTime - startTime);
+    duration = double(rawDur.count()) / 1000.0;
 }
 
 string Command::toString() const {
@@ -130,7 +142,7 @@ string Command::toString() const {
 }
 
 void Command::printCommand() const {
-    print(quoteS(" " + toString() + " "));
+    print(quoteS(" " + toString()));
 }
 
 string Command::getOutput() const {
@@ -141,11 +153,23 @@ void Command::printOutput() const {
     print("\n" + getOutput() + "\n");
 }
 
-std::string Command::getMutArg(const std::string& rawArg) {
+double Command::getTimeTaken() const {
+    return duration;
+}
+
+string Command::getTimeTaken(const double duration) {
+    return format("Time taken: {} seconds", to_string(duration).erase(5));
+}
+
+void Command::printTimeTaken() const {
+    print(getTimeTaken(duration));
+}
+
+string Command::getMutArg(const string& rawArg) {
     return maDelim + rawArg + maDelim;
 }
 
-void Command::updateArg(const std::string& mutArgName, const std::string& newArgVal) {
+void Command::updateArg(const string& mutArgName, const string& newArgVal) {
 
     // Look for mutable arg in map
     auto iter = mutableArgMap.find(mutArgName);
@@ -166,7 +190,6 @@ void Command::updateArg(const std::string& mutArgName, const std::string& newArg
         printErr("Mutable argument not found");
     }
 }
-
 
 
 // ## Private methods
