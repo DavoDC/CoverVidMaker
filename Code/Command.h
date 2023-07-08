@@ -75,6 +75,21 @@ public:
 	void printOutput() const;
 
 	/**
+	 * @return Time taken for the last run.
+	*/
+	double getTimeTaken() const;
+
+	/**
+	 * @return Time taken for the last run as a string.
+	*/
+	static std::string getTimeTaken(const double duration);
+
+	/**
+	 * @brief Print time taken for the last run.
+	*/
+	void printTimeTaken() const;
+
+	/**
 	 * @return The argument with the mutable arg delimiters added
 	*/
 	static std::string getMutArg(const std::string& rawArg);
@@ -122,6 +137,11 @@ private:
 	 * @brief Console output of last run.
 	*/
 	std::string consoleOutput;
+
+	/**
+	 * @brief Time taken to run command during last run
+	*/
+	double duration;
 
 
 	// ## Private methods

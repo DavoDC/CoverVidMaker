@@ -22,11 +22,11 @@ Generator::Generator(Processor& proc) :
 		"-hide_banner",
 		"-loglevel error",
 		"-i",
-		Command::getMutArg("INPUT_AUDIO"),
+		Command::getMutArg(INPUT_AUDIO),
 		"-an",
 		"-vcodec copy",
 		"-y",
-		Command::getMutArg("OUTPUT_COVER")
+		Command::getMutArg(OUTPUT_COVER)
 	};
 	coverComm = Command(ffmpegPath, coverCommArgs);
 
@@ -39,9 +39,9 @@ Generator::Generator(Processor& proc) :
 		"-loglevel error",
 		"-loop 1",
 		"-i",
-		Command::getMutArg("INPUT_COVER"),
+		Command::getMutArg(INPUT_COVER),
 		"-i",
-		Command::getMutArg("INPUT_AUDIO"),
+		Command::getMutArg(INPUT_AUDIO),
 		"-c:v libx264",
 		"-preset slower",
 		"-tune stillimage",
@@ -49,9 +49,9 @@ Generator::Generator(Processor& proc) :
 		"-pix_fmt yuv420p",
 		"-b:v 1M",
 		"-t",
-		Command::getMutArg("INPUT_DURATION"),
+		Command::getMutArg(INPUT_DURATION),
 		"-y",
-		Command::getMutArg("OUTPUT_VIDEO")
+		Command::getMutArg(OUTPUT_VIDEO)
 	};
 	vidComm = Command(ffmpegPath, vidCommArgs);
 
@@ -64,9 +64,10 @@ void Generator::extractCovers() {
 	generateMedia("Extracting Covers",
 		[this](int i) { return mediaFiles.getCover(i); },
 		[this](int i) {
-			coverComm.updateArg("INPUT_AUDIO", mediaFiles.getAudio(i));
-			coverComm.updateArg("OUTPUT_COVER", mediaFiles.getCover(i));
+			coverComm.updateArg(INPUT_AUDIO, mediaFiles.getAudio(i));
+			coverComm.updateArg(OUTPUT_COVER, mediaFiles.getCover(i));
 			coverComm.run();
+			return coverComm.getTimeTaken();
 		});
 }
 
@@ -75,17 +76,18 @@ void Generator::makeVideos() {
 	generateMedia("Making Videos",
 		[this](int i) { return mediaFiles.getVideo(i); },
 		[this](int i) {
-			vidComm.updateArg("INPUT_COVER", mediaFiles.getCover(i));
-			vidComm.updateArg("INPUT_AUDIO", mediaFiles.getAudio(i));
-			vidComm.updateArg("INPUT_DURATION", "5");
-			vidComm.updateArg("OUTPUT_VIDEO", mediaFiles.getVideo(i));
+			vidComm.updateArg(INPUT_COVER, mediaFiles.getCover(i));
+			vidComm.updateArg(INPUT_AUDIO, mediaFiles.getAudio(i));
+			vidComm.updateArg(INPUT_DURATION, "5");
+			vidComm.updateArg(OUTPUT_VIDEO, mediaFiles.getVideo(i));
 			vidComm.run();
+			return vidComm.getTimeTaken();
 		});
 }
 
 
 void Generator::generateMedia(const string& actionDesc,
-	IntToStrFunc getOutputPath, IntFunc runGenComm) {
+	PathGetter getOutputPath, GenComm runGenComm) {
 
 	// Start message
 	print("\n### " + actionDesc + "...");
@@ -103,20 +105,20 @@ void Generator::generateMedia(const string& actionDesc,
 		if (isPathValid(outputFilePath)) {
 
 			// Increment count and notify
-			printUpdate(++count);
+			printUpdate(++count, 0);
 
 			// Skip
 			continue;
 		}
 
-		// Generate the file
-		runGenComm(i);
+		// Generate the file and save time taken
+		double timeTaken = runGenComm(i);
 
 		// If the file was successfully generated
 		if (isPathValid(outputFilePath)) {
 
 			// Increment count and notify
-			printUpdate(++count);
+			printUpdate(++count, timeTaken);
 		}
 		else {
 			// Notify if generation failed
@@ -126,9 +128,25 @@ void Generator::generateMedia(const string& actionDesc,
 }
 
 
-void Generator::printUpdate(int filesGenerated)
-{
-	string fileGenS = to_string(filesGenerated);
+void Generator::printUpdate(const int curFileNum, const double timeTaken) {
+
+	// Update string holder
+	string update = "";
+
+	// Get current files over total
+	string fileGenS = to_string(curFileNum);
 	string fileNumS = to_string(fileNum);
-	print(format("Generated: {}/{} !", fileGenS, fileNumS));
+	update += format("Generated: {}/{}!", fileGenS, fileNumS);
+
+	// Add second part
+	string timePart = "";
+	if (timeTaken == 0) {
+		timePart += "Previously";
+	} else {
+		timePart += Command::getTimeTaken(timeTaken);
+	}
+	update += format(" ({})", timePart);
+
+	// Print final result
+	print(update);
 }

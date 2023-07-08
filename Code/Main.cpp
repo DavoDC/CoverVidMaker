@@ -29,5 +29,5 @@ int main()
 	Generator gen(proc);
 
 	// END
-	print("\n");
+	print("");
 }

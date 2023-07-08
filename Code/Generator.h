@@ -12,8 +12,15 @@
 #include <functional>
 
 // Function Types
-using IntToStrFunc = std::function<std::string(int)>;
-using IntFunc = std::function<void(int)>;
+using PathGetter = std::function<std::string(int)>;
+using GenComm = std::function<double(int)>;
+
+// Mutable Argument String Constants
+const std::string INPUT_AUDIO = "INPUT_AUDIO";
+const std::string INPUT_COVER = "INPUT_COVER";
+const std::string INPUT_DURATION = "INPUT_DURATION";
+const std::string OUTPUT_VIDEO = "OUTPUT_VIDEO";
+const std::string OUTPUT_COVER = "OUTPUT_COVER";
 
 
 /**
@@ -84,11 +91,13 @@ private:
      * @param runGenComm Updates the generation command and runs it.
     */
     void generateMedia(const std::string& actionDesc, 
-        IntToStrFunc getOutputPath, IntFunc runGenComm);
+        PathGetter getOutputPath, GenComm runGenComm);
 
     /**
      * @brief For printing periodic updates on generation progress.
+     * @param curFileNum The current number of files generated.
+     * @param timeTaken The time taken for the last generation command.
     */
-    void printUpdate(int filesGenerated);
+    void printUpdate(const int curFileNum, const double timeTaken);
 
 };
