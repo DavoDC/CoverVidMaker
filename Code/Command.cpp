@@ -114,6 +114,10 @@ void Command::run(bool showOutput) {
         printErr("Command execution failed");
     }
 
+    // Clean output
+    replaceAll(consoleOutput, "\r", "");
+    replaceAll(consoleOutput, "\n", "");
+
     // Print output if wanted
     if (showOutput) {
         printOutput();

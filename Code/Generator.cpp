@@ -13,7 +13,7 @@ using namespace std;
 // ### Constructor
 Generator::Generator(Processor& proc) :
 	ffmpegPath(proc.getFFMPEG()),
-	ffprobePath(proc.getFFMPEG()),
+	ffprobePath(proc.getFFPROBE()),
 	mediaFiles(proc.getMediaFiles()),
 	fileNum(mediaFiles.getFileNum())
 {
@@ -21,12 +21,10 @@ Generator::Generator(Processor& proc) :
 	StringV coverCommArgs = {
 		"-hide_banner",
 		"-loglevel error",
-		"-i",
-		Command::getMutArg(INPUT_AUDIO),
+		"-i", Command::getMutArg(INPUT_AUDIO),
 		"-an",
 		"-vcodec copy",
-		"-y",
-		Command::getMutArg(OUTPUT_COVER)
+		"-y", Command::getMutArg(OUTPUT_COVER)
 	};
 	coverComm = Command(ffmpegPath, coverCommArgs);
 
@@ -37,8 +35,7 @@ Generator::Generator(Processor& proc) :
 	StringV durCommArgs = {
 		"-v quiet -print_format",
 		"compact=print_section=0:nokey=1:escape=csv -show_entries",
-		"format=duration",
-		Command::getMutArg(INPUT_AUDIO)
+		"format=duration", Command::getMutArg(INPUT_AUDIO)
 	};
 	durComm = Command(ffprobePath, durCommArgs);
 
@@ -47,20 +44,16 @@ Generator::Generator(Processor& proc) :
 		"-hide_banner",
 		"-loglevel error",
 		"-loop 1",
-		"-i",
-		Command::getMutArg(INPUT_COVER),
-		"-i",
-		Command::getMutArg(INPUT_AUDIO),
+		"-i", Command::getMutArg(INPUT_COVER),
+		"-i", Command::getMutArg(INPUT_AUDIO),
 		"-c:v libx264",
-		"-preset slower",
+		"-preset fast",
 		"-tune stillimage",
 		"-c:a copy",
 		"-pix_fmt yuv420p",
 		"-b:v 1M",
-		"-t",
-		Command::getMutArg(INPUT_DURATION),
-		"-y",
-		Command::getMutArg(OUTPUT_VIDEO)
+		"-t", Command::getMutArg(INPUT_DURATION),
+		"-y", Command::getMutArg(OUTPUT_VIDEO)
 	};
 	vidComm = Command(ffmpegPath, vidCommArgs);
 
@@ -85,19 +78,26 @@ void Generator::makeVideos() {
 	generateMedia("Making Videos",
 		[this](int i) { return mediaFiles.getVideo(i); },
 		[this](int i) {
+
+			// Update audio file paths
 			string audioFP = mediaFiles.getAudio(i);
-			vidComm.updateArg(INPUT_COVER, mediaFiles.getCover(i));
 			vidComm.updateArg(INPUT_AUDIO, audioFP);
-			vidComm.updateArg(INPUT_DURATION, getDuration(audioFP));
+			durComm.updateArg(INPUT_AUDIO, audioFP);
+
+			// Get and update duration
+			durComm.run();
+			double rawDur = stod(durComm.getOutput()) + 2;
+			string duration = to_string(static_cast<int>(round(rawDur)));
+			vidComm.updateArg(INPUT_DURATION, duration);
+
+			// Update normal args
+			vidComm.updateArg(INPUT_COVER, mediaFiles.getCover(i));
 			vidComm.updateArg(OUTPUT_VIDEO, mediaFiles.getVideo(i));
+
+			// Run and return time taken
 			vidComm.run();
 			return vidComm.getTimeTaken();
 		});
-}
-
-string Generator::getDuration(const string audioFilePath)
-{
-	return "4";
 }
 
 void Generator::generateMedia(const string& actionDesc,
