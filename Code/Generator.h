@@ -90,11 +90,6 @@ private:
     void makeVideos();
 
     /**
-     * @return The duration of a given audio file.
-    */
-    std::string getDuration(const std::string audioFilePath);
-
-    /**
      * @brief Generates media files.
      * @param actionDesc Describes the generation action.
      * @param getOutputPath Returns the path of the file to be generated.

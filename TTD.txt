@@ -3,13 +3,7 @@
 
 
 
-
-### PROPER DURATION
-
-FFMPEG/ffprobe.exe -v quiet -print_format compact=print_section=0:nokey=1:escape=csv -show_entries format=duration "Media\1_Audio\Heidi - Loop.mp3"
-89.234286
-
-Get duration only when needed!
+Turn on nvidia acceleration options?
 
 
 
