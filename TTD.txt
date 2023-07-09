@@ -2,6 +2,23 @@
 ############# TTD NEW #############
 
 
+
+Write combined powershell script reset for extra . Lists options with counts
+
+At start, print info line .
+
+Add duration to media files . Do in media file constructor!!!!! Do during scan . Use its own input audio string variable
+
+Print total duration and file count
+
+Use chatgpt to check correlation based on 50 files results
+Check which formula best fits , exponential , quadratic etc
+
+From one duration to time needed
+
+
+
+
 Add file name and duration to output
 
 
