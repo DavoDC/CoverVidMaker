@@ -162,7 +162,7 @@ double Command::getTimeTaken() const {
 }
 
 string Command::getTimeTaken(const double duration) {
-    return format("Time taken: {} seconds", to_string(duration).erase(5));
+    return format("Time Taken: {} seconds", to_string(duration).erase(5));
 }
 
 void Command::printTimeTaken() const {
