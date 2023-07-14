@@ -109,6 +109,9 @@ void Generator::generateMedia(const string& actionDesc,
 	// Count
 	int count = 0;
 
+	// Total time taken
+	double totalTimeTaken = 0;
+
 	// For all media files
 	for (int i = 0; i < fileNum; i++) {
 
@@ -125,8 +128,9 @@ void Generator::generateMedia(const string& actionDesc,
 			continue;
 		}
 
-		// Generate the file and save time taken
+		// Generate the file and save and accumulate time taken
 		double timeTaken = runGenComm(i);
+		totalTimeTaken += timeTaken;
 
 		// If the file was successfully generated
 		if (isPathValid(outputFilePath)) {
@@ -139,6 +143,9 @@ void Generator::generateMedia(const string& actionDesc,
 			printErr("Failed to generate: " + outputFilePath);
 		}
 	}
+
+	// Print total time
+	print(format("Total {}", Command::getTimeTaken(totalTimeTaken)));
 }
 
 

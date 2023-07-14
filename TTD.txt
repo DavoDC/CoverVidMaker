@@ -3,7 +3,17 @@
 
 
 
-Write combined powershell script reset for extra . Lists options with counts
+
+Sanitize strings , prevent these from crashing:
+Kanako Itō - Hacking to the Gate
+Yuko Ogura - Girls ♥ Boys
+
+and upload!
+
+
+
+
+
 
 At start, print info line .
 
@@ -23,9 +33,19 @@ Add file name and duration to output
 
 
 
-Sanitize strings , prevent these from crashing:
-Kanako Itō - Hacking to the Gate
-Yuko Ogura - Girls ♥ Boys
+
+
+
+Add inheritance for learning ! Check CPP learning !
+
+Mutable command
+Check , must have mutable , can do in constructor
+
+Duration command
+FFmpegCommand
+
+Move windows pricess into private helper
+
 
 
 
