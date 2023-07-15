@@ -2,6 +2,7 @@
 
 // Header
 #include "MediaFileList.h"
+#include "Command.h"
 
 // ### Libraries
 #include <filesystem>
@@ -10,15 +11,27 @@
 using namespace std;
 using FSIterator = filesystem::recursive_directory_iterator;
 
+// Mutable Argument String Constant
+const std::string INPUT_AUDIO = "INPUT_AUDIO";
+
 
 // ### Constructors
 
-MediaFileList::MediaFileList() : fileNum(0)
+MediaFileList::MediaFileList() : fileNum(0), totalDuration(0)
 {
 }
 
-MediaFileList::MediaFileList(StringV mediaFolderPaths)
+MediaFileList::MediaFileList(StringV mediaFolderPaths) : MediaFileList()
 {
+	// Initialize duration command
+	// TODO PUT IN SEPARATE CLASS, get ffprobe properly
+	StringV durCommArgs = {
+		"-v quiet -print_format",
+		"compact=print_section=0:nokey=1:escape=csv -show_entries",
+		"format=duration", Command::getMutArg(INPUT_AUDIO)
+	};
+	Command durComm = Command("FFMPEG/ffprobe.exe", durCommArgs);
+
 	// Extract audio path
 	const string audioPath = mediaFolderPaths[0];
 
@@ -31,8 +44,17 @@ MediaFileList::MediaFileList(StringV mediaFolderPaths)
 		// If it is a MP3 file
 		if (curPath.path().extension() == ".mp3") {
 
-			// Create MediaFile and add
-			mediaFiles.emplace_back(curPathS, mediaFolderPaths);
+			// Get duration
+			durComm.updateArg(INPUT_AUDIO, quoteD(curPathS));
+			durComm.run();
+			double rawDur = stod(durComm.getOutput()) + 2;
+			Seconds curDuration = static_cast<int>(round(rawDur));
+			
+			// Add to total duration
+			totalDuration += curDuration;
+
+			// Create MediaFile and add to list
+			mediaFiles.emplace_back(curPathS, mediaFolderPaths, curDuration);
 		}
 	}
 
@@ -60,18 +82,29 @@ int MediaFileList::getFileNum() const
 	return fileNum;
 }
 
+const string MediaFileList::getTotalDuration() const
+{
+	return format("{} minute(s)", to_string(totalDuration / 60));
+}
 
-const std::string MediaFileList::getAudio(int index) const
+
+const string MediaFileList::getAudio(int index) const
 {
 	return mediaFiles[index].getAFP();
 }
 
-const std::string MediaFileList::getCover(int index) const
+const string MediaFileList::getCover(int index) const
 {
 	return mediaFiles[index].getCFP();
 }
 
-const std::string MediaFileList::getVideo(int index) const
+const string MediaFileList::getVideo(int index) const
 {
 	return mediaFiles[index].getVFP();
+}
+
+
+const string MediaFileList::getDuration(int index) const
+{
+	return mediaFiles[index].getDuration();
 }

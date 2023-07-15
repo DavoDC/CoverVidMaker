@@ -12,7 +12,8 @@
 class MediaFile {
 public:
     // ### Constructor
-    MediaFile(const std::string& audioFilePath, StringV mediaFilePaths);
+    MediaFile(const std::string& audioFilePath, StringV mediaFilePaths, 
+		Seconds duration);
 
 	// ### Public methods
 
@@ -30,6 +31,11 @@ public:
 	 * @return Video file path
 	*/
 	const std::string getVFP() const;
+
+	/**
+	 * @brief Get the duration of the audio file.
+	*/
+	const std::string getDuration() const;
 
 private:
     // ### Private fields
@@ -49,10 +55,13 @@ private:
 	*/
 	std::string videoFilePath;
 
+	/**
+	 * @brief Duration of the audio file.
+	*/
+	const Seconds duration;
 
 
     // ### Private methods
-
 
 	/**
 	 * @brief Transform one media file path into another
@@ -66,6 +75,5 @@ private:
 	std::string getMediaFilePath(const std::string& filePath,
 		const std::string& oldFolder, const std::string& newFolder,
 		const std::string& newExt, const std::string& oldExt = ".mp3");
-
 
 };

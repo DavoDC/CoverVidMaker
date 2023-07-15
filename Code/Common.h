@@ -11,6 +11,9 @@
 // String Vector Type
 using StringV = std::vector<std::string>;
 
+// Seconds Type
+using Seconds = int;
+
 
 // ### Function Declarations
 

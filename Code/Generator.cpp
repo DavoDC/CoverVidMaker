@@ -13,10 +13,12 @@ using namespace std;
 // ### Constructor
 Generator::Generator(Processor& proc) :
 	ffmpegPath(proc.getFFMPEG()),
-	ffprobePath(proc.getFFPROBE()),
 	mediaFiles(proc.getMediaFiles()),
 	fileNum(mediaFiles.getFileNum())
 {
+	// Print total duration
+	print(format("\nTotal Duration: {}", mediaFiles.getTotalDuration()));
+
 	// Initialize cover command
 	StringV coverCommArgs = {
 		"-hide_banner",
@@ -30,14 +32,6 @@ Generator::Generator(Processor& proc) :
 
 	// Extract covers
 	extractCovers();
-
-	// Initialize duration command
-	StringV durCommArgs = {
-		"-v quiet -print_format",
-		"compact=print_section=0:nokey=1:escape=csv -show_entries",
-		"format=duration", Command::getMutArg(INPUT_AUDIO)
-	};
-	durComm = Command(ffprobePath, durCommArgs);
 
 	// Initialize video command
 	StringV vidCommArgs = {
@@ -78,23 +72,10 @@ void Generator::makeVideos() {
 	generateMedia("Making Videos",
 		[this](int i) { return mediaFiles.getVideo(i); },
 		[this](int i) {
-
-			// Update audio file paths
-			string audioFP = mediaFiles.getAudio(i);
-			vidComm.updateArg(INPUT_AUDIO, audioFP);
-			durComm.updateArg(INPUT_AUDIO, audioFP);
-
-			// Get and update duration
-			durComm.run();
-			double rawDur = stod(durComm.getOutput()) + 2;
-			string duration = to_string(static_cast<int>(round(rawDur)));
-			vidComm.updateArg(INPUT_DURATION, duration);
-
-			// Update normal args
+			vidComm.updateArg(INPUT_AUDIO, mediaFiles.getAudio(i));
+			vidComm.updateArg(INPUT_DURATION, mediaFiles.getDuration(i));
 			vidComm.updateArg(INPUT_COVER, mediaFiles.getCover(i));
 			vidComm.updateArg(OUTPUT_VIDEO, mediaFiles.getVideo(i));
-
-			// Run and return time taken
 			vidComm.run();
 			return vidComm.getTimeTaken();
 		});
@@ -103,8 +84,8 @@ void Generator::makeVideos() {
 void Generator::generateMedia(const string& actionDesc,
 	PathGetter getOutputPath, GenComm runGenComm) {
 
-	// Start message
-	print("\n### " + actionDesc + "...");
+	// Print starting message
+	print(format("\n### {} ({})...", actionDesc, to_string(fileNum)));
 
 	// Count
 	int count = 0;
@@ -137,37 +118,44 @@ void Generator::generateMedia(const string& actionDesc,
 
 			// Increment count and notify
 			printUpdate(++count, timeTaken);
-		}
-		else {
+		} else {
 			// Notify if generation failed
 			printErr("Failed to generate: " + outputFilePath);
 		}
 	}
 
-	// Print total time
-	print(format("Total {}", Command::getTimeTaken(totalTimeTaken)));
+	// Print ending message
+	if (totalTimeTaken == 0) {
+		print("All files were generated previously!");
+	} else {
+		print(format("Total {}", Command::getTimeTaken(totalTimeTaken)));
+	}
 }
 
 
 void Generator::printUpdate(const int curFileNum, const double timeTaken) {
 
-	// Update string holder
+	// Update holder
 	string update = "";
 
-	// Get current files over total
+	// Add current files over total
 	string fileGenS = to_string(curFileNum);
 	string fileNumS = to_string(fileNum);
 	update += format("Generated: {}/{}!", fileGenS, fileNumS);
 
-	// Add second part
+	// Time part holder
 	string timePart = "";
+
+    // Set time part
 	if (timeTaken == 0) {
 		timePart += "Previously";
 	} else {
 		timePart += Command::getTimeTaken(timeTaken);
 	}
+
+    // Add time part
 	update += format(" ({})", timePart);
 
-	// Print final result
+	// Result
 	print(update);
 }
