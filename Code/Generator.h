@@ -43,11 +43,6 @@ private:
     */
     const std::string ffmpegPath;
 
-    /**
-     * @brief ffprobe.exe file path
-    */
-    const std::string ffprobePath;
-
 
     /**
      * @brief Media file list.

@@ -8,10 +8,11 @@ using namespace std;
 
 
 // ### Constructor
-MediaFile::MediaFile(const std::string& audioFilePath, StringV mediaFilePaths) :
-	audioFilePath(audioFilePath)
+MediaFile::MediaFile(const std::string& audioFilePath, StringV mediaFilePaths,
+	Seconds duration) :
+	audioFilePath(audioFilePath), duration(duration)
 {
-	// Extract media file paths
+	// Extract media file/folder paths
 	const string audioPath = mediaFilePaths[0];
 	const string coverPath = mediaFilePaths[1];
 	const string videoPath = mediaFilePaths[2];
@@ -36,6 +37,9 @@ const std::string MediaFile::getVFP() const {
 	return quoteD(videoFilePath);
 }
 
+const std::string MediaFile::getDuration() const {
+	return to_string(duration);
+}
 
 
 // ### Private methods

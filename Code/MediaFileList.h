@@ -47,6 +47,16 @@ public:
 	*/
 	const std::string getVideo(int index) const;
 
+	/**
+	 * @return Duration of audio file at a given index
+	*/
+	const std::string getDuration(int index) const;
+
+	/**
+	 * @return Total audio duration information
+	*/
+	const std::string getTotalDuration() const;
+
 private:
    
 	/**
@@ -58,5 +68,10 @@ private:
 	 * @brief Number of media files
 	*/
 	int fileNum;
+
+	/**
+	 * @brief The total duration of the audio files.
+	*/
+	Seconds totalDuration;
 
 };

@@ -4,10 +4,15 @@
 
 
 
+Add checking for zero length file generated and fix
+->  seems to do with covers above 1000x1000
+
+
+
+
 Sanitize strings , prevent these from crashing:
 Kanako Itō - Hacking to the Gate
 Yuko Ogura - Girls ♥ Boys
-
 and upload!
 
 
@@ -15,46 +20,37 @@ and upload!
 
 
 
-At start, print info line .
 
-Add duration to media files . Do in media file constructor!!!!! Do during scan . Use its own input audio string variable
+Improve duration process
+Duration command wrapper (but still takes ffprobe as normal)
 
-Print total duration and file count
+
+
+
+
+
+
+
+
+
+Add inheritance for learning ! 
+- Check CPP learning !
+- Mutable command
+	- Check , must have mutable , can do in constructor
+
+
+
+
+
+
+
+### ESTIMATING TIME
+Do simple only (overall prediction at start)
 
 Use chatgpt to check correlation based on 50 files results
 Check which formula best fits , exponential , quadratic etc
-
 From one duration to time needed
 
-
-
-
-Add file name and duration to output
-
-
-
-
-
-
-Add inheritance for learning ! Check CPP learning !
-
-Mutable command
-Check , must have mutable , can do in constructor
-
-Duration command
-FFmpegCommand
-
-Move windows pricess into private helper
-
-
-
-
-Try  nvidia acceleration options?
-
-
-
-
-### ESTIMATOR
 Create estimator in gen constructor
 - Give media files temporarily
 - Give file num and save it 
@@ -68,3 +64,7 @@ Calculate estimates
 - If gen factor is very high like with covers , don’t print estimates
 - using time taken scaling with duration, Linearly
 - Also use to calculate how long it will take for ALL files to be generated
+
+
+
+If slow =  Try nvidia acceleration options?
