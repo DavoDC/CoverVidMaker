@@ -124,11 +124,20 @@ void Generator::generateMedia(const string& actionDesc,
 		}
 	}
 
-	// Print ending message
-	if (totalTimeTaken == 0) {
-		print("All files were generated previously!");
-	} else {
-		print(format("Total {}", Command::getTimeTaken(totalTimeTaken)));
+	// # Print ending message
+	// Only print overall message if more than one file involved
+	if (fileNum > 1) {
+
+		// If generation was instant
+		if (totalTimeTaken == 0) {
+
+			// Files must have generated before
+			print("All files were generated previously!");
+		} else {
+
+			// Else if took time, print total time taken
+			print(format("Total {}", Command::formatTimeTaken(totalTimeTaken)));
+		}
 	}
 }
 
@@ -150,7 +159,7 @@ void Generator::printUpdate(const int curFileNum, const double timeTaken) {
 	if (timeTaken == 0) {
 		timePart += "Previously";
 	} else {
-		timePart += Command::getTimeTaken(timeTaken);
+		timePart += Command::formatTimeTaken(timeTaken);
 	}
 
     // Add time part

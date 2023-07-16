@@ -161,12 +161,12 @@ double Command::getTimeTaken() const {
     return duration;
 }
 
-string Command::getTimeTaken(const double duration) {
+string Command::formatTimeTaken(const double duration) {
     return format("Time Taken: {} seconds", to_string(duration).erase(5));
 }
 
 void Command::printTimeTaken() const {
-    print(getTimeTaken(duration));
+    print(formatTimeTaken(duration));
 }
 
 string Command::getMutArg(const string& rawArg) {

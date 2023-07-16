@@ -21,8 +21,9 @@ public:
 
 	/**
 	 * @param mediaFilePaths Media folder paths
+	 * @param ffprobePath ffprobe.exe file path
 	*/
-	explicit MediaFileList(StringV mediaFolderPaths);
+	explicit MediaFileList(StringV mediaFolderPaths, const std::string ffprobePath);
 
 
 	// ### Public methods

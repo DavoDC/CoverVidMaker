@@ -16,7 +16,6 @@ using PathGetter = std::function<std::string(int)>;
 using GenComm = std::function<double(int)>;
 
 // Mutable Argument String Constants
-const std::string INPUT_AUDIO = "INPUT_AUDIO";
 const std::string INPUT_COVER = "INPUT_COVER";
 const std::string INPUT_DURATION = "INPUT_DURATION";
 const std::string OUTPUT_VIDEO = "OUTPUT_VIDEO";
