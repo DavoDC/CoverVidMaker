@@ -36,7 +36,7 @@ Processor::Processor(const string& mediaPath, const string& exePath) :
 	checkExecPaths({ ffmpegPath, ffprobePath });
 
 	// Scan audio files
-	mediaFileList = MediaFileList(mediaFilePaths);
+	mediaFileList = MediaFileList(mediaFilePaths, getFFPROBE());
 }
 
 

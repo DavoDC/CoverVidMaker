@@ -11,26 +11,24 @@
 using namespace std;
 using FSIterator = filesystem::recursive_directory_iterator;
 
-// Mutable Argument String Constant
-const std::string INPUT_AUDIO = "INPUT_AUDIO";
-
 
 // ### Constructors
 
-MediaFileList::MediaFileList() : fileNum(0), totalDuration(0)
+MediaFileList::MediaFileList() 
+	: fileNum(0), totalDuration(0)
 {
 }
 
-MediaFileList::MediaFileList(StringV mediaFolderPaths) : MediaFileList()
+MediaFileList::MediaFileList(StringV mediaFolderPaths, const string ffprobePath) 
+	: MediaFileList()
 {
 	// Initialize duration command
-	// TODO PUT IN SEPARATE CLASS, get ffprobe properly
 	StringV durCommArgs = {
 		"-v quiet -print_format",
 		"compact=print_section=0:nokey=1:escape=csv -show_entries",
 		"format=duration", Command::getMutArg(INPUT_AUDIO)
 	};
-	Command durComm = Command("FFMPEG/ffprobe.exe", durCommArgs);
+	Command durComm = Command(ffprobePath, durCommArgs);
 
 	// Extract audio path
 	const string audioPath = mediaFolderPaths[0];

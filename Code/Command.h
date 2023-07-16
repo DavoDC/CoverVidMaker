@@ -13,6 +13,10 @@
 // Map Type
 using StringIntMap = std::map<std::string, int>;
 
+// Mutable Argument String Constants
+const std::string INPUT_AUDIO = "INPUT_AUDIO";
+
+
 /**
  * @brief Represents a terminal command
 */
@@ -80,9 +84,9 @@ public:
 	double getTimeTaken() const;
 
 	/**
-	 * @return Time taken for the last run as a string.
+	 * @return Format a given time taken value as a string
 	*/
-	static std::string getTimeTaken(const double duration);
+	static std::string formatTimeTaken(const double duration);
 
 	/**
 	 * @brief Print time taken for the last run.
