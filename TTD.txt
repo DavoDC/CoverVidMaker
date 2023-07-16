@@ -3,8 +3,6 @@
 
 
 
-
-
 # COVER ISSUE
 
 Add checking for zero length file generated and fix
@@ -15,19 +13,24 @@ Add checking for zero length file generated and fix
 
 
 
-
+# DURATION 
 Improve duration process
 Duration command wrapper (but still takes ffprobe as normal)
 check ffprobe.exe in path!
+use composition!
 
 
 
+
+
+# MUTABLE COMMAND EXTENSION 
 
 Add inheritance for learning ! 
 - Check CPP learning !
 - Mutable command
 	- Check , must have mutable , can do in constructor
 
+has Mutable Arg check!  
 
 
 

@@ -15,6 +15,7 @@
 #include <codecvt>
 #include <locale>
 #include <cctype>
+#include <regex>
 
 // Namespace mods
 using namespace std;
@@ -129,38 +130,31 @@ void Processor::checkPaths(const StringV& paths, const string& successMsg,
 
 void Processor::sanitiseAudioFileNames(const string audioFolder)
 {
-	// For every audio file path
-	for (const auto& curPath : filesystem::directory_iterator(audioFolder)) {
-		if (curPath.path().extension() == L".mp3") {
+	FOR_EACH_AUDIO_FILE(audioFolder) {
 
-			// Sanitize path
-			wstring curFilename = curPath.path().filename();
-			int bufferSize = WideCharToMultiByte(CP_UTF8, 0, curFilename.c_str(), 
-				-1, nullptr, 0, nullptr, nullptr);
-			string sanitizedFilename(bufferSize, '\0');
-			WideCharToMultiByte(CP_UTF8, 0, curFilename.c_str(), -1, 
-				&sanitizedFilename[0], bufferSize, nullptr, nullptr);
+		// Get file name safely
+		wstring curFilename = filePath.filename();
+		int bufferSize = WideCharToMultiByte(CP_UTF8, 0, curFilename.c_str(),
+			-1, nullptr, 0, nullptr, nullptr);
+		string sanitizedFilename(bufferSize, '\0');
+		WideCharToMultiByte(CP_UTF8, 0, curFilename.c_str(), -1,
+			&sanitizedFilename[0], bufferSize, nullptr, nullptr);
 
-			// Replace " - " with " "
-			size_t startPos = 0;
-			while ((startPos = sanitizedFilename.find(" - ", startPos)) != string::npos) {
-				sanitizedFilename.replace(startPos, 3, " ");
-				startPos += 1; // Move past the replaced space
-			}
+		// Replace " - " with " "
+		replaceAll(sanitizedFilename, " - ", " ");
 
-			// Remove any characters other than alphanumeric, space, and dot
-			sanitizedFilename.erase(remove_if(sanitizedFilename.begin(), sanitizedFilename.end(), 
-				[](char c) {
-				return !(isalnum(c) || c == ' ' || c == '.');
-				}), sanitizedFilename.end());
+		// Remove any characters other than alphanumeric, space, and dot
+		sanitizedFilename = regex_replace(sanitizedFilename, regex("[^a-zA-Z0-9 .]"), "");
 
-			// Rename file
-			int wideBufferSize = MultiByteToWideChar(CP_UTF8, 0, 
-				sanitizedFilename.c_str(), -1, nullptr, 0);
-			wstring finalFilename(wideBufferSize, L'\0');
-			MultiByteToWideChar(CP_UTF8, 0, sanitizedFilename.c_str(), -1, 
-				&finalFilename[0], wideBufferSize);
-			filesystem::rename(curPath.path(), curPath.path().parent_path() / finalFilename);
-		}
-	}
+		// Remove double spaces
+		replaceAll(sanitizedFilename, "  ", " ");
+
+		// Rename file to sanitized name
+		int wideBufferSize = MultiByteToWideChar(CP_UTF8, 0,
+			sanitizedFilename.c_str(), -1, nullptr, 0);
+		wstring finalFilename(wideBufferSize, L'\0');
+		MultiByteToWideChar(CP_UTF8, 0, sanitizedFilename.c_str(), -1,
+			&finalFilename[0], wideBufferSize);
+		filesystem::rename(filePath, filePath.parent_path() / finalFilename);
+	});
 }

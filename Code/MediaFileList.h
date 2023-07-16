@@ -7,9 +7,23 @@
 #include "Common.h"
 #include "MediaFile.h"
 
-// File System Iterator
+
+// File System Iterator Lambda Macro
 #include <filesystem>
-using FSIterator = std::filesystem::recursive_directory_iterator;
+#include <functional>
+namespace fs = std::filesystem;
+namespace {
+	auto iterateMP3Files = [](const fs::path& audioFolder,
+		const std::function<void(const fs::path&)>& action) {
+			for (const auto& entry : fs::recursive_directory_iterator(audioFolder)) {
+				if (entry.path().extension() == L".mp3") {
+					action(entry.path());
+				}
+			}
+	};
+}
+#define FOR_EACH_AUDIO_FILE(PATH) iterateMP3Files(PATH, [&](const fs::path& filePath)
+
 
 /**
  * @brief Represents a list of media files

@@ -26,36 +26,28 @@ MediaFileList::MediaFileList(StringV mediaFolderPaths, const string ffprobePath)
 	};
 	Command durComm = Command(ffprobePath, durCommArgs);
 
-	// Extract audio path
+	// Iterate over audio files
 	const string audioPath = mediaFolderPaths[0];
-
-	// For every path in the Audio folder
-	for (const auto& curPath : FSIterator(audioPath)) {
+	FOR_EACH_AUDIO_FILE(audioPath) {
 
 		// Convert current path to string
-		const string curPathS = curPath.path().generic_string();
+		const string curPathS = filePath.generic_string();
 
-		// If it is a MP3 file
-		if (curPath.path().extension() == ".mp3") {
-
-			// Get duration
-			durComm.updateArg(INPUT_AUDIO, quoteD(curPathS));
-			durComm.run();
-			double rawDur = stod(durComm.getOutput()) + 2;
-			Seconds curDuration = static_cast<int>(round(rawDur));
+		// Get duration
+		durComm.updateArg(INPUT_AUDIO, quoteD(curPathS));
+		durComm.run();
+		double rawDur = stod(durComm.getOutput()) + 2;
+		Seconds curDuration = static_cast<int>(round(rawDur));
 			
-			// Add to total duration
-			totalDuration += curDuration;
+		// Add to total duration
+		totalDuration += curDuration;
 
-			// Create MediaFile and add to list
-			mediaFiles.emplace_back(curPathS, mediaFolderPaths, curDuration);
-		}
-	}
+		// Create MediaFile and add to list
+		mediaFiles.emplace_back(curPathS, mediaFolderPaths, curDuration);
+	});
 
-	// If no MediaFiles added
-	if (mediaFiles.empty())
-	{
-		// Notify and exit
+	// If no MediaFiles added, notify and exit
+	if (mediaFiles.empty()) {
 		printErr("No MP3 files found in " + quoteS(audioPath), true);
 	}
 
