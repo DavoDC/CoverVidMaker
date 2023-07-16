@@ -1,17 +1,12 @@
 
 ############# IMPROVEMENT IDEAS #############
 
-
-
-
-
 # DURATION 
-Improve duration process
-Duration command wrapper (but still takes ffprobe as normal)
-check ffprobe.exe in path!
-use composition!
+Simplify MediaFileList.cpp
 
+Duration command wrapper (uses composition), takes ffprobe only
 
+Check ffprobe.exe in path!
 
 
 
@@ -24,32 +19,4 @@ Add inheritance for learning !
 
 has Mutable Arg check!  
 
-
-
-
-
-
-### ESTIMATING TIME
-Do simple only (overall prediction at start)
-
-Use chatgpt to check correlation based on 50 files results
-Check which formula best fits , exponential , quadratic etc
-From one duration to time needed
-
-Create estimator in gen constructor
-- Give media files temporarily
-- Give file num and save it 
-- Create list of index+duration+time_taken
-
-print update takes with index and time taken 
-printUpdate(  1/3 message + estimator.getEstimate(i, timeTaken));
-
-Calculate estimates
-- Duration / genFavtor = time it will take
-- If gen factor is very high like with covers , don’t print estimates
-- using time taken scaling with duration, Linearly
-- Also use to calculate how long it will take for ALL files to be generated
-
-
-
-If slow =  Try nvidia acceleration options?
+Constructor is hard part

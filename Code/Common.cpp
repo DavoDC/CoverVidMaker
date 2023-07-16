@@ -81,7 +81,8 @@ string quoteD(const string& s)
 }
 
 
-// # Other Functions
+// # Filesystem Functions
+
 string getCleanPath(const string& path)
 {
     // Remove surrounding quotes if they exist

@@ -77,7 +77,8 @@ std::string quoteS(const std::string& s);
 std::string quoteD(const std::string& s);
 
 
-// # Other Functions
+
+// # Filesystem Functions
 
 /**
  * @return Cleaned path for use with fs::path functions

@@ -60,11 +60,6 @@ private:
     Command coverComm;
 
     /**
-     * @brief Duration command.
-    */
-    Command durComm;
-
-    /**
      * @brief Video maker command.
     */
     Command vidComm;
