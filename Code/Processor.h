@@ -124,4 +124,10 @@ private:
 	void checkPaths(const StringV& paths, const std::string& successMsg,
 		const std::function<void(const std::string&)>& errHandler);
 
+	/**
+	 * @brief Sanitize audio file names by renaming them
+	 * @param audioPath The audio folder path
+	*/
+	void sanitiseAudioFileNames(const std::string audioFolder);
+
 };

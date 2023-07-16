@@ -4,12 +4,8 @@
 #include "MediaFileList.h"
 #include "Command.h"
 
-// ### Libraries
-#include <filesystem>
-
 // Namespace mods
 using namespace std;
-using FSIterator = filesystem::recursive_directory_iterator;
 
 
 // ### Constructors

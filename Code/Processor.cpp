@@ -8,6 +8,13 @@
 
 // ### Libraries
 #include <functional>
+#include <filesystem>
+
+// File Path Sanitization Libraries
+#include <Windows.h>
+#include <codecvt>
+#include <locale>
+#include <cctype>
 
 // Namespace mods
 using namespace std;
@@ -35,7 +42,8 @@ Processor::Processor(const string& mediaPath, const string& exePath) :
 	// Check executables and notify
 	checkExecPaths({ ffmpegPath, ffprobePath });
 
-	// Scan audio files
+	// Sanitize audio files and scan
+	sanitiseAudioFileNames(audioPath);
 	mediaFileList = MediaFileList(mediaFilePaths, getFFPROBE());
 }
 
@@ -116,4 +124,43 @@ void Processor::checkPaths(const StringV& paths, const string& successMsg,
 
 	// If didn't exit, was successful:
 	printSuccess(successMsg);
+}
+
+
+void Processor::sanitiseAudioFileNames(const string audioFolder)
+{
+	// For every audio file path
+	for (const auto& curPath : filesystem::directory_iterator(audioFolder)) {
+		if (curPath.path().extension() == L".mp3") {
+
+			// Sanitize path
+			wstring curFilename = curPath.path().filename();
+			int bufferSize = WideCharToMultiByte(CP_UTF8, 0, curFilename.c_str(), 
+				-1, nullptr, 0, nullptr, nullptr);
+			string sanitizedFilename(bufferSize, '\0');
+			WideCharToMultiByte(CP_UTF8, 0, curFilename.c_str(), -1, 
+				&sanitizedFilename[0], bufferSize, nullptr, nullptr);
+
+			// Replace " - " with " "
+			size_t startPos = 0;
+			while ((startPos = sanitizedFilename.find(" - ", startPos)) != string::npos) {
+				sanitizedFilename.replace(startPos, 3, " ");
+				startPos += 1; // Move past the replaced space
+			}
+
+			// Remove any characters other than alphanumeric, space, and dot
+			sanitizedFilename.erase(remove_if(sanitizedFilename.begin(), sanitizedFilename.end(), 
+				[](char c) {
+				return !(isalnum(c) || c == ' ' || c == '.');
+				}), sanitizedFilename.end());
+
+			// Rename file
+			int wideBufferSize = MultiByteToWideChar(CP_UTF8, 0, 
+				sanitizedFilename.c_str(), -1, nullptr, 0);
+			wstring finalFilename(wideBufferSize, L'\0');
+			MultiByteToWideChar(CP_UTF8, 0, sanitizedFilename.c_str(), -1, 
+				&finalFilename[0], wideBufferSize);
+			filesystem::rename(curPath.path(), curPath.path().parent_path() / finalFilename);
+		}
+	}
 }

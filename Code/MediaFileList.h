@@ -7,6 +7,10 @@
 #include "Common.h"
 #include "MediaFile.h"
 
+// File System Iterator
+#include <filesystem>
+using FSIterator = std::filesystem::recursive_directory_iterator;
+
 /**
  * @brief Represents a list of media files
 */
