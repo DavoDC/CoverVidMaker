@@ -6,7 +6,7 @@ This C++ console program converts MP3 audio files to MP4 videos by using the alb
 - Utilizes **FFMPEG** ([Official Site](https://www.ffmpeg.org/about.html), [GitHub Releases](https://github.com/GyanD/codexffmpeg/releases)), so I'm grateful for the FFMPEG team's work.
 - Was originally a series of Batch scripts created on June 4th, 2023.
 - Currently exclusive to developers (runs through Visual Studio).
-- For Windows OS only (Command class is designed for Windows)
+- For Windows OS only (Command class is designed for Windows).
 
 
 ## Features
@@ -14,6 +14,8 @@ This C++ console program converts MP3 audio files to MP4 videos by using the alb
 - Much easier to work with compared to batch scripts.
 - Achieves desired results with just a single click.
 - No restrictions on the number of files or video duration.
+- Can handle audio filenames with special characters.
+- Can handle audio files with irregular album art.
 
 
 ## Alternatives
