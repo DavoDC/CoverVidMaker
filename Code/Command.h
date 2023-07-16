@@ -13,7 +13,7 @@
 // Map Type
 using StringIntMap = std::map<std::string, int>;
 
-// Mutable Argument String Constants
+// Mutable Argument String Constant
 const std::string INPUT_AUDIO = "INPUT_AUDIO";
 
 
