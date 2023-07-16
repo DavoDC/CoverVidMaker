@@ -6,12 +6,8 @@
 // Needed Headers
 #include "Command.h"
 
-// ### Libraries
-#include <functional>
-#include <filesystem>
-
 // File Path Sanitization Libraries
-#include <Windows.h>
+#include <windows.h>
 #include <codecvt>
 #include <locale>
 #include <cctype>
@@ -72,7 +68,7 @@ void Processor::checkFolderPaths(const StringV& folderPaths)
 {
 	// Define handling of missing folders
 	auto folderErrorFunc = [](const string& folderPath) {
-		printErr("Folder missing: " + quoteS(folderPath));
+		printErr("Folder missing: " + quoteS(folderPath), true);
 	};
 
 	// Check folder paths
@@ -86,7 +82,7 @@ void Processor::checkExecPaths(const StringV& exePaths)
 	auto execErrorFunc = [](const string& exePath) {
 
 		// Notify
-		printErr("FFMPEG executable missing: " + quoteS(exePath));
+		printErr("FFMPEG executable missing: " + quoteS(exePath), true);
 
 		// Open download page
 		const string dwlURL = "https://github.com/GyanD/codexffmpeg/releases";
@@ -128,7 +124,7 @@ void Processor::checkPaths(const StringV& paths, const string& successMsg,
 }
 
 
-void Processor::sanitiseAudioFileNames(const string audioFolder)
+void Processor::sanitiseAudioFileNames(const string& audioFolder)
 {
 	FOR_EACH_AUDIO_FILE(audioFolder) {
 
@@ -155,6 +151,6 @@ void Processor::sanitiseAudioFileNames(const string audioFolder)
 		wstring finalFilename(wideBufferSize, L'\0');
 		MultiByteToWideChar(CP_UTF8, 0, sanitizedFilename.c_str(), -1,
 			&finalFilename[0], wideBufferSize);
-		filesystem::rename(filePath, filePath.parent_path() / finalFilename);
+		fs::rename(filePath, filePath.parent_path() / finalFilename);
 	});
 }

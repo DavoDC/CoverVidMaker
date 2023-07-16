@@ -8,11 +8,9 @@
 #include <iomanip>
 #include <ranges>
 #include <string_view>
-#include <filesystem>
 
 // Namespace mods
 using namespace std;
-namespace fs = filesystem;
 
 
 // ### Function Definitions
@@ -84,17 +82,33 @@ string quoteD(const string& s)
 
 
 // # Other Functions
-
-bool isPathValid(const std::string& path) {
-    std::string cleanedPath = path;
-
+string getCleanPath(const string& path)
+{
     // Remove surrounding quotes if they exist
+    string cleanedPath = path;
     if (!cleanedPath.empty()
         && cleanedPath.front() == '"'
         && cleanedPath.back() == '"') {
         cleanedPath = cleanedPath.substr(1, cleanedPath.size() - 2);
     }
+    return cleanedPath;
+}
 
-    fs::path filePath(cleanedPath);
-    return fs::exists(filePath);
+bool isPathValid(const string& path) {
+    return fs::exists(fs::path(getCleanPath(path)));
+}
+
+bool isFileNonEmpty(const string& path) {
+
+    // If file exists
+    string cleanPath = getCleanPath(path);
+    if (isPathValid(cleanPath)) {
+
+        // Return true if non-empty,  false if empty
+        return fs::file_size(cleanPath) != 0;
+    } else {
+
+        // Else if file doesn't exist, return false
+        return false;
+    }
 }

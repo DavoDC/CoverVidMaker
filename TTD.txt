@@ -3,14 +3,6 @@
 
 
 
-# COVER ISSUE
-
-Add checking for zero length file generated and fix
--> seems to do with covers above 1000x1000
--> covers where width doesn't match height
--> via ffmpeg options, fix max H and W to 1000 or smth
-
-
 
 
 # DURATION 

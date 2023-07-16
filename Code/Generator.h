@@ -9,7 +9,6 @@
 // Needed Headers
 #include "Processor.h"
 #include "Command.h"
-#include <functional>
 
 // Function Types
 using PathGetter = std::function<std::string(int)>;

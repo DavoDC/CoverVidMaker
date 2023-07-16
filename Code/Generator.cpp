@@ -25,7 +25,8 @@ Generator::Generator(Processor& proc) :
 		"-loglevel error",
 		"-i", Command::getMutArg(INPUT_AUDIO),
 		"-an",
-		"-vcodec copy",
+		"-vf", "scale=1000:1000",
+		"-c:v", "png",
 		"-y", Command::getMutArg(OUTPUT_COVER)
 	};
 	coverComm = Command(ffmpegPath, coverCommArgs);
@@ -113,13 +114,25 @@ void Generator::generateMedia(const string& actionDesc,
 		double timeTaken = runGenComm(i);
 		totalTimeTaken += timeTaken;
 
-		// If the file was successfully generated
+		// If the file was created
 		if (isPathValid(outputFilePath)) {
 
-			// Increment count and notify
-			printUpdate(++count, timeTaken);
+			// If the file is not empty
+			if (isFileNonEmpty(outputFilePath))
+			{
+				// Generation was successful!
+				// Increment count and notify
+				printUpdate(++count, timeTaken);
+			} else {
+
+				// Else if file is empty, delete it and notify
+				fs::remove(getCleanPath(outputFilePath));
+				printErr("Generated empty file: " + outputFilePath);
+			}
+
 		} else {
-			// Notify if generation failed
+
+			// Else if file doesn't exist, notify
 			printErr("Failed to generate: " + outputFilePath);
 		}
 	}
