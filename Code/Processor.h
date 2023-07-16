@@ -8,7 +8,6 @@
 
 // Include needed headers
 #include "MediaFileList.h"
-#include <functional>
 
 
 /**
@@ -128,6 +127,6 @@ private:
 	 * @brief Sanitize audio file names by renaming them
 	 * @param audioPath The audio folder path
 	*/
-	void sanitiseAudioFileNames(const std::string audioFolder);
+	void sanitiseAudioFileNames(const std::string& audioFolder);
 
 };

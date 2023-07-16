@@ -9,9 +9,6 @@
 
 
 // File System Iterator Lambda Macro
-#include <filesystem>
-#include <functional>
-namespace fs = std::filesystem;
 namespace {
 	auto iterateMP3Files = [](const fs::path& audioFolder,
 		const std::function<void(const fs::path&)>& action) {
@@ -41,7 +38,7 @@ public:
 	 * @param mediaFilePaths Media folder paths
 	 * @param ffprobePath ffprobe.exe file path
 	*/
-	explicit MediaFileList(StringV mediaFolderPaths, const std::string ffprobePath);
+	explicit MediaFileList(StringV mediaFolderPaths, const std::string& ffprobePath);
 
 
 	// ### Public methods

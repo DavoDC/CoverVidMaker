@@ -7,12 +7,19 @@
 #include <string>
 #include <vector>
 #include <format>
+#include <filesystem>
+#include <functional>
+
 
 // String Vector Type
 using StringV = std::vector<std::string>;
 
 // Seconds Type
 using Seconds = int;
+
+
+// Filesystem Namespace Mod
+namespace fs = std::filesystem;
 
 
 // ### Function Declarations
@@ -73,6 +80,16 @@ std::string quoteD(const std::string& s);
 // # Other Functions
 
 /**
- * @return True if the given path is valid.
+ * @return Cleaned path for use with fs::path functions
+*/
+std::string getCleanPath(const std::string& path);
+
+/**
+ * @return True if the given path exists.
 */
 bool isPathValid(const std::string& path);
+
+/**
+ * @return True if the given file path is non-empty
+*/
+bool isFileNonEmpty(const std::string& path);

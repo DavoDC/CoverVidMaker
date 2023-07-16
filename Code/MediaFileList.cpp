@@ -15,7 +15,7 @@ MediaFileList::MediaFileList()
 {
 }
 
-MediaFileList::MediaFileList(StringV mediaFolderPaths, const string ffprobePath) 
+MediaFileList::MediaFileList(StringV mediaFolderPaths, const string& ffprobePath) 
 	: MediaFileList()
 {
 	// Initialize duration command
