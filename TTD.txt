@@ -1,27 +1,16 @@
 
-############# TTD NEW #############
+############# IMPROVEMENT IDEAS #############
 
 
 
 
 
-
-
+# COVER ISSUE
 
 Add checking for zero length file generated and fix
-->  seems to do with covers above 1000x1000
+-> seems to do with covers above 1000x1000
 -> covers where width doesn't match height
--> try to fix via CLI
-
-
-
-Sanitize strings , prevent ones like these from crashing:
-Kanako Itō - Hacking to the Gate
-Yuko Ogura - Girls ♥ Boys
-
-
-
-
+-> via ffmpeg options, fix max H and W to 1000 or smth
 
 
 
@@ -29,6 +18,7 @@ Yuko Ogura - Girls ♥ Boys
 
 Improve duration process
 Duration command wrapper (but still takes ffprobe as normal)
+check ffprobe.exe in path!
 
 
 
