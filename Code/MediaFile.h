@@ -3,7 +3,6 @@
 // MediaFile.h
 
 // ### Headers
-// Include common
 #include "Common.h"
 
 /**
@@ -20,17 +19,17 @@ public:
 	/**
 	 * @return Audio file path
 	*/
-	const std::string getAFP() const;
+	const std::string getAudioFP() const;
 
 	/**
 	 * @return Cover file path
 	*/
-	const std::string getCFP() const;
+	const std::string getCoverFP() const;
 
 	/**
 	 * @return Video file path
 	*/
-	const std::string getVFP() const;
+	const std::string getVideoFP() const;
 
 	/**
 	 * @brief Get the duration of the audio file.

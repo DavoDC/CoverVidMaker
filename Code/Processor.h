@@ -3,12 +3,8 @@
 // Processor.h
 
 // ### Headers
-// Include common
 #include "Common.h"
-
-// Include needed headers
 #include "MediaFileList.h"
-
 
 /**
  * @brief Processes input files and folders
@@ -18,87 +14,74 @@ public:
     // ### Constructor
 
     /**
-     * @param mediaPath Media folder path
-     * @param execsPath Executable folder path
+     * @param mediaFolder Media folder path
+     * @param exeFolder Executable folder path
     */
-    Processor(const std::string& mediaPath, const std::string& execsPath);
-
+    Processor(const std::string& mediaFolder, const std::string& exeFolder);
 
 	// ### Public methods
 
 	/**
 	 * @return ffmpeg.exe file path
 	*/
-	std::string getFFMPEG() const;
+	std::string getFFMPEGexe() const;
 
 	/**
 	 * @return ffprobe.exe file path
 	*/
-	std::string getFFPROBE() const;
+	std::string getFFPROBEexe() const;
 
 	/**
 	 * @return Media file list
 	*/
 	MediaFileList& getMediaFiles();
 
-
 private:
 	// ### Private fields
-
-
 
 	// # Media Paths
 
 	/**
 	 * @brief Media folder path
 	*/
-	const std::string mediaPath;
+	const std::string mediaFolder;
 
 	/**
 	 * @brief Audio files (MP3s) folder path
 	*/
-	const std::string audioPath;
+	const std::string audioFolder;
 
 	/**
 	 * @brief Album cover files (PNGs) folder path
 	*/
-	const std::string coverPath;
+	const std::string coverFolder;
 
 	/**
 	 * @brief Video files (MP4s) folder path
 	*/
-	const std::string videoPath;
-
-
-
+	const std::string videoFolder;
 
 	// # Executable Paths
 
 	/**
 	 * @brief Executable folder path
 	*/
-	const std::string exePath;
+	const std::string exeFolder;
 
 	/**
 	 * @brief ffmpeg.exe file path
 	*/
-	const std::string ffmpegPath;
+	const std::string ffmpegFile;
 
 	/**
 	 * @brief ffprobe.exe file path
 	*/
-	const std::string ffprobePath;
-
-
-
+	const std::string ffprobeFile;
 
 	/**
 	 * @brief Media file list
 	*/
 	MediaFileList mediaFileList;
-
-
-
 
 	// ### Private methods
 
@@ -109,10 +92,10 @@ private:
 	void checkFolderPaths(const StringV& folderPaths);
 
 	/**
-	 * @brief Check executable paths
-	 * @param execPaths The list of executable paths to check
+	 * @brief Check executable files
+	 * @param execPaths The list of executable file paths
 	*/
-	void checkExecPaths(const StringV& execPaths);
+	void checkExecPaths(const StringV& exeFilePaths);
 
 	/**
 	 * @brief Check a given list of paths, handling success and errors in a given way.
@@ -122,11 +105,4 @@ private:
 	*/
 	void checkPaths(const StringV& paths, const std::string& successMsg,
 		const std::function<void(const std::string&)>& errHandler);
-
-	/**
-	 * @brief Sanitize audio file names by renaming them
-	 * @param audioPath The audio folder path
-	*/
-	void sanitiseAudioFileNames(const std::string& audioFolder);
-
 };

@@ -1,7 +1,6 @@
 #pragma once
 
 // Common.h
-// Global essentials (e.g. helper functions)
 
 // Global Libraries
 #include <string>
@@ -10,17 +9,14 @@
 #include <filesystem>
 #include <functional>
 
-
 // String Vector Type
 using StringV = std::vector<std::string>;
 
 // Seconds Type
 using Seconds = int;
 
-
 // Filesystem Namespace Mod
 namespace fs = std::filesystem;
-
 
 // ### Function Declarations
 
@@ -43,10 +39,9 @@ void printSuccess(const std::string& msg);
 /**
  * @brief Prints an error message.
  * @param msg The message.
- * @param exitAfter Toggle exiting after printing (Default: false)
+ * @param exitAfter Toggle exiting after printing (Default: false).
 */
 void printErr(const std::string& msg, bool exitAfter = false);
-
 
 
 // # String Functions
@@ -77,11 +72,10 @@ std::string quoteS(const std::string& s);
 std::string quoteD(const std::string& s);
 
 
-
 // # Filesystem Functions
 
 /**
- * @return Cleaned path for use with fs::path functions
+ * @return Cleaned path for use with fs::path functions.
 */
 std::string getCleanPath(const std::string& path);
 
@@ -91,6 +85,6 @@ std::string getCleanPath(const std::string& path);
 bool isPathValid(const std::string& path);
 
 /**
- * @return True if the given file path is non-empty
+ * @return True if the given file path exists and is non-empty.
 */
 bool isFileNonEmpty(const std::string& path);

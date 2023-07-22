@@ -16,6 +16,7 @@
     <ClCompile Include="..\Code\DurComm.cpp" />
     <ClCompile Include="..\Code\MediaFile.cpp" />
     <ClCompile Include="..\Code\MediaFileList.cpp" />
+    <ClCompile Include="..\Code\MutComm.cpp" />
     <ClCompile Include="..\Code\Processor.cpp" />
     <ClCompile Include="..\Code\Main.cpp" />
     <ClCompile Include="..\Code\Generator.cpp" />
@@ -27,6 +28,7 @@
     <ClInclude Include="..\Code\Generator.h" />
     <ClInclude Include="..\Code\MediaFile.h" />
     <ClInclude Include="..\Code\MediaFileList.h" />
+    <ClInclude Include="..\Code\MutComm.h" />
     <ClInclude Include="..\Code\Processor.h" />
   </ItemGroup>
   <ItemGroup>

@@ -4,14 +4,8 @@
 #include "Command.h"
 #include <chrono>
 
-// Namespace mods
+// Namespace mod
 using namespace std;
-
-// Constants
-// Mutable argument delimiter and length
-const string Command::maDelim = "$$";
-const size_t Command::madLen = maDelim.size();
-
 
 // ### Constructors
 
@@ -37,29 +31,7 @@ Command::Command(const string& progName, const StringV& argList) :
     progName(progName), argList(argList), duration(0)
 {
     // Save arguments
-
-    // ### Build mutable argument map
-
-    // For each argument
-    for (int i = 0; i < argList.size(); ++i) {
-
-        // Extract argument
-        const string& curArg = argList[i];
-
-        // If argument is mutable (i.e has delimiters)
-        if (curArg.size() > madLen * madLen &&
-            curArg.substr(0, madLen) == maDelim &&
-            curArg.substr(curArg.size() - madLen, madLen) == maDelim) {
-
-            // Extract mutable argument name
-            string mutArgName = curArg.substr(madLen, curArg.size() - madLen * madLen);
-
-            // Save to map (key is name, position is value)
-            mutableArgMap[mutArgName] = i;
-        }
-    }
 }
-
 
 // ### Public methods
 
@@ -145,7 +117,7 @@ string Command::toString() const {
     return tempOutput;
 }
 
-void Command::printCommand() const {
+void Command::printAsString() const {
     print(quoteS(" " + toString()));
 }
 
@@ -169,32 +141,21 @@ void Command::printTimeTaken() const {
     print(formatTimeTaken(duration));
 }
 
-string Command::getMutArg(const string& rawArg) {
-    return maDelim + rawArg + maDelim;
-}
+// ## Protected methods
 
-void Command::updateArg(const string& mutArgName, const string& newArgVal) {
+void Command::updateArg(int argPosition, std::string newArgVal) {
 
-    // Look for mutable arg in map
-    auto iter = mutableArgMap.find(mutArgName);
+    // If argument position is valid
+    if (argPosition >= 0 && argPosition < argList.size()) {
 
-    // If found
-    if (iter != mutableArgMap.end()) {
+        // Update argument at that position
+        argList[argPosition] = newArgVal;
+    } else {
 
-        // Retrieve the position of the argument in the argList
-        int argPosition = iter->second;
-
-        // Update the argument value at the specified position
-        if (argPosition >= 0 && argPosition < argList.size()) {
-            argList[argPosition] = newArgVal;
-        }
-    }
-    else {
-        // Else if not found, notify
-        printErr("Mutable argument not found");
+        // Else if position invalid, notify and exit
+        printErr("Invalid argument position", true);
     }
 }
-
 
 // ## Private methods
 
