@@ -13,13 +13,13 @@ MediaFile::MediaFile(const string& audioFilePath, StringV mediaFilePaths,
 	audioFilePath(audioFilePath), duration(duration)
 {
 	// Extract media file/folder paths
-	const string audioPath = mediaFilePaths[0];
-	const string coverPath = mediaFilePaths[1];
-	const string videoPath = mediaFilePaths[2];
+	const string audioFolder = mediaFilePaths[0];
+	const string coverFolder = mediaFilePaths[1];
+	const string videoFolder = mediaFilePaths[2];
 
 	// Initialize cover and video file paths
-	this->coverFilePath = getMediaFilePath(audioFilePath, audioPath, coverPath, ".png");
-	this->videoFilePath = getMediaFilePath(audioFilePath, audioPath, videoPath, ".mp4");
+	this->coverFilePath = getMediaFilePath(audioFilePath, audioFolder, coverFolder, ".png");
+	this->videoFilePath = getMediaFilePath(audioFilePath, audioFolder, videoFolder, ".mp4");
 }
 
 
