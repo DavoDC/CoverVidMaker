@@ -3,6 +3,7 @@
 // Header
 #include "MediaFileList.h"
 #include "Command.h"
+#include "DurComm.h"
 
 // Namespace mods
 using namespace std;
@@ -10,40 +11,30 @@ using namespace std;
 
 // ### Constructors
 
-MediaFileList::MediaFileList() 
-	: fileNum(0), totalDuration(0)
+MediaFileList::MediaFileList() : fileNum(0), totalDuration(0)
 {
 }
 
-MediaFileList::MediaFileList(StringV mediaFolderPaths, const string& ffprobePath) 
-	: MediaFileList()
+MediaFileList::MediaFileList(StringV mediaFolderPaths, const string& ffprobePath) : MediaFileList()
 {
 	// Initialize duration command
-	StringV durCommArgs = {
-		"-v quiet -print_format",
-		"compact=print_section=0:nokey=1:escape=csv -show_entries",
-		"format=duration", Command::getMutArg(INPUT_AUDIO)
-	};
-	Command durComm = Command(ffprobePath, durCommArgs);
+	DurComm durComm = DurComm(ffprobePath);
 
 	// Iterate over audio files
 	const string audioPath = mediaFolderPaths[0];
 	FOR_EACH_AUDIO_FILE(audioPath) {
 
-		// Convert current path to string
-		const string curPathS = filePath.generic_string();
+		// Get audio file path as a string
+		const string curAudioFP = filePath.generic_string();
 
 		// Get duration
-		durComm.updateArg(INPUT_AUDIO, quoteD(curPathS));
-		durComm.run();
-		double rawDur = stod(durComm.getOutput()) + 2;
-		Seconds curDuration = static_cast<int>(round(rawDur));
+		Seconds curDuration = durComm.getDuration(curAudioFP);
 			
 		// Add to total duration
 		totalDuration += curDuration;
 
 		// Create MediaFile and add to list
-		mediaFiles.emplace_back(curPathS, mediaFolderPaths, curDuration);
+		mediaFiles.emplace_back(curAudioFP, mediaFolderPaths, curDuration);
 	});
 
 	// If no MediaFiles added, notify and exit
@@ -56,7 +47,7 @@ MediaFileList::MediaFileList(StringV mediaFolderPaths, const string& ffprobePath
 	this->fileNum = static_cast<int>(mediaFiles.size());
 
 	// Notify
-	printSuccess(to_string(fileNum) + " MP3 Files Found");
+	printSuccess(to_string(fileNum) + " MP3 File(s) Found");
 }
 
 

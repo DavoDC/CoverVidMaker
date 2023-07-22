@@ -65,9 +65,9 @@ void replaceAll(string& source, const string& from, const string& to)
     source.swap(newString);
 }
 
-bool contains(const string& s1, const string& s2)
+bool contains(const string& source, const string& query)
 {
-    return strstr(s1.c_str(), s2.c_str());
+    return source.find(query) != string::npos;
 }
 
 string quoteS(const string& s)
