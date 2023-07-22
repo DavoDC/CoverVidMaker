@@ -4,7 +4,7 @@
 
 // ### Headers
 #include "Common.h"
-#include "Command.h"
+#include "MutComm.h"
 
 /**
  * @brief Represents a terminal command that gets the duration of an audio file.
@@ -25,14 +25,14 @@ public:
 	/**
 	 * @return The duration of an audio file at a given filepath.
 	*/
-	Seconds getDuration(const std::string audioFilePath);
+	Seconds getDuration(const std::string& audioFilePath);
 
 private:
 
 	// ### Private fields
 
 	/**
-	 * @brief Underlying Command
+	 * @brief Underlying Mutable Command
 	*/
-	Command durationCommand;
+	MutComm command;
 };

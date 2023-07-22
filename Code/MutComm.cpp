@@ -6,16 +6,19 @@
 // Namespace mod
 using namespace std;
 
-// Mutable argument delimiter and length
+// Delimiter and length
 static const string delim = "$$";
 static const size_t dLen = delim.size();
 
 // ### Constructors
 
-MutComm::MutComm(const std::string& progName, const StringV& argList)
+MutComm::MutComm()
 {
-    // ### Build mutable argument map
+}
 
+MutComm::MutComm(const string& progName, const StringV& argList) 
+    : Command(progName, argList)
+{
     // Flag for tracking if mutable argument found
     bool mutArgFound = false;
 
@@ -39,7 +42,7 @@ MutComm::MutComm(const std::string& progName, const StringV& argList)
         }
     }
 
-    // If not mutable arguments found, notify and exit
+    // If no mutable arguments found, notify and exit
     if (!mutArgFound) {
         printErr("No mutable arguments given to MutComm constructor", true);
     }
@@ -70,7 +73,7 @@ void MutComm::updateMutArg(const string& mutArgName, const string& newArgVal) {
 
 // ### Private Methods
 
-bool MutComm::isMutArg(const std::string& arg) {
+bool MutComm::isMutArg(const string& arg) {
 
     // If the argument size is less than twice the delimiter length
     if (arg.size() < dLen * 2) {

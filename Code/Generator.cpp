@@ -23,13 +23,13 @@ Generator::Generator(Processor& proc) :
 	StringV coverCommArgs = {
 		"-hide_banner",
 		"-loglevel error",
-		"-i", Command::getMutArg(INPUT_AUDIO),
+		"-i", MutComm::getMutArg(INPUT_AUDIO),
 		"-an",
 		"-vf", "scale=1000:1000",
 		"-c:v", "png",
-		"-y", Command::getMutArg(OUTPUT_COVER)
+		"-y", MutComm::getMutArg(OUTPUT_COVER)
 	};
-	coverComm = Command(ffmpegFile, coverCommArgs);
+	coverComm = MutComm(ffmpegFile, coverCommArgs);
 
 	// Extract covers
 	extractCovers();
@@ -39,18 +39,18 @@ Generator::Generator(Processor& proc) :
 		"-hide_banner",
 		"-loglevel error",
 		"-loop 1",
-		"-i", Command::getMutArg(INPUT_COVER),
-		"-i", Command::getMutArg(INPUT_AUDIO),
+		"-i", MutComm::getMutArg(INPUT_COVER),
+		"-i", MutComm::getMutArg(INPUT_AUDIO),
 		"-c:v libx264",
 		"-preset fast",
 		"-tune stillimage",
 		"-c:a copy",
 		"-pix_fmt yuv420p",
 		"-b:v 1M",
-		"-t", Command::getMutArg(INPUT_DURATION),
-		"-y", Command::getMutArg(OUTPUT_VIDEO)
+		"-t", MutComm::getMutArg(INPUT_DURATION),
+		"-y", MutComm::getMutArg(OUTPUT_VIDEO)
 	};
-	vidComm = Command(ffmpegFile, vidCommArgs);
+	vidComm = MutComm(ffmpegFile, vidCommArgs);
 
 	// Make videos
 	makeVideos();
@@ -61,8 +61,8 @@ void Generator::extractCovers() {
 	generateMedia("Extracting Covers",
 		[this](int i) { return mediaFiles.getCover(i); },
 		[this](int i) {
-			coverComm.updateArg(INPUT_AUDIO, mediaFiles.getAudio(i));
-			coverComm.updateArg(OUTPUT_COVER, mediaFiles.getCover(i));
+			coverComm.updateMutArg(INPUT_AUDIO, mediaFiles.getAudio(i));
+			coverComm.updateMutArg(OUTPUT_COVER, mediaFiles.getCover(i));
 			coverComm.run();
 			return coverComm.getTimeTaken();
 		});
@@ -73,10 +73,10 @@ void Generator::makeVideos() {
 	generateMedia("Making Videos",
 		[this](int i) { return mediaFiles.getVideo(i); },
 		[this](int i) {
-			vidComm.updateArg(INPUT_AUDIO, mediaFiles.getAudio(i));
-			vidComm.updateArg(INPUT_DURATION, mediaFiles.getDuration(i));
-			vidComm.updateArg(INPUT_COVER, mediaFiles.getCover(i));
-			vidComm.updateArg(OUTPUT_VIDEO, mediaFiles.getVideo(i));
+			vidComm.updateMutArg(INPUT_AUDIO, mediaFiles.getAudio(i));
+			vidComm.updateMutArg(INPUT_DURATION, mediaFiles.getDuration(i));
+			vidComm.updateMutArg(INPUT_COVER, mediaFiles.getCover(i));
+			vidComm.updateMutArg(OUTPUT_VIDEO, mediaFiles.getVideo(i));
 			vidComm.run();
 			return vidComm.getTimeTaken();
 		});

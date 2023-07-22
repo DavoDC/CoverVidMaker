@@ -6,41 +6,38 @@
 // Namespace mods
 using namespace std;
 
-
 // ### Constructor
 
-DurComm::DurComm(const std::string& ffprobePath)
+DurComm::DurComm(const string& ffprobePath)
 {
-	// Check FFPROBE path
+	// If program name doesn't contain FFPROBE executable, notify and exit
 	if (!contains(ffprobePath, "ffprobe.exe")) {
-
-		// If path doesn't contain correct EXE, notify and exit
-		string msg = "DurComm needs 'ffprobe.exe' but was given {}";
-		printErr(format(msg, quoteS(ffprobePath)), true);
+		string msg = "DurComm needs 'ffprobe.exe' but was given ";
+		printErr(msg + quoteS(ffprobePath), true);
 	}
 
 	// Setup argument list
 	StringV durCommArgs = {
 		"-v quiet -print_format",
 		"compact=print_section=0:nokey=1:escape=csv -show_entries",
-		"format=duration", Command::getMutArg(INPUT_AUDIO)
+		"format=duration", MutComm::getMutArg(INPUT_AUDIO)
 	};
 
 	// Initialize underlying command
-	durationCommand = Command(ffprobePath, durCommArgs);
+	command = MutComm(ffprobePath, durCommArgs);
 }
 
 // ### Public methods
 
-Seconds DurComm::getDuration(const std::string audioFilePath)
+Seconds DurComm::getDuration(const string& audioFilePath)
 {
 	// Update audio path
-	durationCommand.updateArg(INPUT_AUDIO, quoteD(audioFilePath));
+	command.updateMutArg(INPUT_AUDIO, quoteD(audioFilePath));
 
 	// Run command
-	durationCommand.run();
+	command.run();
 
 	// Extract numerical duration from output
-	double rawDur = stod(durationCommand.getOutput()) + 2;
+	double rawDur = stod(command.getOutput()) + 2;
 	return static_cast<int>(round(rawDur));
 }

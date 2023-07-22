@@ -89,7 +89,7 @@ protected:
 	 * @param argPosition The position.
 	 * @param newArgVal The new argument value.
 	*/
-	void updateArg(int argPosition, std::string newArgVal);
+	void updateArg(int argPosition, const std::string& newArgVal);
 
 private:
 

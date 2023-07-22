@@ -43,13 +43,13 @@ Processor::Processor(const string& mediaPath, const string& exePath) :
 }
 
 
-std::string Processor::getFFMPEGexe() const
+string Processor::getFFMPEGexe() const
 {
 	return quoteD(ffmpegFile);
 }
 
 
-std::string Processor::getFFPROBEexe() const
+string Processor::getFFPROBEexe() const
 {
 	return quoteD(ffprobeFile);
 }

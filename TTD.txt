@@ -2,16 +2,5 @@
 ############# IMPROVEMENT IDEAS #############
 
 
+when changes settle = media file list constructor = change to one for loop
 
-
-
-# MUTABLE COMMAND EXTENSION 
-
-Add inheritance for learning ! 
-- Check CPP learning !
-- Mutable command
-	- Check , must have mutable , can do in constructor
-
-has Mutable Arg check!  
-
-Constructor is hard part
