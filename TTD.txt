@@ -1,6 +1,2 @@
 
 ############# IMPROVEMENT IDEAS #############
-
-
-when changes settle = media file list constructor = change to one for loop
-

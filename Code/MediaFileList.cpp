@@ -2,7 +2,6 @@
 
 // Header
 #include "MediaFileList.h"
-#include "Command.h"
 #include "DurComm.h"
 #include <regex>
 
@@ -29,12 +28,13 @@ MediaFileList::MediaFileList() : fileNum(0), totalDuration(0)
 {
 }
 
-MediaFileList::MediaFileList(StringV mediaFolderPaths, const string& ffprobePath) : MediaFileList()
+MediaFileList::MediaFileList(StringV mediaFolderPaths, const string& ffprobePath) 
+	: MediaFileList()
 {
-	// Extract audio folder 
+	// Extract audio folder
 	const string audioFolder = mediaFolderPaths[0];
 
-	// Iterate over raw audio files to sanitize them
+	// Iterate over raw audio files to sanitize their filenames
 	FOR_EACH_AUDIO_FILE(audioFolder) {
 
 		// Get file name safely
@@ -82,17 +82,17 @@ MediaFileList::MediaFileList(StringV mediaFolderPaths, const string& ffprobePath
 		mediaFiles.emplace_back(curAudioFP, mediaFolderPaths, curDuration);
 	});
 
-	// If no MediaFiles added, notify and exit
+	// If no MediaFiles added
 	if (mediaFiles.empty()) {
+
+		// Notify and exit
 		printErr("No MP3 files found in " + quoteS(audioFolder), true);
+	} else {
+
+		// Otherwise, save count and notify
+		this->fileNum = static_cast<int>(mediaFiles.size());
+		printSuccess(to_string(fileNum) + " MP3 File(s) Found");
 	}
-
-	// # Else if at least one file was added:
-	// Save file count
-	this->fileNum = static_cast<int>(mediaFiles.size());
-
-	// Notify
-	printSuccess(to_string(fileNum) + " MP3 File(s) Found");
 }
 
 

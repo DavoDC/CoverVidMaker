@@ -2,8 +2,6 @@
 
 // Header
 #include "Processor.h"
-
-// Needed Headers
 #include "Command.h"
 
 // File Path Sanitization Libraries
