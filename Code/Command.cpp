@@ -143,7 +143,7 @@ void Command::printTimeTaken() const {
 
 // ## Protected methods
 
-void Command::updateArg(int argPosition, std::string newArgVal) {
+void Command::updateArg(int argPosition, const string& newArgVal) {
 
     // If argument position is valid
     if (argPosition >= 0 && argPosition < argList.size()) {

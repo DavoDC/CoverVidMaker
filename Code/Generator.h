@@ -5,7 +5,7 @@
 // ### Headers
 #include "Common.h"
 #include "Processor.h"
-#include "Command.h"
+#include "MutComm.h"
 
 // Function Types
 using PathGetter = std::function<std::string(int)>;
@@ -47,12 +47,12 @@ private:
     /**
      * @brief Cover extraction command.
     */
-    Command coverComm;
+    MutComm coverComm;
 
     /**
      * @brief Video maker command.
     */
-    Command vidComm;
+    MutComm vidComm;
 
 
     // ### Private methods

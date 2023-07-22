@@ -25,6 +25,11 @@ public:
     // ### Constructors
 
     /**
+     * @brief Default constructor
+    */
+    MutComm();
+
+    /**
      * @brief Construct a Mutable Command.
      * @param progName The program name.
      * @param argList The argument list.

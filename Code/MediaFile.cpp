@@ -8,7 +8,7 @@ using namespace std;
 
 
 // ### Constructor
-MediaFile::MediaFile(const std::string& audioFilePath, StringV mediaFilePaths,
+MediaFile::MediaFile(const string& audioFilePath, StringV mediaFilePaths,
 	Seconds duration) :
 	audioFilePath(audioFilePath), duration(duration)
 {
@@ -25,29 +25,29 @@ MediaFile::MediaFile(const std::string& audioFilePath, StringV mediaFilePaths,
 
 // ### Public methods
 
-const std::string MediaFile::getAudioFP() const {
+const string MediaFile::getAudioFP() const {
 	return quoteD(audioFilePath);
 }
 
-const std::string MediaFile::getCoverFP() const {
+const string MediaFile::getCoverFP() const {
 	return quoteD(coverFilePath);
 }
 
-const std::string MediaFile::getVideoFP() const {
+const string MediaFile::getVideoFP() const {
 	return quoteD(videoFilePath);
 }
 
-const std::string MediaFile::getDuration() const {
+const string MediaFile::getDuration() const {
 	return to_string(duration);
 }
 
 
 // ### Private methods
 
-std::string MediaFile::getMediaFilePath(const std::string& filePath,
-	const std::string& oldPath, const std::string& newPath,
-	const std::string& newExtension, const std::string& oldExt) {
-	std::string tempFilePath = filePath;
+string MediaFile::getMediaFilePath(const string& filePath,
+	const string& oldPath, const string& newPath,
+	const string& newExtension, const string& oldExt) {
+	string tempFilePath = filePath;
 	replaceAll(tempFilePath, oldPath, newPath);
 	replaceAll(tempFilePath, oldExt, newExtension);
 	return tempFilePath;

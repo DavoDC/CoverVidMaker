@@ -12,7 +12,7 @@ using namespace std;
 // File System Iterator Lambda Macro
 namespace {
 	auto iterateMP3Files = [](const fs::path& audioFolder,
-		const std::function<void(const fs::path&)>& action) {
+		const function<void(const fs::path&)>& action) {
 			for (const auto& entry : fs::recursive_directory_iterator(audioFolder)) {
 				if (entry.path().extension() == L".mp3") {
 					action(entry.path());
