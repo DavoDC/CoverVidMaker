@@ -13,8 +13,10 @@ DurComm::DurComm(const std::string& ffprobePath)
 {
 	// Check FFPROBE path
 	if (!contains(ffprobePath, "ffprobe.exe")) {
+
 		// If path doesn't contain correct EXE, notify and exit
-		printErr("Duration Command needs 'ffprobe.exe' path but was given " + quoteS(ffprobePath), true);
+		string msg = "DurComm needs 'ffprobe.exe' but was given {}";
+		printErr(format(msg, quoteS(ffprobePath)), true);
 	}
 
 	// Setup argument list

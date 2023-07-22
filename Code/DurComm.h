@@ -14,10 +14,10 @@ public:
 	// ### Constructors
 
 	/**
-	 * @brief Constructor
-	 * @param ffprobePath The ffprobe.exe filepath.
+	 * @brief Construct a Duration Command.
+	 * @param ffprobeFile The ffprobe.exe filepath.
 	*/
-	explicit DurComm(const std::string& ffprobePath);
+	explicit DurComm(const std::string& ffprobeFile);
 
 
 	// ### Public methods

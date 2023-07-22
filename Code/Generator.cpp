@@ -12,7 +12,7 @@ using namespace std;
 
 // ### Constructor
 Generator::Generator(Processor& proc) :
-	ffmpegPath(proc.getFFMPEG()),
+	ffmpegFile(proc.getFFMPEGexe()),
 	mediaFiles(proc.getMediaFiles()),
 	fileNum(mediaFiles.getFileNum())
 {
@@ -29,7 +29,7 @@ Generator::Generator(Processor& proc) :
 		"-c:v", "png",
 		"-y", Command::getMutArg(OUTPUT_COVER)
 	};
-	coverComm = Command(ffmpegPath, coverCommArgs);
+	coverComm = Command(ffmpegFile, coverCommArgs);
 
 	// Extract covers
 	extractCovers();
@@ -50,7 +50,7 @@ Generator::Generator(Processor& proc) :
 		"-t", Command::getMutArg(INPUT_DURATION),
 		"-y", Command::getMutArg(OUTPUT_VIDEO)
 	};
-	vidComm = Command(ffmpegPath, vidCommArgs);
+	vidComm = Command(ffmpegFile, vidCommArgs);
 
 	// Make videos
 	makeVideos();

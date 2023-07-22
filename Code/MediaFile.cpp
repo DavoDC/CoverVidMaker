@@ -25,15 +25,15 @@ MediaFile::MediaFile(const std::string& audioFilePath, StringV mediaFilePaths,
 
 // ### Public methods
 
-const std::string MediaFile::getAFP() const {
+const std::string MediaFile::getAudioFP() const {
 	return quoteD(audioFilePath);
 }
 
-const std::string MediaFile::getCFP() const {
+const std::string MediaFile::getCoverFP() const {
 	return quoteD(coverFilePath);
 }
 
-const std::string MediaFile::getVFP() const {
+const std::string MediaFile::getVideoFP() const {
 	return quoteD(videoFilePath);
 }
 

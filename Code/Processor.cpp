@@ -11,7 +11,6 @@
 #include <codecvt>
 #include <locale>
 #include <cctype>
-#include <regex>
 
 // Namespace mods
 using namespace std;
@@ -20,16 +19,16 @@ using namespace std;
 // ### Constructor
 
 Processor::Processor(const string& mediaPath, const string& exePath) :
-	mediaPath(mediaPath),
-	audioPath(mediaPath + "1_Audio"),
-	coverPath(mediaPath + "2_Covers"),
-	videoPath(mediaPath + "3_Videos"),
-	exePath(exePath),
-	ffmpegPath(exePath + "ffmpeg.exe"),
-	ffprobePath(exePath + "ffprobe.exe")
+	mediaFolder(mediaPath),
+	audioFolder(mediaPath + "1_Audio"),
+	coverFolder(mediaPath + "2_Covers"),
+	videoFolder(mediaPath + "3_Videos"),
+	exeFolder(exePath),
+	ffmpegFile(exePath + "ffmpeg.exe"),
+	ffprobeFile(exePath + "ffprobe.exe")
 {
 	// Media file paths
-	StringV mediaFilePaths = { audioPath, coverPath, videoPath };
+	StringV mediaFilePaths = { audioFolder, coverFolder, videoFolder };
 
 	// Check folder paths and notify
 	StringV folderPaths(mediaFilePaths.begin(), mediaFilePaths.end());
@@ -37,23 +36,22 @@ Processor::Processor(const string& mediaPath, const string& exePath) :
 	checkFolderPaths(folderPaths);
 
 	// Check executables and notify
-	checkExecPaths({ ffmpegPath, ffprobePath });
+	checkExecPaths({ ffmpegFile, ffprobeFile });
 
-	// Sanitize audio files and scan
-	sanitiseAudioFileNames(audioPath);
-	mediaFileList = MediaFileList(mediaFilePaths, getFFPROBE());
+	// Construct MediaFileList from audio files
+	mediaFileList = MediaFileList(mediaFilePaths, getFFPROBEexe());
 }
 
 
-std::string Processor::getFFMPEG() const
+std::string Processor::getFFMPEGexe() const
 {
-	return quoteD(ffmpegPath);
+	return quoteD(ffmpegFile);
 }
 
 
-std::string Processor::getFFPROBE() const
+std::string Processor::getFFPROBEexe() const
 {
-	return quoteD(ffprobePath);
+	return quoteD(ffprobeFile);
 }
 
 
@@ -121,36 +119,4 @@ void Processor::checkPaths(const StringV& paths, const string& successMsg,
 
 	// If didn't exit, was successful:
 	printSuccess(successMsg);
-}
-
-
-void Processor::sanitiseAudioFileNames(const string& audioFolder)
-{
-	FOR_EACH_AUDIO_FILE(audioFolder) {
-
-		// Get file name safely
-		wstring curFilename = filePath.filename();
-		int bufferSize = WideCharToMultiByte(CP_UTF8, 0, curFilename.c_str(),
-			-1, nullptr, 0, nullptr, nullptr);
-		string sanitizedFilename(bufferSize, '\0');
-		WideCharToMultiByte(CP_UTF8, 0, curFilename.c_str(), -1,
-			&sanitizedFilename[0], bufferSize, nullptr, nullptr);
-
-		// Replace " - " with " "
-		replaceAll(sanitizedFilename, " - ", " ");
-
-		// Remove any characters other than alphanumeric, space, and dot
-		sanitizedFilename = regex_replace(sanitizedFilename, regex("[^a-zA-Z0-9 .]"), "");
-
-		// Remove double spaces
-		replaceAll(sanitizedFilename, "  ", " ");
-
-		// Rename file to sanitized name
-		int wideBufferSize = MultiByteToWideChar(CP_UTF8, 0,
-			sanitizedFilename.c_str(), -1, nullptr, 0);
-		wstring finalFilename(wideBufferSize, L'\0');
-		MultiByteToWideChar(CP_UTF8, 0, sanitizedFilename.c_str(), -1,
-			&finalFilename[0], wideBufferSize);
-		fs::rename(filePath, filePath.parent_path() / finalFilename);
-	});
 }

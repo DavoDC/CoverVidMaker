@@ -57,6 +57,9 @@
     <ClCompile Include="..\Code\DurComm.cpp">
       <Filter>Source Files\Modules\Command</Filter>
     </ClCompile>
+    <ClCompile Include="..\Code\MutComm.cpp">
+      <Filter>Source Files\Modules\Command</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Code\Common.h">
@@ -78,6 +81,9 @@
       <Filter>Header Files\Modules\Media</Filter>
     </ClInclude>
     <ClInclude Include="..\Code\DurComm.h">
+      <Filter>Header Files\Modules\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Code\MutComm.h">
       <Filter>Header Files\Modules\Command</Filter>
     </ClInclude>
   </ItemGroup>

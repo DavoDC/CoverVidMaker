@@ -3,23 +3,13 @@
 // Generator.h
 
 // ### Headers
-// Include common
 #include "Common.h"
-
-// Needed Headers
 #include "Processor.h"
 #include "Command.h"
 
 // Function Types
 using PathGetter = std::function<std::string(int)>;
 using GenComm = std::function<double(int)>;
-
-// Mutable Argument String Constants
-const std::string INPUT_COVER = "INPUT_COVER";
-const std::string INPUT_DURATION = "INPUT_DURATION";
-const std::string OUTPUT_VIDEO = "OUTPUT_VIDEO";
-const std::string OUTPUT_COVER = "OUTPUT_COVER";
-
 
 /**
  * @brief Generates output files
@@ -39,7 +29,7 @@ private:
     /**
      * @brief ffmpeg.exe file path
     */
-    const std::string ffmpegPath;
+    const std::string ffmpegFile;
 
 
     /**
@@ -49,7 +39,7 @@ private:
 
 
     /**
-     * @brief Number of media files.
+     * @brief The number of media files.
     */
     const int fileNum;
 

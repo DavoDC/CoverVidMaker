@@ -3,22 +3,11 @@
 // Command.h
 
 // ### Headers
-// Include common
 #include "Common.h"
-
-// Include needed headers
 #include <windows.h>
-#include <map>
-
-// Map Type
-using StringIntMap = std::map<std::string, int>;
-
-// Mutable Argument String Constant
-const std::string INPUT_AUDIO = "INPUT_AUDIO";
-
 
 /**
- * @brief Represents a terminal command
+ * @brief Represents a terminal command.
 */
 class Command {
 public:
@@ -49,12 +38,11 @@ public:
 	*/
 	Command(const std::string& progName, const StringV& argList);
 
-
 	// ### Public methods
 
 	/**
-	 * @brief Run the command
-	 * @param showOutput Toggles output (Default: false)
+	 * @brief Run the command.
+	 * @param showOutput Toggles output (Default: false).
 	*/
 	void run(bool showOutput = false);
 
@@ -66,7 +54,7 @@ public:
 	/**
 	 * @brief Print string representation of command.
 	*/
-	void printCommand() const;
+	void printAsString() const;
 
 	/**
 	 * @return Console output of last run.
@@ -93,49 +81,29 @@ public:
 	*/
 	void printTimeTaken() const;
 
-	/**
-	 * @return The argument with the mutable arg delimiters added
-	*/
-	static std::string getMutArg(const std::string& rawArg);
+protected:
+	// ### Protected methods
 
 	/**
-	 * @brief Updates a given mutable arg to a given value.
-	 * @param mutArgName The name of the mutable argument.
-	 * @param newArgVal The new value for the argument.
+	 * @brief Set an argument at a given position to a new value.
+	 * @param argPosition The position.
+	 * @param newArgVal The new argument value.
 	*/
-	void updateArg(const std::string& mutArgName, const std::string& newArgVal);
+	void updateArg(int argPosition, std::string newArgVal);
 
 private:
-
-	// ### Constants
-
-	/**
-	 * @brief Mutable argument delimiter
-	*/
-	static const std::string maDelim;
-
-	/**
-	 * @brief Length of mutable argument delimiter
-	*/
-	static const size_t madLen;
-
 
 	// ### Private fields
 
 	/**
-	 * @brief Program/command/executable name
+	 * @brief Program/command/executable name.
 	*/
 	std::string progName;
 
 	/**
-	 * @brief Argument list
+	 * @brief Argument list.
 	*/
 	StringV argList;
-
-	/**
-	 * @brief For looking up mutable argument positions
-	*/
-	StringIntMap mutableArgMap;
 
 	/**
 	 * @brief Console output of last run.
@@ -147,11 +115,11 @@ private:
 	*/
 	double duration;
 
-
 	// ## Private methods
 
 	/**
 	 * @return A string representation of a given stream.
 	*/
 	std::string getStringFromStream(HANDLE streamHandle) const;
+
 };
