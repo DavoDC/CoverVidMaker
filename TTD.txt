@@ -1,12 +1,7 @@
 
 ############# IMPROVEMENT IDEAS #############
 
-# DURATION 
-Simplify MediaFileList.cpp
 
-Duration command wrapper (uses composition), takes ffprobe only
-
-Check ffprobe.exe in path!
 
 
 

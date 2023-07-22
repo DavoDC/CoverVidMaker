@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="..\Code\Command.cpp" />
     <ClCompile Include="..\Code\Common.cpp" />
+    <ClCompile Include="..\Code\DurComm.cpp" />
     <ClCompile Include="..\Code\MediaFile.cpp" />
     <ClCompile Include="..\Code\MediaFileList.cpp" />
     <ClCompile Include="..\Code\Processor.cpp" />
@@ -22,6 +23,7 @@
   <ItemGroup>
     <ClInclude Include="..\Code\Command.h" />
     <ClInclude Include="..\Code\Common.h" />
+    <ClInclude Include="..\Code\DurComm.h" />
     <ClInclude Include="..\Code\Generator.h" />
     <ClInclude Include="..\Code\MediaFile.h" />
     <ClInclude Include="..\Code\MediaFileList.h" />

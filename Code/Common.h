@@ -60,11 +60,11 @@ void printErr(const std::string& msg, bool exitAfter = false);
 void replaceAll(std::string& source, const std::string& from, const std::string& to);
 
 /**
- * @param s1 The first string.
- * @param s2 The second string.
- * @return True if the first string contains the second.
+ * @param source The string to search in.
+ * @param query The search query.
+ * @return True if the source contains the query.
 */
-bool contains(const std::string& s1, const std::string& s2);
+bool contains(const std::string& source, const std::string& query);
 
 /**
  * @return The given string surrounded by a pair of single quotes.
