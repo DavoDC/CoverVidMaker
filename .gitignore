@@ -6,7 +6,7 @@
 # User-specific files
 *.rsuser
 *.suo
-*.user
+# *.user  # DISABLED
 *.userosscache
 *.sln.docstates
 
@@ -408,3 +408,6 @@ FodyWeavers.xsd
 
 # Other
 *.ini
+
+# Ignore FFMPEG library files
+/FFMPEG/*
