@@ -1,4 +1,8 @@
 # Cover Video Maker (CVM)
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/G2G31WKOCN)
+
+
 This C++ console program converts MP3 audio files to MP4 videos by using the album cover images as frames for the video.
 
 
