@@ -34,4 +34,4 @@ This C++ console program converts MP3 audio files to MP4 videos by using the alb
 
 ## Development
 
-**Started:** June 2023 (originally batch scripts) · **Rewritten in C++:** 2023 · **Last updated:** April 2025
+**Developed:** June 2023 (originally batch scripts, rewritten in C++)
