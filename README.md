@@ -18,6 +18,16 @@ This C++ console program converts MP3 audio files to MP4 videos by using the alb
 - Can handle audio files with irregular album art.
 
 
+## Tech
+
+- **Language:** C++
+- **IDE:** Visual Studio (Windows only)
+- **Video encoding:** [FFmpeg](https://www.ffmpeg.org/) for MP3+image → MP4 conversion
+
 ## Alternatives
 - [**Online Converter**](https://www.onlineconverter.com/mp3-to-mp4): Limited to single file processing.
 - [**Wondershare UniConverter**](https://videoconverter.wondershare.com/convert-mp4/mp3-to-mp4-with-image.html): Free version has many restrictions (e.g. duration limits).
+
+## Development
+
+**Started:** June 2023 (originally batch scripts) · **Rewritten in C++:** 2023 · **Last updated:** April 2025
