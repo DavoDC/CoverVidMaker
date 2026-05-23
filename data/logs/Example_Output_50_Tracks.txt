@@ -1,0 +1,161 @@
+David ../CoverVidMaker: ./CoverVidMaker.exe
+
+###### Welcome to CoverVidMaker! ######
+### SUCCESS "All Folders Found" !
+### SUCCESS "FFMPEG Executables Found" !
+### SUCCESS "50 MP3 Files Found" !
+
+### Extracting Covers...
+Generated: 1/50! (Time taken: 0.052 seconds)
+Generated: 2/50! (Time taken: 0.038 seconds)
+Generated: 3/50! (Time taken: 0.048 seconds)
+Generated: 4/50! (Time taken: 0.036 seconds)
+Generated: 5/50! (Time taken: 0.043 seconds)
+Generated: 6/50! (Time taken: 0.046 seconds)
+Generated: 7/50! (Time taken: 0.048 seconds)
+Generated: 8/50! (Time taken: 0.059 seconds)
+Generated: 9/50! (Time taken: 0.043 seconds)
+Generated: 10/50! (Time taken: 0.038 seconds)
+Generated: 11/50! (Time taken: 0.051 seconds)
+Generated: 12/50! (Time taken: 0.023 seconds)
+Generated: 13/50! (Time taken: 0.024 seconds)
+Generated: 14/50! (Time taken: 0.040 seconds)
+Generated: 15/50! (Time taken: 0.029 seconds)
+Generated: 16/50! (Time taken: 0.030 seconds)
+Generated: 17/50! (Time taken: 0.044 seconds)
+Generated: 18/50! (Time taken: 0.038 seconds)
+Generated: 19/50! (Time taken: 0.058 seconds)
+Generated: 20/50! (Time taken: 0.042 seconds)
+Generated: 21/50! (Time taken: 0.041 seconds)
+Generated: 22/50! (Time taken: 0.041 seconds)
+Generated: 23/50! (Time taken: 0.059 seconds)
+Generated: 24/50! (Time taken: 0.038 seconds)
+Generated: 25/50! (Time taken: 0.043 seconds)
+Generated: 26/50! (Time taken: 0.033 seconds)
+Generated: 27/50! (Time taken: 0.055 seconds)
+Generated: 28/50! (Time taken: 0.042 seconds)
+Generated: 29/50! (Time taken: 0.043 seconds)
+Generated: 30/50! (Time taken: 0.043 seconds)
+Generated: 31/50! (Time taken: 0.038 seconds)
+Generated: 32/50! (Time taken: 0.037 seconds)
+Generated: 33/50! (Time taken: 0.045 seconds)
+Generated: 34/50! (Time taken: 0.043 seconds)
+Generated: 35/50! (Time taken: 0.049 seconds)
+Generated: 36/50! (Time taken: 0.038 seconds)
+Generated: 37/50! (Time taken: 0.039 seconds)
+Generated: 38/50! (Time taken: 0.048 seconds)
+Generated: 39/50! (Time taken: 0.040 seconds)
+Generated: 40/50! (Time taken: 0.053 seconds)
+Generated: 41/50! (Time taken: 0.046 seconds)
+Generated: 42/50! (Time taken: 0.042 seconds)
+Generated: 43/50! (Time taken: 0.054 seconds)
+Generated: 44/50! (Time taken: 0.049 seconds)
+Generated: 45/50! (Time taken: 0.040 seconds)
+Generated: 46/50! (Time taken: 0.038 seconds)
+Generated: 47/50! (Time taken: 0.038 seconds)
+Generated: 48/50! (Time taken: 0.047 seconds)
+Generated: 49/50! (Time taken: 0.038 seconds)
+Generated: 50/50! (Time taken: 0.039 seconds)
+
+### Making Videos...
+Duration: 221s
+Generated: 1/50! (Time taken: 56.52 seconds)
+Duration: 220s
+Generated: 2/50! (Time taken: 36.77 seconds)
+Duration: 91s
+Generated: 3/50! (Time taken: 31.98 seconds)
+Duration: 207s
+Generated: 4/50! (Time taken: 41.36 seconds)
+Duration: 79s
+Generated: 5/50! (Time taken: 18.59 seconds)
+Duration: 645s
+Generated: 6/50! (Time taken: 146.2 seconds)
+Duration: 207s
+Generated: 7/50! (Time taken: 42.32 seconds)
+Duration: 317s
+Generated: 8/50! (Time taken: 94.10 seconds)
+Duration: 578s
+Generated: 9/50! (Time taken: 58.48 seconds)
+Duration: 295s
+Generated: 10/50! (Time taken: 50.78 seconds)
+Duration: 82s
+Generated: 11/50! (Time taken: 22.53 seconds)
+Duration: 218s
+Generated: 12/50! (Time taken: 189.7 seconds)
+Duration: 207s
+Generated: 13/50! (Time taken: 175.3 seconds)
+Duration: 91s
+Generated: 14/50! (Time taken: 16.35 seconds)
+Duration: 90s
+Generated: 15/50! (Time taken: 25.40 seconds)
+Duration: 90s
+Generated: 16/50! (Time taken: 25.42 seconds)
+Duration: 59s
+Generated: 17/50! (Time taken: 13.94 seconds)
+Duration: 215s
+Generated: 18/50! (Time taken: 35.69 seconds)
+Duration: 95s
+Generated: 19/50! (Time taken: 35.42 seconds)
+Duration: 212s
+Generated: 20/50! (Time taken: 45.60 seconds)
+Duration: 239s
+Generated: 21/50! (Time taken: 39.72 seconds)
+Duration: 282s
+Generated: 22/50! (Time taken: 49.75 seconds)
+Duration: 220s
+Generated: 23/50! (Time taken: 65.20 seconds)
+Duration: 246s
+Generated: 24/50! (Time taken: 40.98 seconds)
+Duration: 240s
+Generated: 25/50! (Time taken: 47.12 seconds)
+Duration: 65s
+Generated: 26/50! (Time taken: 8.373 seconds)
+Duration: 113s
+Generated: 27/50! (Time taken: 30.95 seconds)
+Duration: 252s
+Generated: 28/50! (Time taken: 42.44 seconds)
+Duration: 91s
+Generated: 29/50! (Time taken: 16.32 seconds)
+Duration: 91s
+Generated: 30/50! (Time taken: 17.53 seconds)
+Duration: 70s
+Generated: 31/50! (Time taken: 11.50 seconds)
+Duration: 99s
+Generated: 32/50! (Time taken: 13.58 seconds)
+Duration: 90s
+Generated: 33/50! (Time taken: 17.28 seconds)
+Duration: 91s
+Generated: 34/50! (Time taken: 17.53 seconds)
+Duration: 202s
+Generated: 35/50! (Time taken: 40.26 seconds)
+Duration: 231s
+Generated: 36/50! (Time taken: 38.63 seconds)
+Duration: 242s
+Generated: 37/50! (Time taken: 40.20 seconds)
+Duration: 241s
+Generated: 38/50! (Time taken: 60.04 seconds)
+Duration: 210s
+Generated: 39/50! (Time taken: 37.08 seconds)
+Duration: 201s
+Generated: 40/50! (Time taken: 50.07 seconds)
+Duration: 181s
+Generated: 41/50! (Time taken: 34.27 seconds)
+Duration: 246s
+Generated: 42/50! (Time taken: 41.39 seconds)
+Duration: 261s
+Generated: 43/50! (Time taken: 80.55 seconds)
+Duration: 249s
+Generated: 44/50! (Time taken: 63.59 seconds)
+Duration: 260s
+Generated: 45/50! (Time taken: 45.88 seconds)
+Duration: 82s
+Generated: 46/50! (Time taken: 0.073 seconds)
+Duration: 74s
+Generated: 47/50! (Time taken: 0.062 seconds)
+Duration: 292s
+Generated: 48/50! (Time taken: 57.68 seconds)
+Duration: 248s
+Generated: 49/50! (Time taken: 41.83 seconds)
+Duration: 263s
+Generated: 50/50! (Time taken: 44.34 seconds)
+David ../CoverVidMaker:

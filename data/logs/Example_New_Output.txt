@@ -1,0 +1,20 @@
+
+###### Welcome to CoverVidMaker! ######
+### SUCCESS "All Folders Found"!
+### SUCCESS "FFMPEG Executables Found"!
+### SUCCESS "2 MP3 File(s) Found"!
+
+Total Duration: 1 minute(s)
+
+### Extracting Covers (2)...
+Generated: 1/2! (Time Taken: 0.185 seconds)
+Generated: 2/2! (Time Taken: 0.235 seconds)
+Total Time Taken: 0.420 seconds
+
+### Making Videos (2)...
+Generated: 1/2! (Time Taken: 5.924 seconds)
+Generated: 2/2! (Time Taken: 10.31 seconds)
+Total Time Taken: 16.23 seconds
+
+C:\Users\David\GitHubRepos\CoverVidMaker\Project\x64\Release\CoverVidMaker.exe (process 13208) exited with code 0.
+Press any key to close this window . . .

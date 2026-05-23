@@ -411,3 +411,9 @@ FodyWeavers.xsd
 
 # Ignore dependencies binaries (download manually - see dependencies/README.md)
 /dependencies/*.exe
+
+# Example output files (tracked as documentation/samples)
+# Must un-ignore the parent logs/ dir first, then the specific files
+!data/logs/
+!data/logs/Example_New_Output.txt
+!data/logs/Example_Output_50_Tracks.txt
