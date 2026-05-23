@@ -3,8 +3,8 @@
 :: CoverVidMaker Build Script
 :: ============================================================
 
-:: Locate MSBuild via vswhere (works with any VS 2017+ installation)
-for /f "usebackq tokens=*" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -requires Microsoft.Component.MSBuild -find MSBuild\**\Bin\MSBuild.exe`) do set MSBUILD="%%i"
+:: Locate MSBuild from a VS install that has the C++ tools (not just any VS)
+for /f "usebackq tokens=*" %%i in (`"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -latest -requires Microsoft.VisualStudio.Component.VC.Tools.x86.x64 -find MSBuild\**\Bin\MSBuild.exe`) do set MSBUILD="%%i"
 if not defined MSBUILD (
     echo [ERROR] MSBuild not found. Install Visual Studio with the C++ workload.
     pause
