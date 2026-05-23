@@ -18,7 +18,7 @@ set LOG=%~dp0..\data\logs\build.log
 if not exist "%~dp0..\data\logs" mkdir "%~dp0..\data\logs"
 
 echo [BUILD] Compiling CoverVidMaker...
-%MSBUILD% "%SLN%" -p:Configuration=Release -p:Platform=x64 -verbosity:minimal > "%LOG%" 2>&1
+%MSBUILD% "%SLN%" -p:Configuration=Release -p:Platform=x64 -verbosity:minimal -m > "%LOG%" 2>&1
 
 if errorlevel 1 (
     echo [ERROR] Build failed.
