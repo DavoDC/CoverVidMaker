@@ -12,8 +12,8 @@
 using namespace std;
 
 // Main Folder Paths
-string mediaPath = "Media/";
-string exePath = "FFMPEG/";
+string mediaPath = "media/";
+string exePath = "dependencies/";
 
 
 int main()

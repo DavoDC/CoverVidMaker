@@ -1,6 +1,6 @@
 @echo off
 
-set "folder=C:\Users\David\GitHubRepos\CoverVidMaker\Media\2_Covers"
+set "folder=C:\Users\David\GitHubRepos\CoverVidMaker\media\2_Covers"
 set "extension=png"
 set "count=0"
 

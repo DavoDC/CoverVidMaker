@@ -409,5 +409,5 @@ FodyWeavers.xsd
 # Other
 *.ini
 
-# Ignore FFMPEG library files
-/FFMPEG/*
+# Ignore dependencies binaries (download manually - see dependencies/README.md)
+/dependencies/*.exe

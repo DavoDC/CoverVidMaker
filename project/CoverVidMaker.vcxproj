@@ -11,33 +11,30 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Code\Command.cpp" />
-    <ClCompile Include="..\Code\Common.cpp" />
-    <ClCompile Include="..\Code\DurComm.cpp" />
-    <ClCompile Include="..\Code\MediaFile.cpp" />
-    <ClCompile Include="..\Code\MediaFileList.cpp" />
-    <ClCompile Include="..\Code\MutComm.cpp" />
-    <ClCompile Include="..\Code\Processor.cpp" />
-    <ClCompile Include="..\Code\Main.cpp" />
-    <ClCompile Include="..\Code\Generator.cpp" />
+    <ClCompile Include="..\src\Command.cpp" />
+    <ClCompile Include="..\src\Common.cpp" />
+    <ClCompile Include="..\src\DurComm.cpp" />
+    <ClCompile Include="..\src\MediaFile.cpp" />
+    <ClCompile Include="..\src\MediaFileList.cpp" />
+    <ClCompile Include="..\src\MutComm.cpp" />
+    <ClCompile Include="..\src\Processor.cpp" />
+    <ClCompile Include="..\src\Main.cpp" />
+    <ClCompile Include="..\src\Generator.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Code\Command.h" />
-    <ClInclude Include="..\Code\Common.h" />
-    <ClInclude Include="..\Code\DurComm.h" />
-    <ClInclude Include="..\Code\Generator.h" />
-    <ClInclude Include="..\Code\MediaFile.h" />
-    <ClInclude Include="..\Code\MediaFileList.h" />
-    <ClInclude Include="..\Code\MutComm.h" />
-    <ClInclude Include="..\Code\Processor.h" />
+    <ClInclude Include="..\src\Command.h" />
+    <ClInclude Include="..\src\Common.h" />
+    <ClInclude Include="..\src\DurComm.h" />
+    <ClInclude Include="..\src\Generator.h" />
+    <ClInclude Include="..\src\MediaFile.h" />
+    <ClInclude Include="..\src\MediaFileList.h" />
+    <ClInclude Include="..\src\MutComm.h" />
+    <ClInclude Include="..\src\Processor.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />
   </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\TTD.txt" />
-  </ItemGroup>
-  <PropertyGroup Label="Globals">
+<PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
     <ProjectGuid>{5085bc7d-0d42-43ec-9993-645a0ca990ee}</ProjectGuid>

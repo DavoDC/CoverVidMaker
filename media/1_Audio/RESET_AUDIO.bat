@@ -1,6 +1,6 @@
 @echo off
 
-set "folder=C:\Users\David\GitHubRepos\CoverVidMaker\Media\1_Audio"
+set "folder=C:\Users\David\GitHubRepos\CoverVidMaker\media\1_Audio"
 set "extension=mp3"
 set "count=0"
 

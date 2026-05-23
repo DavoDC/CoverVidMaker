@@ -33,57 +33,57 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Code\Main.cpp">
+    <ClCompile Include="..\src\Main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Common.cpp">
+    <ClCompile Include="..\src\Common.cpp">
       <Filter>Source Files\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Processor.cpp">
+    <ClCompile Include="..\src\Processor.cpp">
       <Filter>Source Files\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Generator.cpp">
+    <ClCompile Include="..\src\Generator.cpp">
       <Filter>Source Files\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\Command.cpp">
+    <ClCompile Include="..\src\Command.cpp">
       <Filter>Source Files\Modules\Command</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\MediaFile.cpp">
+    <ClCompile Include="..\src\MediaFile.cpp">
       <Filter>Source Files\Modules\Media</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\MediaFileList.cpp">
+    <ClCompile Include="..\src\MediaFileList.cpp">
       <Filter>Source Files\Modules\Media</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\DurComm.cpp">
+    <ClCompile Include="..\src\DurComm.cpp">
       <Filter>Source Files\Modules\Command</Filter>
     </ClCompile>
-    <ClCompile Include="..\Code\MutComm.cpp">
+    <ClCompile Include="..\src\MutComm.cpp">
       <Filter>Source Files\Modules\Command</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Code\Common.h">
+    <ClInclude Include="..\src\Common.h">
       <Filter>Header Files\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="..\Code\Processor.h">
+    <ClInclude Include="..\src\Processor.h">
       <Filter>Header Files\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="..\Code\Generator.h">
+    <ClInclude Include="..\src\Generator.h">
       <Filter>Header Files\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="..\Code\Command.h">
+    <ClInclude Include="..\src\Command.h">
       <Filter>Header Files\Modules\Command</Filter>
     </ClInclude>
-    <ClInclude Include="..\Code\MediaFile.h">
+    <ClInclude Include="..\src\MediaFile.h">
       <Filter>Header Files\Modules\Media</Filter>
     </ClInclude>
-    <ClInclude Include="..\Code\MediaFileList.h">
+    <ClInclude Include="..\src\MediaFileList.h">
       <Filter>Header Files\Modules\Media</Filter>
     </ClInclude>
-    <ClInclude Include="..\Code\DurComm.h">
+    <ClInclude Include="..\src\DurComm.h">
       <Filter>Header Files\Modules\Command</Filter>
     </ClInclude>
-    <ClInclude Include="..\Code\MutComm.h">
+    <ClInclude Include="..\src\MutComm.h">
       <Filter>Header Files\Modules\Command</Filter>
     </ClInclude>
   </ItemGroup>
@@ -91,10 +91,5 @@
     <None Include="..\README.md">
       <Filter>Resource Files</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="..\TTD.txt">
-      <Filter>Resource Files</Filter>
-    </Text>
   </ItemGroup>
 </Project>

@@ -1,6 +1,6 @@
 @echo off
 
-set "folder=C:\Users\David\GitHubRepos\CoverVidMaker\Media\3_Videos"
+set "folder=C:\Users\David\GitHubRepos\CoverVidMaker\media\3_Videos"
 set "extension=mp4"
 set "count=0"
 
