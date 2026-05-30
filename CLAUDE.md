@@ -25,6 +25,10 @@ The exe must run from the repo root (launch.bat handles this via `cd /d`), since
 - `src/Processor.cpp` - scans media folder, pairs audio+cover files
 - `src/Generator.cpp` - calls FFmpeg to produce MP4s
 
+## FFmpeg Location (ffkit hub)
+
+At startup, `src/Main.cpp` checks for `../ffkit/dependencies/ffmpeg/` (sibling repo). If present, uses it. Otherwise falls back to local `dependencies/ffmpeg/`. Binaries must be in the subfolder, not flat in `dependencies/`.
+
 ## Platform
 
 Windows only. Build with Visual Studio 2022 (v143 toolset), Release x64.
