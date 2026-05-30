@@ -1,15 +1,5 @@
 # CoverVidMaker - Ideas
 
-## FFmpeg - standardise deps structure
-
-CVM currently places FFmpeg binaries flat in `dependencies/` directly. All Python sibling repos use `dependencies/ffmpeg/` subfolder. Standardising would mean consistent structure across repos and cleaner separation if other deps are added.
-
-Requires C++ code changes to reference the updated binary path. Low priority unless other deps are added to `dependencies/`.
-
-**Setup shortcut in the meantime:** copy binaries from `../ffkit/dependencies/ffmpeg/` if that repo is cloned alongside this one.
-
----
-
 ## Future Ideas
 
 - CLI mode: accept media folder path as argument instead of hardcoded path

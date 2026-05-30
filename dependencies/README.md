@@ -2,13 +2,8 @@
 
 ## FFmpeg
 
-Download from: https://github.com/GyanD/codexffmpeg/releases
+CoverVidMaker auto-detects FFmpeg from [ffkit](https://github.com/DavoDC/ffkit) if cloned as a sibling repo. Otherwise it falls back to `dependencies/ffmpeg/`.
 
-Place these three executables directly in this `dependencies/` folder:
-- `ffmpeg.exe`
-- `ffplay.exe`
-- `ffprobe.exe`
+**Option 1 - ffkit hub (recommended):** Clone ffkit alongside this repo. Any ffkit tool downloads FFmpeg once into `../ffkit/dependencies/ffmpeg/`; CoverVidMaker finds it automatically. See [ffkit/README.md](https://github.com/DavoDC/ffkit) for details.
 
-The binaries are gitignored. Every developer must download them manually.
-
-**Shortcut:** If you have [ffkit](https://github.com/DavoDC/ffkit) cloned alongside this repo, copy the binaries from `../ffkit/dependencies/ffmpeg/` instead of downloading separately.
+**Option 2 - standalone:** Download from https://github.com/GyanD/codexffmpeg/releases and place `ffmpeg.exe`, `ffprobe.exe`, and `ffplay.exe` in `dependencies/ffmpeg/`.

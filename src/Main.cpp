@@ -11,9 +11,8 @@
 // Namespace mods
 using namespace std;
 
-// Main Folder Paths
+// Media folder path
 string mediaPath = "media/";
-string exePath = "dependencies/";
 
 
 int main()
@@ -21,6 +20,11 @@ int main()
 
 	// Welcome message
 	print("###### Welcome to CoverVidMaker! ######");
+
+	// Use ffkit shared FFmpeg hub if sibling repo is present, otherwise use local subfolder
+	const string ffkitPath = "../ffkit/dependencies/ffmpeg/";
+	const string localPath = "dependencies/ffmpeg/";
+	string exePath = fs::exists(ffkitPath) ? ffkitPath : localPath;
 
 	// Process files
 	Processor proc(mediaPath, exePath);
