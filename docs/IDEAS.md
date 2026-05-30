@@ -2,6 +2,7 @@
 
 ## Future Ideas
 
+- Auto-download FFmpeg if missing - shell out to PowerShell to download from gyan.dev, extract, place in `dependencies/ffmpeg/`. Same behaviour as Python sibling repos (SBS_Download, FLAC_Flow, RivalsVidMaker). Currently opens browser + manual instructions instead.
 - CLI mode: accept media folder path as argument instead of hardcoded path
 - Progress bar during FFmpeg encoding
 - Batch summary: total files processed, skipped, failed
