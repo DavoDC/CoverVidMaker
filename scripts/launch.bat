@@ -1,23 +1,15 @@
 @echo off
-
-:: ============================================================
-:: CoverVidMaker Launcher
-:: ============================================================
+:: Build + run. Human mode: no args (window stays open). Claude mode: --no-pause (clean exit).
 
 set EXE=%~dp0..\project\x64\Release\CoverVidMaker.exe
 set START_TIME=%TIME%
-
-echo ============================================================
-echo CoverVidMaker Launcher
-echo ============================================================
-echo.
 
 :: Build first
 call "%~dp0build.bat" --no-pause
 if errorlevel 1 (
     echo [ERROR] Build failed. Aborting.
-    pause
-    cmd /k
+    if not "%1"=="--no-pause" cmd /k
+    exit /b 1
 )
 
 echo.
@@ -35,4 +27,5 @@ echo ============================================================
 echo [DONE] Start: %START_TIME%  End: %TIME%
 echo ============================================================
 echo.
-cmd /k
+if not "%1"=="--no-pause" cmd /k
+exit /b 0
