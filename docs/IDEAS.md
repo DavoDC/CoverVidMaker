@@ -15,7 +15,6 @@ If proceeding: use FLAC_Flow as the template (deps.py for auto-download, pathlib
 
 ## Future Ideas
 
-- **launch.bat missing `--no-pause` contract** - `scripts/launch.bat` has hardcoded `cmd /k` at the end and calls `pause` on build failure, not the two-mode contract (`if not "%1"=="--no-pause" cmd /k`). Claude cannot invoke it without blocking. Apply the same pattern as AudioManager's scripts.
 - **RESET_*.bat triplication** - `media/1_Audio/RESET_AUDIO.bat`, `media/2_Covers/RESET_COVERS.bat`, `media/3_Videos/RESET_VIDEOS.bat` are three near-identical bats (delete *.mp3/png/mp4 from hardcoded paths). Could be a single `RESET_MEDIA.bat` that resets all three, or one parameterizable script. Duplication means each needs to be updated independently if the pattern changes.
 
 - Auto-download FFmpeg if missing - shell out to PowerShell to download from gyan.dev, extract, place in `dependencies/ffmpeg/`. Same behaviour as Python sibling repos (SBS_Download, FLAC_Flow, RivalsVidMaker). Currently opens browser + manual instructions instead.
