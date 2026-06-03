@@ -6,10 +6,20 @@
 This C++ console program converts MP3 audio files to MP4 videos by using the album cover images as frames for the video.
 
 
+## Build & Run
+
+> **Windows only.** Requires Visual Studio with C++ workload and FFmpeg binaries.
+
+1. Place FFmpeg binaries (`ffmpeg.exe`, `ffprobe.exe`) in `dependencies/ffmpeg/`
+2. Place your MP3s in `media/1_Audio/` and cover images (PNG) in `media/2_Covers/`
+3. Run `scripts\launch.bat` - builds and runs automatically
+4. Converted MP4s appear in `media/3_Videos/`
+
+Alternatively, open `project/` in Visual Studio and build manually with **Ctrl+Shift+B**.
+
 ## Info
-- Utilizes **FFMPEG** ([Official Site](https://www.ffmpeg.org/about.html), [GitHub Releases](https://github.com/GyanD/codexffmpeg/releases)), so I'm grateful for the FFMPEG team's work.
+- Requires **FFmpeg** ([Official Site](https://www.ffmpeg.org/about.html), [GitHub Releases](https://github.com/GyanD/codexffmpeg/releases)) - place binaries in `dependencies/ffmpeg/`.
 - Was originally a series of Batch scripts created on June 4th, 2023.
-- Currently exclusive to developers (runs through Visual Studio).
 - For Windows OS only (Command class is designed for Windows).
 
 
