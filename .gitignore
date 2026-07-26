@@ -418,3 +418,7 @@ FodyWeavers.xsd
 !data/logs/
 !data/logs/Example_New_Output.txt
 !data/logs/Example_Output_50_Tracks.txt
+
+# Claude Code local state. The guard hook is registered at machine (user) level,
+# not per-repo - never commit anything under .claude/ in this repo.
+.claude/
